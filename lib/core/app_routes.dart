@@ -16,7 +16,7 @@ class AppRoutes {
         );
       case onBoard:
         return MaterialPageRoute(
-          builder: (context) => const OnBoardScreen(),
+          builder: (context) => OnBoardScreen(),
         );
       case home:
         return MaterialPageRoute(
