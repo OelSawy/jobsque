@@ -9,11 +9,11 @@ class SplashProvider extends ChangeNotifier {
   Future<void> init(BuildContext context) async {
     SharedPreferences shared = await SharedPreferences.getInstance();
     await Future.delayed(const Duration(seconds: 2)).then((value) {
-      return shared.getBool("onBoarded") == false
+      return shared.containsKey("onBoarded")
           ? Navigator.of(context)
-              .pushNamedAndRemoveUntil(AppRoutes.onBoard, (route) => false)
+              .pushNamedAndRemoveUntil(AppRoutes.home, (route) => false)
           : Navigator.of(context)
-              .pushNamedAndRemoveUntil(AppRoutes.home, (route) => false);
+              .pushNamedAndRemoveUntil(AppRoutes.onBoard, (route) => false);
     });
   }
 }
