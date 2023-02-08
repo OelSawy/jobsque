@@ -13,22 +13,28 @@ class SplashScreen extends StatelessWidget {
         children: [
           Center(
             child: Image.asset(
-              "assets/images/splash_screen/Ellipse 817.png",
+              "assets/images/splash_screen/Ellipse 817.png", scale: 1.50
             ),
           ),
           Center(
-            child: Image.asset("assets/images/splash_screen/Ellipse 816.png"),
+            child: Image.asset(
+              "assets/images/splash_screen/Ellipse 816.png", scale: 1.50
+            ),
           ),
           Center(
-            child: Image.asset("assets/images/splash_screen/Ellipse 815.png"),
+            child: Image.asset(
+              "assets/images/splash_screen/Ellipse 815.png", scale: 1.50
+            ),
           ),
           Center(
-            child: Image.asset("assets/images/splash_screen/Ellipse 814.png"),
+            child: Image.asset(
+              "assets/images/splash_screen/Ellipse 814.png", scale: 1.50
+            ),
           ),
           Center(
               child: Image.asset(
             "assets/images/splash_screen/big logo.png",
-            scale: 0.9,
+            scale: 1.50,
           )),
         ],
       ),

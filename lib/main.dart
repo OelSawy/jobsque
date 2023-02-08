@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobsque/screens/on_board/provider/on_board_provider.dart';
 import 'package:jobsque/screens/splash/provider/splash_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,12 +22,18 @@ class MyApp extends StatelessWidget {
           providers: [
             ChangeNotifierProvider<SplashProvider>(
                 create: (context) => SplashProvider()),
+            ChangeNotifierProvider<OnBoardProvider>(
+              create: (context) => OnBoardProvider(),
+            )
           ],
-          child: MaterialApp(
+          child: const MaterialApp(
             title: "JOBSQUE",
             debugShowCheckedModeBanner: false,
             onGenerateRoute: AppRoutes.onGenerateRoute,
-            theme: ThemeData(
+            /* theme: ThemeData(
+              textTheme: GoogleFonts.sourceSansProTextTheme(
+                Theme.of(context).textTheme,
+              ),
               brightness: Brightness.light,
               /* light theme settings */
             ),
@@ -34,7 +41,7 @@ class MyApp extends StatelessWidget {
               brightness: Brightness.dark,
               /* dark theme settings */
             ),
-            themeMode: ThemeMode.system,
+            themeMode: ThemeMode.system, */
           )),
     );
   }
