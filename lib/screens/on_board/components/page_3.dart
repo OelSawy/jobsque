@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:sizer/sizer.dart';
 import '../../../core/colours.dart';
 import '../provider/on_board_provider.dart';
 
@@ -14,21 +14,30 @@ class OnBoardPage3 extends StatelessWidget {
         children: [
           Column(
             children: [
-              Image.asset("assets/images/on_board/page 3/background.png"),
-              const Divider(
+              Container(
+                width: 100.w,
+                height: 50.h,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                          "assets/images/on_board/page 3/background.png"),
+                      fit: BoxFit.fitWidth),
+                ),
+              ),
+              Divider(
                 color: Colors.transparent,
-                height: 15,
+                height: 4.h,
               ),
               Container(
                 alignment: Alignment.center,
-                width: 370,
-                height: 160,
+                width: 90.w,
+                height: 18.h,
                 child: Text.rich(
                   softWrap: true,
                   TextSpan(
                       text: "Get the best",
-                      style: const TextStyle(
-                        fontSize: 32,
+                      style: TextStyle(
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.w500,
                       ),
                       children: [
@@ -39,59 +48,63 @@ class OnBoardPage3 extends StatelessWidget {
                       ]),
                 ),
               ),
+              Divider(
+                color: Colors.transparent,
+                height: 1.5.h,
+              ),
               Container(
                 alignment: Alignment.center,
-                width: 380,
+                width: 90.w,
                 child: Text(
                     "The better the skills you have, the greater the good job opportunities for you.",
                     style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 10.sp,
                         fontWeight: FontWeight.w400,
                         color: AppColours.neutral500)),
               ),
-              const Divider(
+              Divider(
                 color: Colors.transparent,
-                height: 25,
+                height: 4.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 10,
-                    height: 10,
+                    width: 1.8.w,
+                    height: 1.8.w,
+                    decoration: BoxDecoration(
+                        color: AppColours.primary200,
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                  SizedBox(
+                    width: 1.2.w,
+                  ),
+                  Container(
+                    width: 1.8.w,
+                    height: 1.8.w,
+                    decoration: BoxDecoration(
+                        color: AppColours.primary200,
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                  SizedBox(
+                    width: 1.2.w,
+                  ),
+                  Container(
+                    width: 2.5.w,
+                    height: 2.5.w,
                     decoration: BoxDecoration(
                         color: AppColours.primary500,
                         borderRadius: BorderRadius.circular(10)),
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    width: 7,
-                    height: 7,
-                    decoration: BoxDecoration(
-                        color: AppColours.primary200,
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    width: 7,
-                    height: 7,
-                    decoration: BoxDecoration(
-                        color: AppColours.primary200,
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
                 ],
               ),
-              const Divider(
+              Divider(
                 color: Colors.transparent,
-                height: 25,
+                height: 5.h,
               ),
               SizedBox(
-                width: 370,
-                height: 50,
+                width: 90.w,
+                height: 6.h,
                 child: ElevatedButton(
                   onPressed: () {
                     context.read<OnBoardProvider>().onBoardFinish(context);
@@ -100,11 +113,11 @@ class OnBoardPage3 extends StatelessWidget {
                       backgroundColor: AppColours.primary500,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50))),
-                  child: const Text(
+                  child: Text(
                     "Get Started",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -112,21 +125,21 @@ class OnBoardPage3 extends StatelessWidget {
             ],
           ),
           Positioned(
-              top: 60,
-              left: 20,
+              top: 6.5.h,
+              left: 5.w,
               child: Image.asset(
-                "assets/images/on_board/small logo.png",
+                "assets/images/components/small logo.png",
                 scale: 1.7,
               )),
           Positioned(
-              top: 60,
-              right: 20,
+              top: 6.5.h,
+              right: 5.w,
               child: InkWell(
                 child: Text(
                   "Skip",
                   style: TextStyle(
                       color: AppColours.neutral500,
-                      fontSize: 16,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w400),
                 ),
                 onTap: () =>

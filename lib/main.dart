@@ -3,6 +3,7 @@ import 'package:jobsque/screens/on_board/provider/on_board_provider.dart';
 import 'package:jobsque/screens/splash/provider/splash_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sizer/sizer.dart';
 import 'core/app_routes.dart';
 
 Future<void> main() async {
@@ -16,9 +17,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: MultiProvider(
+    return Sizer(builder: (context, orientation, deviceType) {
+      return MultiProvider(
           providers: [
             ChangeNotifierProvider<SplashProvider>(
                 create: (context) => SplashProvider()),
@@ -26,11 +26,13 @@ class MyApp extends StatelessWidget {
               create: (context) => OnBoardProvider(),
             )
           ],
-          child: const MaterialApp(
-            title: "JOBSQUE",
-            debugShowCheckedModeBanner: false,
-            onGenerateRoute: AppRoutes.onGenerateRoute,
-            /* theme: ThemeData(
+          child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            child: const MaterialApp(
+              title: "JOBSQUE",
+              debugShowCheckedModeBanner: false,
+              onGenerateRoute: AppRoutes.onGenerateRoute,
+              /* theme: ThemeData(
               textTheme: GoogleFonts.sourceSansProTextTheme(
                 Theme.of(context).textTheme,
               ),
@@ -42,7 +44,8 @@ class MyApp extends StatelessWidget {
               /* dark theme settings */
             ),
             themeMode: ThemeMode.system, */
-          )),
-    );
+            ),
+          ));
+    });
   }
 }

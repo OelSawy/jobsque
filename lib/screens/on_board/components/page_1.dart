@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jobsque/screens/on_board/provider/on_board_provider.dart';
 import 'package:provider/provider.dart';
-
+import 'package:sizer/sizer.dart';
 import '../../../core/colours.dart';
 
 class OnBoardPage1 extends StatelessWidget {
@@ -14,84 +14,96 @@ class OnBoardPage1 extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Column(children: [
-            Image.asset("assets/images/on_board/page 1/background.png"),
-            const Divider(
+            Container(
+              width: 100.w,
+              height: 50.h,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                          "assets/images/on_board/page 1/background.png"),
+                      fit: BoxFit.fitWidth)),
+            ),
+            Divider(
               color: Colors.transparent,
-              height: 15,
+              height: 4.h,
             ),
             Container(
               alignment: Alignment.center,
-              width: 370,
-              height: 160,
+              width: 90.w,
+              height: 18.h,
               child: Text.rich(
                 softWrap: true,
                 TextSpan(
                     text: "Find a job, and ",
-                    style: const TextStyle(
-                      fontSize: 32,
+                    style: TextStyle(
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.w500,
                     ),
                     children: [
                       TextSpan(
-                          text: "start\nbuilding",
+                          text: "start building",
                           style: TextStyle(color: AppColours.primary500)),
-                      const TextSpan(text: " your career\nfrom now on\n"),
+                      const TextSpan(text: " your career from now on "),
                     ]),
               ),
             ),
+            Divider(
+              color: Colors.transparent,
+              height: 1.5.h,
+            ),
             Container(
               alignment: Alignment.center,
-              width: 370,
+              width: 90.w,
               child: Text(
                   "Explore over 25,924 available job roles and upgrade your operator now.",
                   style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.w400,
                       color: AppColours.neutral500)),
             ),
-            const Divider(
+            Divider(
               color: Colors.transparent,
-              height: 25,
+              height: 4.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 10,
-                  height: 10,
+                  width: 2.5.w,
+                  height: 2.5.w,
                   decoration: BoxDecoration(
                       color: AppColours.primary500,
                       borderRadius: BorderRadius.circular(10)),
                 ),
-                const SizedBox(
-                  width: 5,
+                SizedBox(
+                  width: 1.2.w,
                 ),
                 Container(
-                  width: 7,
-                  height: 7,
+                  width: 1.8.w,
+                  height: 1.8.w,
                   decoration: BoxDecoration(
                       color: AppColours.primary200,
                       borderRadius: BorderRadius.circular(10)),
                 ),
-                const SizedBox(
-                  width: 5,
+                SizedBox(
+                  width: 1.2.w,
                 ),
                 Container(
-                  width: 7,
-                  height: 7,
+                  width: 1.8.w,
+                  height: 1.8.w,
                   decoration: BoxDecoration(
                       color: AppColours.primary200,
                       borderRadius: BorderRadius.circular(10)),
                 ),
               ],
             ),
-            const Divider(
+            Divider(
               color: Colors.transparent,
-              height: 25,
+              height: 5.h,
             ),
             SizedBox(
-              width: 370,
-              height: 50,
+              width: 90.w,
+              height: 6.h,
               child: ElevatedButton(
                 onPressed: () {
                   context.read<OnBoardProvider>().state.pageController.nextPage(
@@ -102,32 +114,32 @@ class OnBoardPage1 extends StatelessWidget {
                     backgroundColor: AppColours.primary500,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50))),
-                child: const Text(
+                child: Text(
                   "Next",
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w500),
                 ),
               ),
             ),
           ]),
           Positioned(
-              top: 60,
-              left: 20,
+              top: 6.5.h,
+              left: 5.w,
               child: Image.asset(
-                "assets/images/on_board/small logo.png",
+                "assets/images/components/small logo.png",
                 scale: 1.7,
               )),
           Positioned(
-              top: 60,
-              right: 20,
+              top: 6.5.h,
+              right: 5.w,
               child: InkWell(
                 child: Text(
                   "Skip",
                   style: TextStyle(
                       color: AppColours.neutral500,
-                      fontSize: 16,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w400),
                 ),
                 onTap: () =>

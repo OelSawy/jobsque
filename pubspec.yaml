@@ -67,7 +67,7 @@ flutter:
 
   assets:
     - assets/images/splash_screen/
-    - assets/images/on_board/
+    - assets/images/components/
     - assets/images/on_board/page 1/
     - assets/images/on_board/page 2/
     - assets/images/on_board/page 3/
