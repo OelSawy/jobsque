@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobsque/core/assets.dart';
 import 'package:jobsque/core/colours.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -16,18 +17,19 @@ class OnBoardPage2 extends StatelessWidget {
           Column(
             children: [
               Container(
+                //! background image
                 width: 100.w,
                 height: 50.h,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(
-                            "assets/images/on_board/page 2/background.png"),
+                        image: AssetImage(AppAssets.onBoardPage2),
                         fit: BoxFit.fitWidth)),
               ),
               Divider(
                 color: Colors.transparent,
                 height: 4.h,
               ),
+              //! big text
               Container(
                 alignment: Alignment.center,
                 width: 90.w,
@@ -51,6 +53,7 @@ class OnBoardPage2 extends StatelessWidget {
                 color: Colors.transparent,
                 height: 1.5.h,
               ),
+              //! small text
               Container(
                 alignment: Alignment.center,
                 width: 90.w,
@@ -65,6 +68,7 @@ class OnBoardPage2 extends StatelessWidget {
                 color: Colors.transparent,
                 height: 4.h,
               ),
+              //! selected page
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -101,6 +105,7 @@ class OnBoardPage2 extends StatelessWidget {
                 color: Colors.transparent,
                 height: 5.h,
               ),
+              //! button
               SizedBox(
                 width: 90.w,
                 height: 6.h,
@@ -129,13 +134,15 @@ class OnBoardPage2 extends StatelessWidget {
               )
             ],
           ),
+          //! app logo
           Positioned(
               top: 6.5.h,
               left: 5.w,
               child: Image.asset(
-                "assets/images/components/small logo.png",
+                AppAssets.smallLogo,
                 scale: 1.7,
               )),
+          //! skip button
           Positioned(
               top: 6.5.h,
               right: 5.w,
