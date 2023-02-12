@@ -11,7 +11,7 @@ class OnBoardProvider extends ChangeNotifier {
     shared.setBool("onBoard", true);
     if (context.mounted) {
       // Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.home, (route) => false);
-      Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.createAccount, (route) => false);
+      Navigator.of(context).pushNamed(AppRoutes.createAccount);
     }
   }
 }
