@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jobsque/core/assets.dart';
 import 'package:jobsque/core/colours.dart';
+import 'package:jobsque/screens/user_handling/create_account/provider/create_account_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../core/app_routes.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({super.key});
@@ -77,9 +78,7 @@ class SuccessScreen extends StatelessWidget {
                 width: 90.w,
                 height: 7.h,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(AppRoutes.home);
-                  },
+                  onPressed: () => context.read<CreateAccountProvider>().createAccount(context),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColours.primary500,
                       shape: RoundedRectangleBorder(

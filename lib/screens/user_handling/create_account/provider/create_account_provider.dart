@@ -42,12 +42,12 @@ class CreateAccountProvider extends ChangeNotifier {
   }
 
   navigateToLogin(BuildContext context) {
-    Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+    Navigator.of(context).pushReplacementNamed(AppRoutes.login);
   }
 
   createAccount(BuildContext context) {
     Navigator.of(context)
-        .pushNamedAndRemoveUntil(AppRoutes.categories, (route) => false);
+        .pushNamedAndRemoveUntil(AppRoutes.home, (route) => false);
   }
 
   bool validate() {
