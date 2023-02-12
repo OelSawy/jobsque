@@ -6,15 +6,19 @@ import 'package:jobsque/screens/user_handling/create_account/components/categori
 import 'package:jobsque/screens/user_handling/create_account/components/countries_screen.dart';
 import 'package:jobsque/screens/user_handling/create_account/components/success_screen.dart';
 import 'package:jobsque/screens/user_handling/create_account/create_account_screen.dart';
+import 'package:jobsque/screens/user_handling/login/login_screen.dart';
 
 class AppRoutes {
   static const String splash = "/";
   static const String onBoard = "onBoard";
   static const String home = "home";
+
+  //! user handling
   static const String createAccount = "createAccount";
   static const String categories = "categories";
   static const String countries = "countries";
   static const String successScreen = "successScreen";
+  static const String login = "login";
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
     switch (setting.name) {
@@ -45,6 +49,10 @@ class AppRoutes {
       case successScreen:
         return MaterialPageRoute(
           builder: (context) => const SuccessScreen(),
+        );
+      case login:
+        return MaterialPageRoute(
+          builder: (context) => const LoginScreen(),
         );
       default:
         return MaterialPageRoute(
