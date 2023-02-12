@@ -73,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                       padding: EdgeInsets.all(1.w),
                       margin: EdgeInsets.only(top: 3.5.h, bottom: 2.h),
                       alignment: Alignment.center,
-                      height: 6.5.h,
+                      height: 8.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(
@@ -126,7 +126,7 @@ class LoginScreen extends StatelessWidget {
                       padding: EdgeInsets.all(1.w),
                       margin: EdgeInsets.only(bottom: 2.h),
                       alignment: Alignment.center,
-                      height: 6.5.h,
+                      height: 8.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
@@ -231,10 +231,7 @@ class LoginScreen extends StatelessWidget {
                         )
                       ],
                     ),
-                    Divider(
-                      color: Colors.transparent,
-                      height: 24.h,
-                    ),
+                    const Spacer(),
                     //! not a user
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -356,7 +353,11 @@ class LoginScreen extends StatelessWidget {
                           ),
                         )
                       ],
-                    )
+                    ),
+                    Divider(
+                      color: Colors.transparent,
+                      height: 4.h,
+                    ),
                   ],
                 ),
               ),

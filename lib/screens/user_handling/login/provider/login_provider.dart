@@ -57,5 +57,7 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  navigateToForgotPawwsord(BuildContext context) {}
+  navigateToForgotPawwsord(BuildContext context) {
+    Navigator.of(context).pushNamed(AppRoutes.resetPass);
+  }
 }
