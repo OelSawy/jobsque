@@ -69,9 +69,11 @@ flutter:
   assets:
     - assets/images/splash_screen/
     - assets/images/components/
+    - assets/images/user_handling/create_account/
     - assets/images/on_board/page 1/
     - assets/images/on_board/page 2/
     - assets/images/on_board/page 3/
+    - assets/images/countries/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
