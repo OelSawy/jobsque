@@ -72,7 +72,7 @@ class CreateAccountScreen extends StatelessWidget {
                       padding: EdgeInsets.all(1.w),
                       margin: EdgeInsets.only(top: 3.5.h, bottom: 2.h),
                       alignment: Alignment.center,
-                      height: 9.h,
+                      height: 6.5.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(
@@ -129,7 +129,7 @@ class CreateAccountScreen extends StatelessWidget {
                       padding: EdgeInsets.all(1.w),
                       margin: EdgeInsets.only(bottom: 2.h),
                       alignment: Alignment.center,
-                      height: 9.h,
+                      height: 6.5.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(
@@ -184,7 +184,7 @@ class CreateAccountScreen extends StatelessWidget {
                       padding: EdgeInsets.all(1.w),
                       margin: EdgeInsets.only(bottom: 2.h),
                       alignment: Alignment.center,
-                      height: 9.h,
+                      height: 6.5.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
@@ -272,7 +272,7 @@ class CreateAccountScreen extends StatelessWidget {
                         )),
                     Divider(
                       color: Colors.transparent,
-                      height: 12.h,
+                      height: 18.h,
                     ),
                     //! already a user
                     Row(

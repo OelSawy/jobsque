@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +19,11 @@ class CreateAccountProvider extends ChangeNotifier {
 
   void onPasswordChange(String value) {
     value.isEmpty
-        ? state.passwordErrorMessage = "You must enter a password" : value.length < 8
-            ? state.passwordErrorMessage = "Password must be at least 8 characters"
-        : state.passwordErrorMessage = null;
+        ? state.passwordErrorMessage = "You must enter a password"
+        : value.length < 8
+            ? state.passwordErrorMessage =
+                "Password must be at least 8 characters"
+            : state.passwordErrorMessage = null;
     state.password = value;
     notifyListeners();
   }
@@ -45,7 +46,8 @@ class CreateAccountProvider extends ChangeNotifier {
   }
 
   createAccount(BuildContext context) {
-    log("true");
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(AppRoutes.categories, (route) => false);
   }
 
   bool validate() {
@@ -64,4 +66,30 @@ class CreateAccountProvider extends ChangeNotifier {
   signInWithGoogle(BuildContext context) {}
 
   signInWithFacebook(BuildContext context) {}
+
+  void selectCategory(int index) {
+    if (!state.selectedCategories
+        .containsValue(state.categories.values.elementAt(index))) {
+      state.selectedCategories.addAll({
+        state.categories.keys.elementAt(index):
+            state.categories.values.elementAt(index)
+      });
+    } else {
+      state.selectedCategories.remove(state.selectedCategories.keys.elementAt(index));
+    }
+    notifyListeners();
+  }
+
+  void selectCountry(int index) {
+    if (!state.selectedCountries
+        .containsValue(state.countries.values.elementAt(index))) {
+      state.selectedCountries.addAll({
+        state.countries.keys.elementAt(index):
+            state.countries.values.elementAt(index)
+      });
+    } else {
+      state.selectedCountries.remove(state.selectedCountries.keys.elementAt(index));
+    }
+    notifyListeners();
+  }
 }
