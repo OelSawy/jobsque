@@ -139,7 +139,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 height: 7.h,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(AppRoutes.successScreen);
+                    Navigator.of(context).pushNamed(AppRoutes.creationSuccessScreen);
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColours.primary500,

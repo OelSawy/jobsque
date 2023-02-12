@@ -74,7 +74,7 @@ class CreateAccountScreen extends StatelessWidget {
                       padding: EdgeInsets.all(1.w),
                       margin: EdgeInsets.only(top: 3.5.h, bottom: 2.h),
                       alignment: Alignment.center,
-                      height: 6.5.h,
+                      height: 8.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(
@@ -131,7 +131,7 @@ class CreateAccountScreen extends StatelessWidget {
                       padding: EdgeInsets.all(1.w),
                       margin: EdgeInsets.only(bottom: 2.h),
                       alignment: Alignment.center,
-                      height: 6.5.h,
+                      height: 8.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(
@@ -186,7 +186,7 @@ class CreateAccountScreen extends StatelessWidget {
                       padding: EdgeInsets.all(1.w),
                       margin: EdgeInsets.only(bottom: 2.h),
                       alignment: Alignment.center,
-                      height: 6.5.h,
+                      height: 8.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
@@ -272,10 +272,7 @@ class CreateAccountScreen extends StatelessWidget {
                                   ? AppColours.danger500
                                   : AppColours.success500,
                         )),
-                    Divider(
-                      color: Colors.transparent,
-                      height: 18.h,
-                    ),
+                    const Spacer(),
                     //! already a user
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -403,7 +400,11 @@ class CreateAccountScreen extends StatelessWidget {
                           ),
                         )
                       ],
-                    )
+                    ),
+                    Divider(
+                      color: Colors.transparent,
+                      height: 4.h,
+                    ),
                   ],
                 ),
               ),
