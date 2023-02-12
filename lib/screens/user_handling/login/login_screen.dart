@@ -58,14 +58,14 @@ class LoginScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //! create account text
-                    Text("Create Account",
+                    Text("Login",
                         style: TextStyle(
                             fontSize: 20.sp, fontWeight: FontWeight.w500)),
                     Divider(
                       color: Colors.transparent,
                       height: 1.5.h,
                     ),
-                    Text("Please create an account to find your dream job",
+                    Text("Please login to find your dream job",
                         style: TextStyle(
                             fontSize: 9.5.sp, fontWeight: FontWeight.w400)),
                     //! username text field
