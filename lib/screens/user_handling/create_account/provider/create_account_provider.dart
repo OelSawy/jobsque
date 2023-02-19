@@ -47,7 +47,7 @@ class CreateAccountProvider extends ChangeNotifier {
 
   createAccount(BuildContext context) {
     Navigator.of(context)
-        .pushNamedAndRemoveUntil(AppRoutes.home, (route) => false);
+        .pushNamedAndRemoveUntil(AppRoutes.login, (route) => false);
   }
 
   bool validate() {
