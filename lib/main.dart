@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobsque/screens/home/provider/home_provider.dart';
 import 'package:jobsque/screens/on_board/provider/on_board_provider.dart';
 import 'package:jobsque/screens/splash/provider/splash_provider.dart';
 import 'package:jobsque/screens/user_handling/create_account/provider/create_account_provider.dart';
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider<ResetPasswordProvider>(
               create: (context) => ResetPasswordProvider(),
+            ),
+            ChangeNotifierProvider<HomeProvider>(
+              create: (context) => HomeProvider(),
             )
           ],
           child: GestureDetector(
