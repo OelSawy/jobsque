@@ -42,4 +42,10 @@ class AppAssets {
   static const String ellipse7 = "assets/images/user_handling/create_account/Ellipse 810.png";
   static const String ellipse8 = "assets/images/user_handling/create_account/Ellipse 811.png";
   static const String ellipse9 = "assets/images/user_handling/create_account/Ellipse 812.png";
+  
+  //! companies
+  static const String discordLogo = "assets/images/companies/Discord Logo.png";
+  static const String slackLogo = "assets/images/companies/Slack Logo.png";
+  static const String twitterLogo = "assets/images/companies/Twitter Logo.png";
+  static const String zoomLogo = "assets/images/companies/Zoom Logo.png";
 }
