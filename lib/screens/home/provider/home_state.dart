@@ -49,4 +49,15 @@ class HomeState {
 
   //! controllers
   final TextEditingController searchController = TextEditingController();
+
+  //! search lists
+  List<String> history = [];
+  List<String> suggestions = [
+    "UI/UX Designer",
+    "Project Manager",
+    "Product Designer",
+    "UX Designer",
+    "Front-End Developer"
+  ];
+  List<JobModel> results = [];
 }
