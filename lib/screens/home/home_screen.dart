@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
               label: "Messages"),
           BottomNavigationBarItem(
               icon: Icon(Iconsax.briefcase4),
-              activeIcon: Icon(Iconsax.briefcase4),
+              activeIcon: Icon(Iconsax.briefcase5),
               label: "Applied"),
           BottomNavigationBarItem(
               icon: Icon(Iconsax.archive_minus4),

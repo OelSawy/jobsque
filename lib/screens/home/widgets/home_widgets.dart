@@ -20,7 +20,7 @@ class HomeSearchDelegate extends SearchDelegate {
         ),
         onPressed: () {
           query = '';
-          context.read<HomeProvider>().state.results.clear();
+          // context.read<HomeProvider>().state.results.clear();
         },
       )
     ];
@@ -37,17 +37,18 @@ class HomeSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
+     List<JobModel> results = [];
     query.compareTo("") == 0
         ? null
         : context.read<HomeProvider>().state.history.contains(query)
             ? null
             : context.read<HomeProvider>().state.history.add(query);
-    context.read<HomeProvider>().state.results.addAll(context
+     results = context
         .read<HomeProvider>()
         .state
         .recentJobs
         .where((element) =>
-            element.name!.toLowerCase().contains(query.toLowerCase())));
+            element.name!.toLowerCase().contains(query.toLowerCase())).toList();
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -193,16 +194,15 @@ class HomeSearchDelegate extends SearchDelegate {
           SizedBox(
             width: 100.w,
             height: 70.h,
-            child: context.watch<HomeProvider>().state.results.isEmpty
+            child: results.isEmpty
                 ? const Center(child: Text("No results found"))
                 : ListView.builder(
                     itemBuilder: (context, index) {
                       return JobCard(
-                        job: context.read<HomeProvider>().state.results[index],
+                        job: results[index],
                       );
                     },
-                    itemCount:
-                        context.watch<HomeProvider>().state.results.length,
+                    itemCount:results.length,
                   ),
           )
         ],
@@ -212,7 +212,7 @@ class HomeSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    context.read<HomeProvider>().state.results.clear();
+    // context.read<HomeProvider>().state.results.clear();
     return SingleChildScrollView(
       child: SizedBox(
         width: 100.w,

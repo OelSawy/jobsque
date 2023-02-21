@@ -59,5 +59,4 @@ class HomeState {
     "UX Designer",
     "Front-End Developer"
   ];
-  List<JobModel> results = [];
 }
