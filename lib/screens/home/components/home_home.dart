@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jobsque/core/colours.dart';
 import 'package:jobsque/screens/home/provider/home_provider.dart';
-import 'package:jobsque/screens/home/widgets/home_widgets.dart';
+import 'package:jobsque/screens/home/widgets/suggested_job_item.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+
+import '../widgets/home_search_delegate.dart';
+import '../widgets/recent_job_item.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -59,22 +62,24 @@ class Home extends StatelessWidget {
                 color: Colors.transparent,
                 height: 2.h,
               ),
-              Container(
-                decoration: BoxDecoration(
-                    border:
-                        Border.all(color: AppColours.neutral300, width: 0.5.sp),
-                    borderRadius: BorderRadius.circular(50)),
-                child: TextField(
-                  onTap: () => showSearch(
-                      context: context, delegate: HomeSearchDelegate()),
-                  controller: context.read<HomeProvider>().state.searchController,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      prefixIcon: const Icon(Iconsax.search_normal4),
-                      hintText: "Type Something ... ",
-                      hintStyle: TextStyle(
-                          fontSize: 9.sp, color: AppColours.neutral400)),
-                ),
+              InkWell(
+                onTap: () => showSearch(
+                    context: context, delegate: HomeSearchDelegate()),
+                child: Container(
+                    padding: EdgeInsets.only(left: 5.w),
+                    height: 7.h,
+                    width: 90.w,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: AppColours.neutral300, width: 0.5.sp),
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Row(
+                      children: [
+                        Icon(Iconsax.search_normal4, color: AppColours.neutral400),
+                        SizedBox(width: 3.w),
+                        Text("Type Something ...", style: TextStyle(fontWeight: FontWeight.w400, color: AppColours.neutral400, fontSize: 9.5.sp),),
+                      ],
+                    )),
               ),
               Divider(
                 color: Colors.transparent,
@@ -109,8 +114,11 @@ class Home extends StatelessWidget {
                     separatorBuilder: (context, index) {
                       return SizedBox(width: 12.sp);
                     },
-                    itemCount:
-                        context.read<HomeProvider>().state.suggestedJobs.length),
+                    itemCount: context
+                        .read<HomeProvider>()
+                        .state
+                        .suggestedJobs
+                        .length),
               ),
               Divider(
                 color: Colors.transparent,
