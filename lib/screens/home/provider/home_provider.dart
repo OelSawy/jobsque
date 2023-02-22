@@ -51,9 +51,4 @@ class HomeProvider extends ChangeNotifier {
     state.history.removeAt(index);
     notifyListeners();
   }
-
-  void clearResults() {
-    state.results.clear();
-    notifyListeners();
-  }
 }
