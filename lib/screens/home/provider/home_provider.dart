@@ -46,4 +46,14 @@ class HomeProvider extends ChangeNotifier {
         return const Profile();
     }
   }
+
+  void clearHistoryItem(int index) {
+    state.history.removeAt(index);
+    notifyListeners();
+  }
+
+  void clearResults() {
+    state.results.clear();
+    notifyListeners();
+  }
 }
