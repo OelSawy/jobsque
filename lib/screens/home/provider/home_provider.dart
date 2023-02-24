@@ -4,9 +4,12 @@ import 'package:jobsque/screens/home/components/home_applied.dart';
 import 'package:jobsque/screens/home/components/home_messages.dart';
 import 'package:jobsque/screens/home/components/home_profile.dart';
 import 'package:jobsque/screens/home/components/home_saved.dart';
+import 'package:jobsque/screens/home/components/job_details/job_description.dart';
 import 'package:jobsque/screens/home/provider/home_state.dart';
 
 import '../components/home_home.dart';
+import '../components/job_details/company_info.dart';
+import '../components/job_details/company_people.dart';
 
 class HomeProvider extends ChangeNotifier {
   HomeState state = HomeState();
@@ -44,6 +47,17 @@ class HomeProvider extends ChangeNotifier {
         return const Saved();
       case ChosenNavigationItem.profile:
         return const Profile();
+    }
+  }
+
+  Widget chosenJobDetailsSection() {
+    switch (state.selectedJobDetailsSection) {
+      case SelectedJobDetailsSection.description:
+        return const JobDescription();
+      case SelectedJobDetailsSection.company:
+        return const CompanyInfo();
+      case SelectedJobDetailsSection.people:
+        return const CompanyPeople();
     }
   }
 
