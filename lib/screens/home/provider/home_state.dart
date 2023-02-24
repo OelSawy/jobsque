@@ -44,8 +44,9 @@ class HomeState {
         salary: "15K")
   ];
 
-  //! enum navigation
+  //! enums
   ChosenNavigationItem chosenNavigationItem = ChosenNavigationItem.home;
+  SelectedJobDetailsSection selectedJobDetailsSection = SelectedJobDetailsSection.description;
 
   //! controllers
   final TextEditingController searchController = TextEditingController();
