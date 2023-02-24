@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:jobsque/core/app_routes.dart';
 import 'package:jobsque/core/colours.dart';
 import 'package:jobsque/screens/home/provider/home_provider.dart';
 import 'package:jobsque/screens/home/widgets/suggested_job_item.dart';
@@ -148,7 +149,11 @@ class Home extends StatelessWidget {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return RecentJobItem(index: index);
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(AppRoutes.jobDetails, arguments: index);
+                        },
+                        child: RecentJobItem(index: index));
                     },
                     separatorBuilder: (context, index) {
                       return Divider(
