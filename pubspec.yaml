@@ -43,6 +43,7 @@ dependencies:
   google_fonts: ^4.0.3
   sizer: ^2.0.15
   email_validator: ^2.1.17
+  fading_edge_scrollview: ^3.0.0
 
 dev_dependencies:
   flutter_test:
