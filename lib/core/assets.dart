@@ -12,6 +12,7 @@ class AppAssets {
       "assets/images/components/google button.png";
   static const String facebookButton =
       "assets/images/components/facebook button.png";
+  static const String pdfLogo = "assets/images/components/pdf logo.png";
 
   //! on boarding
   static const String onBoardPage1 =
@@ -37,12 +38,17 @@ class AppAssets {
   static const String vietnam = "assets/images/countries/vietnam.png";
 
   //! account created successfully
-  static const String ellipse5 = "assets/images/user_handling/create_account/Ellipse 813.png";
-  static const String ellipse6 = "assets/images/user_handling/create_account/Ellipse 1.png";
-  static const String ellipse7 = "assets/images/user_handling/create_account/Ellipse 810.png";
-  static const String ellipse8 = "assets/images/user_handling/create_account/Ellipse 811.png";
-  static const String ellipse9 = "assets/images/user_handling/create_account/Ellipse 812.png";
-  
+  static const String ellipse5 =
+      "assets/images/user_handling/create_account/Ellipse 813.png";
+  static const String ellipse6 =
+      "assets/images/user_handling/create_account/Ellipse 1.png";
+  static const String ellipse7 =
+      "assets/images/user_handling/create_account/Ellipse 810.png";
+  static const String ellipse8 =
+      "assets/images/user_handling/create_account/Ellipse 811.png";
+  static const String ellipse9 =
+      "assets/images/user_handling/create_account/Ellipse 812.png";
+
   //! companies
   static const String discordLogo = "assets/images/companies/Discord Logo.png";
   static const String slackLogo = "assets/images/companies/Slack Logo.png";
