@@ -44,6 +44,9 @@ dependencies:
   sizer: ^2.0.15
   email_validator: ^2.1.17
   fading_edge_scrollview: ^3.0.0
+  intl_phone_number_input: ^0.7.2
+  file_picker: ^5.2.5
+  dotted_border: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:
