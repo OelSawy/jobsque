@@ -25,6 +25,7 @@ class Home extends StatelessWidget {
                 color: Colors.transparent,
                 height: 5.h,
               ),
+              //! header
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -45,6 +46,7 @@ class Home extends StatelessWidget {
                               fontSize: 9.sp))
                     ],
                   ),
+                  //! notification button
                   CircleAvatar(
                     radius: 21.sp,
                     backgroundColor: AppColours.neutral300,
@@ -63,6 +65,7 @@ class Home extends StatelessWidget {
                 color: Colors.transparent,
                 height: 2.h,
               ),
+              //! search bar
               InkWell(
                 onTap: () => showSearch(
                     context: context, delegate: HomeSearchDelegate()),
@@ -86,6 +89,7 @@ class Home extends StatelessWidget {
                 color: Colors.transparent,
                 height: 2.h,
               ),
+              //! suggested jobs
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -104,6 +108,7 @@ class Home extends StatelessWidget {
                 color: Colors.transparent,
                 height: 2.h,
               ),
+              //! suggested jobs list
               SizedBox(
                 height: 25.h,
                 child: ListView.separated(
@@ -125,6 +130,7 @@ class Home extends StatelessWidget {
                 color: Colors.transparent,
                 height: 2.h,
               ),
+              //! recent jobs
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -143,6 +149,7 @@ class Home extends StatelessWidget {
                 color: Colors.transparent,
                 height: 2.h,
               ),
+              //! recent jobs list
               SizedBox(
                 width: 100.w,
                 child: ListView.separated(

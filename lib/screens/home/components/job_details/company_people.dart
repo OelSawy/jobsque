@@ -22,11 +22,12 @@ class _CompanyPeopleState extends State<CompanyPeople> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            //! info and drop down menu
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Job Description",
+                Text("4 Employees For",
                     style: TextStyle(
                         fontSize: 11.sp, fontWeight: FontWeight.w500)),
                 Text(
@@ -38,6 +39,7 @@ class _CompanyPeopleState extends State<CompanyPeople> {
                 ),
               ],
             ),
+            //! drop down menu
             Container(
               width: 40.w,
               height: 8.h,
@@ -85,6 +87,7 @@ class _CompanyPeopleState extends State<CompanyPeople> {
           color: Colors.transparent,
           height: 2.h,
         ),
+        //! list of people
         ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

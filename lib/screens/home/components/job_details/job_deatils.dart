@@ -35,6 +35,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                   color: Colors.transparent,
                   height: 2.h,
                 ),
+                //! header
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -58,6 +59,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                   color: Colors.transparent,
                   height: 2.h,
                 ),
+                //! company image
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.asset(
@@ -73,6 +75,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                   color: Colors.transparent,
                   height: 1.h,
                 ),
+                //! job title
                 Text(
                   context
                       .read<HomeProvider>()
@@ -86,6 +89,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                   color: Colors.transparent,
                   height: 1.h,
                 ),
+                //! company name and location
                 Text(
                   "${context.read<HomeProvider>().state.recentJobs[widget.index!].company!.name!} • ${context.read<HomeProvider>().state.recentJobs[widget.index!].company!.location!}",
                   style: TextStyle(
@@ -97,6 +101,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                   color: Colors.transparent,
                   height: 1.h,
                 ),
+                //! job tags
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -165,6 +170,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                   color: Colors.transparent,
                   height: 2.h,
                 ),
+                //! job details sections
                 Container(
                   width: 90.w,
                   height: 7.h,
@@ -288,6 +294,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                   color: Colors.transparent,
                   height: 2.h,
                 ),
+                //! selected section body
                 Expanded(
                     child: FadingEdgeScrollView.fromSingleChildScrollView(
                         gradientFractionOnEnd: 0.6,
@@ -298,6 +305,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                                 .chosenJobDetailsSection())))
               ]),
             ),
+            //! apply now button
             Positioned(
               bottom: 5.h,
               child: SizedBox(

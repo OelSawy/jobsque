@@ -19,7 +19,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //! home body
       body: context.watch<HomeProvider>().chosenPage(),
+      //! navigation bar
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         iconSize: 20.sp,

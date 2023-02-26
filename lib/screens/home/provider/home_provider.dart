@@ -14,6 +14,7 @@ import '../components/job_details/company_people.dart';
 class HomeProvider extends ChangeNotifier {
   HomeState state = HomeState();
 
+  //! navigation bar item pressed
   void onNavigationTap(int value) {
     switch (value) {
       case 0:
@@ -35,6 +36,7 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //! home body
   Widget chosenPage() {
     switch (state.chosenNavigationItem) {
       case ChosenNavigationItem.home:
@@ -50,6 +52,7 @@ class HomeProvider extends ChangeNotifier {
     }
   }
 
+  //! job details body 
   Widget chosenJobDetailsSection() {
     switch (state.selectedJobDetailsSection) {
       case SelectedJobDetailsSection.description:
@@ -61,6 +64,7 @@ class HomeProvider extends ChangeNotifier {
     }
   }
 
+  //! search history delete item
   void clearHistoryItem(int index) {
     state.history.removeAt(index);
     notifyListeners();
