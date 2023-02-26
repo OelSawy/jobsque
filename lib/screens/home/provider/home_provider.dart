@@ -4,12 +4,12 @@ import 'package:jobsque/screens/home/components/home_applied.dart';
 import 'package:jobsque/screens/home/components/home_messages.dart';
 import 'package:jobsque/screens/home/components/home_profile.dart';
 import 'package:jobsque/screens/home/components/home_saved.dart';
-import 'package:jobsque/screens/home/components/job_details/job_description.dart';
 import 'package:jobsque/screens/home/provider/home_state.dart';
 
+import '../../job_details_and_application/components/company_people.dart';
+import '../../job_details_and_application/components/company_info.dart';
+import '../../job_details_and_application/components/job_description.dart';
 import '../components/home_home.dart';
-import '../components/job_details/company_info.dart';
-import '../components/job_details/company_people.dart';
 
 class HomeProvider extends ChangeNotifier {
   HomeState state = HomeState();
