@@ -75,7 +75,7 @@ class LoginScreen extends StatelessWidget {
                       alignment: Alignment.center,
                       height: 8.h,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(10),
                           border: Border.all(
                               width: 1.sp,
                               color: context
@@ -204,7 +204,7 @@ class LoginScreen extends StatelessWidget {
                                       ? AppColours.primary500
                                       : AppColours.neutral300;
                                 }),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                                 value: context
                                     .watch<LoginProvider>()
                                     .state
