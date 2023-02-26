@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jobsque/screens/home/components/job_details/job_deatils.dart';
 import 'package:jobsque/screens/home/home_screen.dart';
 import 'package:jobsque/screens/on_board/on_board_screen.dart';
 import 'package:jobsque/screens/splash/splash_screen.dart';
@@ -12,12 +11,15 @@ import 'package:jobsque/screens/user_handling/reset_password/components/email_se
 import 'package:jobsque/screens/user_handling/reset_password/components/new_password_screen.dart';
 import 'package:jobsque/screens/user_handling/reset_password/reset_password_screen.dart';
 
+import '../screens/job_details_and_application/components/job_application/job_application_biodata.dart';
+import '../screens/job_details_and_application/components/job_application/job_application_portfolio.dart';
+import '../screens/job_details_and_application/components/job_application/job_application_type.dart';
+import '../screens/job_details_and_application/job_deatils.dart';
 import '../screens/user_handling/reset_password/components/reset_success_screen.dart';
 
 class AppRoutes {
   static const String splash = "/";
   static const String onBoard = "onBoard";
-  static const String home = "home";
 
   //! user handling
   static const String createAccount = "createAccount";
@@ -31,7 +33,13 @@ class AppRoutes {
   static const String resetSuccessScreen = "resetSuccessScreen";
 
   //! home
+  static const String home = "home";
+
+  //! job deatails and application
   static const String jobDetails = "jobDetails";
+  static const String applicationBiodata = "applicationBiodata";
+  static const String applicationType = "applicationType";
+  static const String applicationPortfolio = "applicationPortfolio";
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
     switch (setting.name) {
@@ -99,6 +107,21 @@ class AppRoutes {
         return MaterialPageRoute(
           settings: const RouteSettings(name: "/jobDetails"),
           builder: (context) => JobDeatils(index: setting.arguments as int),
+        );
+      case applicationBiodata:
+        return MaterialPageRoute(
+          settings: const RouteSettings(name: "/applicationBiodata"),
+          builder: (context) => const JobApplicationBiodata(),
+        );
+      case applicationType:
+        return MaterialPageRoute(
+          settings: const RouteSettings(name: "/applicationType"),
+          builder: (context) => const JobApplicationType(),
+        );
+        case applicationPortfolio:
+        return MaterialPageRoute(
+          settings: const RouteSettings(name: "/applicationPortfolio"),
+          builder: (context) => const JobApplicationPortfolio(),
         );
       default:
         return MaterialPageRoute(
