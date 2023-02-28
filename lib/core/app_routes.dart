@@ -11,10 +11,12 @@ import 'package:jobsque/screens/user_handling/reset_password/components/email_se
 import 'package:jobsque/screens/user_handling/reset_password/components/new_password_screen.dart';
 import 'package:jobsque/screens/user_handling/reset_password/reset_password_screen.dart';
 
+import '../screens/home/components/home_notifications.dart';
 import '../screens/job_details_and_application/components/job_application/job_application_biodata.dart';
 import '../screens/job_details_and_application/components/job_application/job_application_portfolio.dart';
+import '../screens/job_details_and_application/components/job_application/job_application_successful.dart';
 import '../screens/job_details_and_application/components/job_application/job_application_type.dart';
-import '../screens/job_details_and_application/job_deatils.dart';
+import '../screens/job_details_and_application/job_deatils_screen.dart';
 import '../screens/user_handling/reset_password/components/reset_success_screen.dart';
 
 class AppRoutes {
@@ -34,12 +36,14 @@ class AppRoutes {
 
   //! home
   static const String home = "home";
+  static const String notificationsScreen = "notificationsScreen";
 
   //! job deatails and application
   static const String jobDetails = "jobDetails";
   static const String applicationBiodata = "applicationBiodata";
   static const String applicationType = "applicationType";
   static const String applicationPortfolio = "applicationPortfolio";
+  static const String applicationSuccessful = "JobApplicationSuccessful";
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
     switch (setting.name) {
@@ -118,10 +122,20 @@ class AppRoutes {
           settings: const RouteSettings(name: "/applicationType"),
           builder: (context) => const JobApplicationType(),
         );
-        case applicationPortfolio:
+      case applicationPortfolio:
         return MaterialPageRoute(
           settings: const RouteSettings(name: "/applicationPortfolio"),
           builder: (context) => const JobApplicationPortfolio(),
+        );
+      case applicationSuccessful:
+        return MaterialPageRoute(
+          settings: const RouteSettings(name: "/applicationSuccessful"),
+          builder: (context) => const JobApplicationSuccessful(),
+        );
+      case notificationsScreen:
+        return MaterialPageRoute(
+          settings: const RouteSettings(name: "/notificationsScreen"),
+          builder: (context) => const NotificationsScreen(),
         );
       default:
         return MaterialPageRoute(
