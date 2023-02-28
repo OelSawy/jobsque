@@ -15,4 +15,8 @@ class JobDetailsState {
   String? name;
   String? email;
   PhoneNumber? phoneNumber;
+
+  int? appliedJobIndex;
+  bool applicant = false;
+  bool accepted = false;
 }
