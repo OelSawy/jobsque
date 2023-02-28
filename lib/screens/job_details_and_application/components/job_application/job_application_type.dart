@@ -1,9 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:jobsque/screens/job_details_and_application/provider/job_details_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../../core/app_routes.dart';
 import '../../../../../core/colours.dart';
 import '../../widgets/dotted_separator.dart';
 
@@ -34,19 +35,26 @@ class _JobApplicationTypeState extends State<JobApplicationType> {
                   height: 2.h,
                 ),
                 //! header
-                Row(children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      icon: const Icon(Iconsax.arrow_left4)),
-                  SizedBox(
-                    width: 15.w,
-                  ),
-                  Text("Apply for Job",
-                      style: TextStyle(
-                          fontSize: 15.sp, fontWeight: FontWeight.w500)),
-                ]),
+                SizedBox(
+                  height: 4.h,
+                  child: Stack(children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          iconSize: 20.sp,
+                          icon: const Icon(Iconsax.arrow_left4)),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text("Apply for Job",
+                          style: TextStyle(
+                              fontSize: 15.sp, fontWeight: FontWeight.w500)),
+                    ),
+                  ]),
+                ),
                 Divider(
                   color: Colors.transparent,
                   height: 2.h,
@@ -255,10 +263,7 @@ class _JobApplicationTypeState extends State<JobApplicationType> {
                   width: 90.w,
                   height: 7.h,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushNamed(AppRoutes.applicationPortfolio);
-                    },
+                    onPressed: () => context.read<JobDetailsProvider>().typeSubmitted(context),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColours.primary500,
                         shape: RoundedRectangleBorder(
