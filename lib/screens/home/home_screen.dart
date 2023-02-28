@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         unselectedItemColor: AppColours.neutral400,
         enableFeedback: false,
         backgroundColor: Colors.white,
-        currentIndex: _currIndex,
+        currentIndex: context.watch<HomeProvider>().state.navigationIndex,
         items: const [
           BottomNavigationBarItem(
               icon: Icon(Iconsax.home4),
@@ -60,7 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         onTap: (value) {
           setState(() {
-            _currIndex = value;
             context.read<HomeProvider>().onNavigationTap(value);
           });
         },
