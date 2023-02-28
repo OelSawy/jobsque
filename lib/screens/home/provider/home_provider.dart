@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jobsque/core/enums.dart';
+import 'package:jobsque/data/models/home_models/job_model.dart';
 import 'package:jobsque/screens/home/components/home_applied.dart';
 import 'package:jobsque/screens/home/components/home_messages.dart';
 import 'package:jobsque/screens/home/components/home_profile.dart';
@@ -19,18 +20,23 @@ class HomeProvider extends ChangeNotifier {
     switch (value) {
       case 0:
         state.chosenNavigationItem = ChosenNavigationItem.home;
+        state.navigationIndex = 0;
         break;
       case 1:
         state.chosenNavigationItem = ChosenNavigationItem.messages;
+        state.navigationIndex = 1;
         break;
       case 2:
         state.chosenNavigationItem = ChosenNavigationItem.applied;
+        state.navigationIndex = 2;
         break;
       case 3:
         state.chosenNavigationItem = ChosenNavigationItem.saved;
+        state.navigationIndex = 3;
         break;
       case 4:
         state.chosenNavigationItem = ChosenNavigationItem.profile;
+        state.navigationIndex = 4;
         break;
     }
     notifyListeners();
@@ -67,6 +73,23 @@ class HomeProvider extends ChangeNotifier {
   //! search history delete item
   void clearHistoryItem(int index) {
     state.history.removeAt(index);
+    notifyListeners();
+  }
+
+  //! save job
+  void saveJob(JobModel jobModel) {
+    state.savedJobs.add(jobModel);
+    notifyListeners();
+  }
+
+  void removeSavedJob(JobModel? job) {
+    state.savedJobs.remove(job);
+    notifyListeners();
+  }
+
+  void returnHome() {
+    state.chosenNavigationItem = ChosenNavigationItem.home;
+    state.navigationIndex = 0;
     notifyListeners();
   }
 }
