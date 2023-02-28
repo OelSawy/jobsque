@@ -60,4 +60,10 @@ class HomeState {
     "UX Designer",
     "Front-End Developer"
   ];
+
+  //! saved jobs
+  List<JobModel> savedJobs = [];
+
+  //! navigation index
+  int navigationIndex = 0;
 }
