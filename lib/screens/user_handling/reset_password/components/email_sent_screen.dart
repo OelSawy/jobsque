@@ -23,7 +23,7 @@ class EmailSentScreen extends StatelessWidget {
                 top: 6.5.h,
                 left: 3.w,
                 child: IconButton(
-                    iconSize: 30.sp,
+                    iconSize: 20.sp,
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
