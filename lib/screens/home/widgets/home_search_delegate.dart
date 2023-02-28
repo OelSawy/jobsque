@@ -3,6 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../core/app_routes.dart';
 import '../../../core/assets.dart';
 import '../../../core/colours.dart';
 import '../../../data/models/home_models/job_model.dart';
@@ -12,6 +13,7 @@ import 'job_card.dart';
 class HomeSearchDelegate extends SearchDelegate {
   @override
   List<Widget>? buildActions(BuildContext context) {
+    //! clear search button
     return [
       IconButton(
         icon: const Icon(
@@ -27,6 +29,7 @@ class HomeSearchDelegate extends SearchDelegate {
 
   @override
   Widget? buildLeading(BuildContext context) {
+    //! return button
     return IconButton(
         onPressed: () {
           Navigator.of(context).pop();
@@ -40,6 +43,7 @@ class HomeSearchDelegate extends SearchDelegate {
     int locationValue = 0;
     int salaryValue = 0;
     List<JobModel> results = [];
+    //! filling results list
     query.compareTo("") == 0
         ? null
         : context.read<HomeProvider>().state.history.contains(query)
@@ -59,12 +63,14 @@ class HomeSearchDelegate extends SearchDelegate {
             color: Colors.transparent,
             height: 2.h,
           ),
+          //! filters
           SizedBox(
             width: 100.w,
             height: 5.h,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
+                //! general filters
                 IconButton(
                     onPressed: () => showModalBottomSheet(
                           context: context,
@@ -375,6 +381,7 @@ class HomeSearchDelegate extends SearchDelegate {
                         ),
                     icon: const Icon(Iconsax.setting_44)),
                 SizedBox(width: 1.w),
+                //! job type filter
                 InkWell(
                   onTap: () {
                     showModalBottomSheet(
@@ -457,6 +464,7 @@ class HomeSearchDelegate extends SearchDelegate {
                   ),
                 ),
                 SizedBox(width: 1.w),
+                //! job time filter
                 InkWell(
                   onTap: () {
                     showModalBottomSheet(
@@ -539,6 +547,7 @@ class HomeSearchDelegate extends SearchDelegate {
                   ),
                 ),
                 SizedBox(width: 1.w),
+                //! job location filter
                 InkWell(
                   onTap: () {
                     showModalBottomSheet(
@@ -621,6 +630,7 @@ class HomeSearchDelegate extends SearchDelegate {
                   ),
                 ),
                 SizedBox(width: 1.w),
+                //! job date posted filter
                 InkWell(
                   onTap: () {
                     showModalBottomSheet(
@@ -706,6 +716,7 @@ class HomeSearchDelegate extends SearchDelegate {
               ],
             ),
           ),
+          //! text
           Container(
               padding: EdgeInsets.only(left: 5.w, right: 5.w),
               margin: EdgeInsets.only(top: 2.h, bottom: 2.h),
@@ -721,6 +732,7 @@ class HomeSearchDelegate extends SearchDelegate {
                       color: AppColours.neutral500,
                       fontWeight: FontWeight.w500,
                       fontSize: 9.5.sp))),
+          //! no results
           SizedBox(
             width: 100.w,
             height: 70.h,
@@ -777,10 +789,17 @@ class HomeSearchDelegate extends SearchDelegate {
                           )),
                     ],
                   )
+                //! results
                 : ListView.builder(
                     itemBuilder: (context, index) {
-                      return JobCard(
-                        job: results[index],
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(AppRoutes.jobDetails,
+                              arguments: index);
+                        },
+                        child: JobCard(
+                          job: results[index],
+                        ),
                       );
                     },
                     itemCount: results.length,
@@ -799,6 +818,7 @@ class HomeSearchDelegate extends SearchDelegate {
         height: 100.h,
         child: Column(
           children: [
+            //! header
             Container(
                 height: 5.h,
                 padding: EdgeInsets.only(left: 5.w, right: 5.w),
@@ -815,6 +835,7 @@ class HomeSearchDelegate extends SearchDelegate {
                         color: AppColours.neutral500,
                         fontWeight: FontWeight.w500,
                         fontSize: 9.5.sp))),
+            //! history list
             SizedBox(
               height: 35.h,
               child: context.watch<HomeProvider>().state.history.isEmpty
@@ -823,28 +844,37 @@ class HomeSearchDelegate extends SearchDelegate {
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: EdgeInsets.only(left: 5.w, right: 5.w),
-                          child: Row(
-                            children: [
-                              const Icon(Iconsax.clock),
-                              SizedBox(width: 3.w),
-                              Text(
-                                  context
-                                      .read<HomeProvider>()
-                                      .state
-                                      .history[index],
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 9.5.sp)),
-                              const Spacer(),
-                              IconButton(
-                                  onPressed: () => context
-                                      .read<HomeProvider>()
-                                      .clearHistoryItem(index),
-                                  icon: Icon(
-                                    Iconsax.close_circle4,
-                                    color: AppColours.danger500,
-                                  ))
-                            ],
+                          child: InkWell(
+                            onTap: () {
+                              query = context
+                                  .read<HomeProvider>()
+                                  .state
+                                  .history[index];
+                              showResults(context);
+                            },
+                            child: Row(
+                              children: [
+                                const Icon(Iconsax.clock),
+                                SizedBox(width: 3.w),
+                                Text(
+                                    context
+                                        .read<HomeProvider>()
+                                        .state
+                                        .history[index],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 9.5.sp)),
+                                const Spacer(),
+                                IconButton(
+                                    onPressed: () => context
+                                        .read<HomeProvider>()
+                                        .clearHistoryItem(index),
+                                    icon: Icon(
+                                      Iconsax.close_circle4,
+                                      color: AppColours.danger500,
+                                    ))
+                              ],
+                            ),
                           ),
                         );
                       },
@@ -858,6 +888,7 @@ class HomeSearchDelegate extends SearchDelegate {
                           context.watch<HomeProvider>().state.history.length,
                     ),
             ),
+            //! header
             Container(
                 height: 5.h,
                 padding: EdgeInsets.only(left: 5.w, right: 5.w),
@@ -874,6 +905,7 @@ class HomeSearchDelegate extends SearchDelegate {
                         color: AppColours.neutral500,
                         fontWeight: FontWeight.w500,
                         fontSize: 9.5.sp))),
+            //! suggestions list
             SizedBox(
               height: 35.h,
               child: ListView.separated(
