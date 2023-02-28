@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../core/colours.dart';
 import '../../../data/models/home_models/job_model.dart';
+import '../provider/home_provider.dart';
 
 // ignore: must_be_immutable
-class JobCard extends StatefulWidget {
+class JobCard extends StatelessWidget {
   JobModel? job;
-  bool saved = false;
 
   JobCard({super.key, required this.job});
 
-  @override
-  State<JobCard> createState() => _JobCardState();
-}
-
-class _JobCardState extends State<JobCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -31,32 +27,41 @@ class _JobCardState extends State<JobCard> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child:
-                      Image.asset(widget.job!.company!.image!, scale: 1.5.sp),
+                  child: Image.asset(job!.company!.image!, scale: 1.5.sp),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.job!.name!,
+                      job!.name!,
                       style: TextStyle(fontSize: 12.sp),
                     ),
                     Text(
-                      "${widget.job!.company!.name!} • ${widget.job!.company!.location!}",
+                      "${job!.company!.name!} • ${job!.company!.location!}",
                       style: TextStyle(fontSize: 9.5.sp),
                     ),
                   ],
                 ),
                 IconButton(
                     onPressed: () {
-                      setState(() {
-                        widget.saved = !widget.saved;
-                      });
+                      context.read<HomeProvider>().state.savedJobs.contains(job)
+                          ? context.read<HomeProvider>().removeSavedJob(job!)
+                          : context.read<HomeProvider>().saveJob(job!);
                     },
-                    icon: widget.saved
+                    icon: context
+                            .watch<HomeProvider>()
+                            .state
+                            .savedJobs
+                            .contains(job)
                         ? const Icon(Iconsax.archive_15)
                         : const Icon(Iconsax.archive_add4),
-                    color: widget.saved ? AppColours.primary500 : Colors.black,
+                    color: context
+                            .watch<HomeProvider>()
+                            .state
+                            .savedJobs
+                            .contains(job)
+                        ? AppColours.primary500
+                        : Colors.black,
                     iconSize: 20.sp)
               ],
             ),
@@ -73,7 +78,7 @@ class _JobCardState extends State<JobCard> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Text(
-                    widget.job!.jobTime!,
+                    job!.jobTime!,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColours.primary500,
@@ -91,7 +96,7 @@ class _JobCardState extends State<JobCard> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Text(
-                    widget.job!.jobType!,
+                    job!.jobType!,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColours.primary500,
@@ -109,7 +114,7 @@ class _JobCardState extends State<JobCard> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Text(
-                    widget.job!.jobCategory!,
+                    job!.jobCategory!,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColours.primary500,
@@ -118,7 +123,7 @@ class _JobCardState extends State<JobCard> {
                   ),
                 ),
                 Text.rich(TextSpan(
-                    text: "\$${widget.job!.salary!}",
+                    text: "\$${job!.salary!}",
                     style: TextStyle(
                       color: AppColours.success700,
                       fontSize: 12.sp,
