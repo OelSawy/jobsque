@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:jobsque/core/app_routes.dart';
 import 'package:jobsque/screens/job_details_and_application/provider/job_details_state.dart';
 
 class JobDetailsProvider extends ChangeNotifier {
@@ -41,5 +42,30 @@ class JobDetailsProvider extends ChangeNotifier {
     }
   }
 
-  validateChosenType() {}
+  void biodataSubmitted(BuildContext context) {
+    Navigator.of(context).pushNamed(AppRoutes.applicationType);
+  }
+
+  void typeSubmitted(BuildContext context) {
+    Navigator.of(context).pushNamed(AppRoutes.applicationPortfolio);
+  }
+
+  void portfolioSubmitted(BuildContext context) {
+    state.applicant = true;
+    notifyListeners();
+    Navigator.of(context).pushNamed(AppRoutes.applicationSuccessful);
+  }
+
+  apply(BuildContext context, int index) {
+    state.applicant = false;
+    state.appliedJobIndex = index;
+    notifyListeners();
+    Navigator.of(context).pushNamed(AppRoutes.applicationBiodata);
+  }
+
+  Future<void> accept() async {
+    Future.delayed(const Duration(seconds: 5));
+    state.accepted = true;
+    notifyListeners();
+  }
 }
