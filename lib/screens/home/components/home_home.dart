@@ -3,7 +3,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:jobsque/core/app_routes.dart';
 import 'package:jobsque/core/colours.dart';
 import 'package:jobsque/screens/home/provider/home_provider.dart';
+import 'package:jobsque/screens/home/widgets/applied_job.dart';
 import 'package:jobsque/screens/home/widgets/suggested_job_item.dart';
+import 'package:jobsque/screens/job_details_and_application/provider/job_details_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -55,7 +57,10 @@ class Home extends StatelessWidget {
                         radius: 20.sp,
                         child: IconButton(
                             color: Colors.black,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, AppRoutes.notificationsScreen);
+                            },
                             icon: const Icon(Iconsax.notification4),
                             iconSize: 20.sp)),
                   )
@@ -79,9 +84,16 @@ class Home extends StatelessWidget {
                         borderRadius: BorderRadius.circular(50)),
                     child: Row(
                       children: [
-                        Icon(Iconsax.search_normal4, color: AppColours.neutral400),
+                        Icon(Iconsax.search_normal4,
+                            color: AppColours.neutral400),
                         SizedBox(width: 3.w),
-                        Text("Type Something ...", style: TextStyle(fontWeight: FontWeight.w400, color: AppColours.neutral400, fontSize: 9.5.sp),),
+                        Text(
+                          "Type Something ...",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              color: AppColours.neutral400,
+                              fontSize: 9.5.sp),
+                        ),
                       ],
                     )),
               ),
@@ -89,6 +101,10 @@ class Home extends StatelessWidget {
                 color: Colors.transparent,
                 height: 2.h,
               ),
+              //! applied job status
+              context.read<JobDetailsProvider>().state.applicant
+                  ? const AppliedJob()
+                  : const SizedBox(),
               //! suggested jobs
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -157,15 +173,17 @@ class Home extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () {
-                          Navigator.of(context).pushNamed(AppRoutes.jobDetails, arguments: index);
-                        },
-                        child: RecentJobItem(index: index));
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                                AppRoutes.jobDetails,
+                                arguments: index);
+                          },
+                          child: RecentJobItem(index: index));
                     },
                     separatorBuilder: (context, index) {
                       return Divider(
                         height: 2.h,
-                        color: Colors.black,
+                        color: AppColours.neutral200,
                       );
                     },
                     itemCount:
