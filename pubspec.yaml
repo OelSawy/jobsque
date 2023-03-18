@@ -37,7 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.0.5
   firebase: ^9.0.3
-  firebase_core: ^2.4.1
+  firebase_core: ^2.8.0
   iconsax: ^0.0.8
   shared_preferences: ^2.0.17
   google_fonts: ^4.0.3
@@ -47,6 +47,8 @@ dependencies:
   intl_phone_number_input: ^0.7.2
   file_picker: ^5.2.5
   dotted_border: ^2.0.0+3
+  firebase_auth: ^4.3.0
+  cloud_firestore: ^4.4.5
 
 dev_dependencies:
   flutter_test:
