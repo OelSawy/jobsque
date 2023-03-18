@@ -152,24 +152,30 @@ class Saved extends StatelessWidget {
                   ),
                 ))
               : const SizedBox(),
-          Positioned(
-              top: 46.h,
-              right: 28.w,
-              child: Image.asset(
-                AppAssets.ellipse7,
-                scale: 1.2.sp,
-              )),
-          Positioned(
-              top: 39.h,
-              left: 23.w,
-              child: Image.asset(
-                AppAssets.ellipse8,
-                scale: 1.2.sp,
-              )),
-          Positioned(
-              top: 31.h,
-              right: 30.w,
-              child: Image.asset(AppAssets.ellipse9, scale: 1.2.sp))
+          context.watch<HomeProvider>().state.savedJobs.isEmpty
+              ? Positioned(
+                  top: 46.h,
+                  right: 28.w,
+                  child: Image.asset(
+                    AppAssets.ellipse7,
+                    scale: 1.2.sp,
+                  ))
+              : const SizedBox(),
+          context.watch<HomeProvider>().state.savedJobs.isEmpty
+              ? Positioned(
+                  top: 39.h,
+                  left: 23.w,
+                  child: Image.asset(
+                    AppAssets.ellipse8,
+                    scale: 1.2.sp,
+                  ))
+              : const SizedBox(),
+          context.watch<HomeProvider>().state.savedJobs.isEmpty
+              ? Positioned(
+                  top: 31.h,
+                  right: 30.w,
+                  child: Image.asset(AppAssets.ellipse9, scale: 1.2.sp))
+              : const SizedBox()
         ],
       ),
     );
