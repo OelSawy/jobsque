@@ -14,13 +14,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  int _currIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       //! home body
-      body: context.watch<HomeProvider>().chosenPage(),
+      body: SafeArea(child: context.watch<HomeProvider>().chosenPage()),
       //! navigation bar
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
