@@ -92,4 +92,6 @@ class HomeProvider extends ChangeNotifier {
     state.navigationIndex = 0;
     notifyListeners();
   }
+
+  logout() {}
 }
