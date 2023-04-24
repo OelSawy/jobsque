@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobsque/screens/home/items/profile/provider/profile_provider.dart';
 import 'package:jobsque/screens/home/provider/home_provider.dart';
 import 'package:jobsque/screens/job_details_and_application/provider/job_details_provider.dart';
 import 'package:jobsque/screens/on_board/provider/on_board_provider.dart';
@@ -44,6 +45,9 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider<JobDetailsProvider>(
               create: (context) => JobDetailsProvider(),
+            ),
+            ChangeNotifierProvider<ProfileProvider>(
+              create: (context) => ProfileProvider(),
             )
           ],
           child: GestureDetector(
