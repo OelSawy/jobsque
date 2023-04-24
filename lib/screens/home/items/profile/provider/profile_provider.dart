@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:jobsque/screens/home/items/profile/provider/profile_state.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -45,6 +46,16 @@ class ProfileProvider extends ChangeNotifier {
         state.addressErrorMessage == null;
   }
 
+  void onEmailChange(String value) {
+    value.isEmpty
+        ? state.emailErrorMessage = "You must enter a mail"
+        : EmailValidator.validate(value)
+            ? state.emailErrorMessage = null
+            : state.emailErrorMessage = "Enter a valid mail";
+    state.email = value;
+    notifyListeners();
+  }
+
   save(BuildContext context) {
     Navigator.pop(context);
   }
@@ -87,5 +98,13 @@ class ProfileProvider extends ChangeNotifier {
   void messageNudgesChange(bool value) {
     state.messageNudges = value;
     notifyListeners();
+  }
+
+  bool checkEmail() {
+    return state.email != null && state.emailErrorMessage == null;
+  }
+
+  saveEmail(BuildContext context) {
+    Navigator.of(context).pop();
   }
 }

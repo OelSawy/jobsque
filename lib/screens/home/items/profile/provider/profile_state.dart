@@ -7,18 +7,21 @@ class ProfileState {
   TextEditingController bioController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
   //! vars
   String? name;
   String? bio;
   String? address;
   PhoneNumber? phone;
+  String? email;
 
   //! errors
   String? nameErrorMessage;
   String? bioErrorMessage;
   String? addressErrorMessage;
   String? phoneErrorMessgae;
+  String? emailErrorMessage;
 
   //! notification options
   bool jobSearchAlert = false;
