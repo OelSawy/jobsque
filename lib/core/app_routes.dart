@@ -14,6 +14,7 @@ import 'package:jobsque/screens/user_handling/reset_password/reset_password_scre
 
 import '../screens/home/components/home_notifications.dart';
 import '../screens/home/items/profile/components/login_and_security.dart';
+import '../screens/home/items/profile/components/login_and_security/change_email.dart';
 import '../screens/home/items/profile/components/notification.dart';
 import '../screens/home/items/profile/components/portfolio.dart';
 import '../screens/job_details_and_application/components/job_application/job_application_biodata.dart';
@@ -54,6 +55,7 @@ class AppRoutes {
   static const String portfolio = "portfolio";
   static const String profileNotification = "profileNotification";
   static const String loginAndSecurity = "loginAndSecurity";
+  static const String changeEmail = "changeEmail";
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
     switch (setting.name) {
@@ -166,6 +168,11 @@ class AppRoutes {
         return MaterialPageRoute(
           settings: const RouteSettings(name: "/loginAndSecurity"),
           builder: (context) => const LoginAndSecurity()
+        );
+      case changeEmail :
+        return MaterialPageRoute(
+          settings: const RouteSettings(name: "/changeEmail"),
+          builder: (context) => const ChangeEmail()
         );
       default:
         return MaterialPageRoute(
