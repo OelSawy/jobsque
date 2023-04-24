@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jobsque/core/colours.dart';
+import 'package:jobsque/screens/home/items/profile/widgets/profile_widgets.dart';
 import 'package:jobsque/screens/home/provider/home_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -14,11 +15,11 @@ class Profile extends StatelessWidget {
         child: Column(
       children: [
         SizedBox(
-          height: 29.h,
+          height: 27.h,
           child: Stack(
             children: [
               Container(
-                height: 22.h,
+                height: 20.h,
                 color: AppColours.primary100,
               ),
               Padding(
@@ -39,13 +40,14 @@ class Profile extends StatelessWidget {
                                     onPressed: () => context
                                         .read<HomeProvider>()
                                         .returnHome(),
+                                    iconSize: 20.sp,
                                     icon: const Icon(Iconsax.arrow_left4)),
                               ),
                               Align(
                                 alignment: Alignment.center,
                                 child: Text("Profile",
                                     style: TextStyle(
-                                        fontSize: 15.sp,
+                                        fontSize: 13.sp,
                                         fontWeight: FontWeight.w500)),
                               ),
                               Align(
@@ -66,8 +68,8 @@ class Profile extends StatelessWidget {
                         const Spacer(),
                         //! profile image
                         SizedBox(
-                          height: 16.h,
-                          width: 16.h,
+                          height: 14.h,
+                          width: 14.h,
                           child: Stack(
                             children: [
                               Align(
@@ -81,7 +83,7 @@ class Profile extends StatelessWidget {
                                 alignment: Alignment.center,
                                 child: CircleAvatar(
                                   backgroundColor: Colors.blueAccent,
-                                  radius: 6.h,
+                                  radius: 6.5.h,
                                 ),
                               ),
                             ],
@@ -106,7 +108,7 @@ class Profile extends StatelessWidget {
               Text("Name Here",
                   textAlign: TextAlign.center,
                   style:
-                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w500)),
+                      TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500)),
               Divider(
                 color: Colors.transparent,
                 height: 1.h,
@@ -140,7 +142,7 @@ class Profile extends StatelessWidget {
                                   fontWeight: FontWeight.w400)),
                           Text("00",
                               style: TextStyle(
-                                  fontSize: 15.sp,
+                                  fontSize: 13.sp,
                                   fontWeight: FontWeight.w500)),
                         ],
                       ),
@@ -161,7 +163,7 @@ class Profile extends StatelessWidget {
                                   fontWeight: FontWeight.w400)),
                           Text("00",
                               style: TextStyle(
-                                  fontSize: 15.sp,
+                                  fontSize: 13.sp,
                                   fontWeight: FontWeight.w500)),
                         ],
                       ),
@@ -182,7 +184,7 @@ class Profile extends StatelessWidget {
                                   fontWeight: FontWeight.w400)),
                           Text("00",
                               style: TextStyle(
-                                  fontSize: 15.sp,
+                                  fontSize: 13.sp,
                                   fontWeight: FontWeight.w500)),
                         ],
                       ),
@@ -244,194 +246,7 @@ class Profile extends StatelessWidget {
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColours.neutral500)))),
-        Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5.w),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 1.h),
-                      height: 10.h,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 40.sp,
-                              child: CircleAvatar(
-                                backgroundColor: AppColours.primary100,
-                                foregroundColor: AppColours.primary500,
-                                radius: 20.sp,
-                                child: Icon(
-                                  Iconsax.frame_1,
-                                  size: 20.sp,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Text("Edit Profile",
-                                style: TextStyle(
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColours.neutral900)),
-                            const Spacer(),
-                            const Icon(Iconsax.arrow_right_14)
-                          ])),
-                ),
-                Container(
-                  height: 0.2.h,
-                  color: AppColours.neutral200,
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 1.h),
-                      height: 10.h,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 40.sp,
-                              child: CircleAvatar(
-                                backgroundColor: AppColours.primary100,
-                                foregroundColor: AppColours.primary500,
-                                radius: 20.sp,
-                                child: Icon(
-                                  Iconsax.folder_favorite4,
-                                  size: 20.sp,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Text("Portfolio",
-                                style: TextStyle(
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColours.neutral900)),
-                            const Spacer(),
-                            const Icon(Iconsax.arrow_right_14)
-                          ])),
-                ),
-                Container(
-                  height: 0.2.h,
-                  color: AppColours.neutral200,
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 1.h),
-                      height: 10.h,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 40.sp,
-                              child: CircleAvatar(
-                                backgroundColor: AppColours.primary100,
-                                foregroundColor: AppColours.primary500,
-                                radius: 20.sp,
-                                child: Icon(
-                                  Iconsax.global4,
-                                  size: 20.sp,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Text("Language",
-                                style: TextStyle(
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColours.neutral900)),
-                            const Spacer(),
-                            const Icon(Iconsax.arrow_right_14)
-                          ])),
-                ),
-                Container(
-                  height: 0.2.h,
-                  color: AppColours.neutral200,
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 1.h),
-                      height: 10.h,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 40.sp,
-                              child: CircleAvatar(
-                                backgroundColor: AppColours.primary100,
-                                foregroundColor: AppColours.primary500,
-                                radius: 20.sp,
-                                child: Icon(
-                                  Iconsax.notification4,
-                                  size: 20.sp,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Text("Notifications",
-                                style: TextStyle(
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColours.neutral900)),
-                            const Spacer(),
-                            const Icon(Iconsax.arrow_right_14)
-                          ])),
-                ),
-                Container(
-                  height: 0.2.h,
-                  color: AppColours.neutral200,
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 1.h),
-                      height: 10.h,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 40.sp,
-                              child: CircleAvatar(
-                                backgroundColor: AppColours.primary100,
-                                foregroundColor: AppColours.primary500,
-                                radius: 20.sp,
-                                child: Icon(
-                                  Iconsax.lock4,
-                                  size: 20.sp,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Text("Login and security",
-                                style: TextStyle(
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColours.neutral900)),
-                            const Spacer(),
-                            const Icon(Iconsax.arrow_right_14)
-                          ])),
-                ),
-              ],
-            )),
+        const ProfileGeneral(),
         Container(
             height: 5.h,
             width: 100.w,
@@ -445,97 +260,7 @@ class Profile extends StatelessWidget {
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColours.neutral500)))),
-        Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5.w),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 1.h),
-                      height: 10.h,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text("Accesibility",
-                                style: TextStyle(
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColours.neutral900)),
-                            const Spacer(),
-                            const Icon(Iconsax.arrow_right_14)
-                          ])),
-                ),
-                Container(
-                  height: 0.2.h,
-                  color: AppColours.neutral200,
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 1.h),
-                      height: 10.h,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text("Help Center",
-                                style: TextStyle(
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColours.neutral900)),
-                            const Spacer(),
-                            const Icon(Iconsax.arrow_right_14)
-                          ])),
-                ),
-                Container(
-                  height: 0.2.h,
-                  color: AppColours.neutral200,
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 1.h),
-                      height: 10.h,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text("Terms & Conditions",
-                                style: TextStyle(
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColours.neutral900)),
-                            const Spacer(),
-                            const Icon(Iconsax.arrow_right_14)
-                          ])),
-                ),
-                Container(
-                  height: 0.2.h,
-                  color: AppColours.neutral200,
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 1.h),
-                      height: 10.h,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text("Privacy Policy",
-                                style: TextStyle(
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColours.neutral900)),
-                            const Spacer(),
-                            const Icon(Iconsax.arrow_right_14)
-                          ])),
-                ),
-              ],
-            )),
+        const ProfileOthers()
       ],
     ));
   }
