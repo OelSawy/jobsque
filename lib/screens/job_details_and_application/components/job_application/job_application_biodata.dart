@@ -325,16 +325,26 @@ class JobApplicationBiodata extends StatelessWidget {
                             fontWeight: FontWeight.w400))
                   ],
                 )),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.w),
-                  margin: EdgeInsets.only(top: 2.h),
-                  alignment: Alignment.center,
-                  height: 8.h,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                          width: 1.sp, color: AppColours.neutral300)),
-                  child: InternationalPhoneNumberInput(
+               Container(
+                    padding: EdgeInsets.symmetric(horizontal: 4.w),
+                    margin: EdgeInsets.only(top: 1.h, bottom: 2.h),
+                    alignment: Alignment.center,
+                    height: 7.h,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            width: 1.sp,
+                            color: context.watch<JobDetailsProvider>().state.phoneNumber ==
+                                    null
+                                ? AppColours.neutral300
+                                : context
+                                            .watch<JobDetailsProvider>()
+                                            .state
+                                            .phoneErrorMessgae !=
+                                        null
+                                    ? AppColours.danger500
+                                    : AppColours.primary500)),
+                    child: InternationalPhoneNumberInput(
                     onSaved:
                         context.read<JobDetailsProvider>().onPhoneNumberChange,
                     selectorConfig: const SelectorConfig(
@@ -344,8 +354,7 @@ class JobApplicationBiodata extends StatelessWidget {
                     onInputChanged:
                         context.read<JobDetailsProvider>().onPhoneNumberChange,
                     inputBorder: InputBorder.none,
-                  ),
-                ),
+                  ),),
                 const Spacer(),
                 //! next button
                 SizedBox(
