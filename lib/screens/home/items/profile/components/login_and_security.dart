@@ -13,10 +13,10 @@ class LoginAndSecurity extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
-            child: SizedBox(
-              height: 100.h,
-              child: Column(
-                    children: [
+        child: SizedBox(
+          height: 96.4.h,
+          child: Column(
+            children: [
               //! header
               SizedBox(
                 height: 10.h,
@@ -52,11 +52,12 @@ class LoginAndSecurity extends StatelessWidget {
                   height: 5.h,
                   width: 100.w,
                   decoration: BoxDecoration(
-                      border:
-                          Border.all(width: 0.1.h, color: AppColours.neutral200),
+                      border: Border.all(
+                          width: 0.1.h, color: AppColours.neutral200),
                       color: AppColours.neutral100),
                   child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
                       child: Text("Account access",
                           style: TextStyle(
                               fontSize: 12.sp,
@@ -91,8 +92,11 @@ class LoginAndSecurity extends StatelessWidget {
                       height: 0.2.h,
                       color: AppColours.neutral200,
                     ),
+                    //! phone
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).pushNamed(AppRoutes.changePhone);
+                      },
                       child: Container(
                           margin: EdgeInsets.symmetric(vertical: 1.h),
                           height: 6.h,
@@ -113,8 +117,12 @@ class LoginAndSecurity extends StatelessWidget {
                       height: 0.2.h,
                       color: AppColours.neutral200,
                     ),
+                    //! password
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed(AppRoutes.changePassword);
+                      },
                       child: Container(
                           margin: EdgeInsets.symmetric(vertical: 1.h),
                           height: 6.h,
@@ -178,10 +186,10 @@ class LoginAndSecurity extends StatelessWidget {
                   ],
                 ),
               )
-                    ],
-                  ),
-            ),
-          )),
+            ],
+          ),
+        ),
+      )),
     );
   }
 }
