@@ -19,4 +19,6 @@ class JobDetailsState {
   int? appliedJobIndex;
   bool applicant = false;
   bool accepted = false;
+
+  String? phoneErrorMessgae;
 }

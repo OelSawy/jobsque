@@ -26,6 +26,7 @@ class JobDetailsProvider extends ChangeNotifier {
   }
 
   void onPhoneNumberChange(PhoneNumber value) {
+    value.toString().isEmpty ? state.phoneErrorMessgae = "Phone is required" : state.phoneErrorMessgae = null;
     state.phoneNumber = value;
     notifyListeners();
   }
