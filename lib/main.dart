@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobsque/core/colours.dart';
 import 'package:jobsque/screens/home/items/profile/provider/profile_provider.dart';
 import 'package:jobsque/screens/home/provider/home_provider.dart';
 import 'package:jobsque/screens/job_details_and_application/provider/job_details_provider.dart';
@@ -52,23 +53,15 @@ class MyApp extends StatelessWidget {
           ],
           child: GestureDetector(
             onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-            child: const MaterialApp(
-              title: "JOBSQUE",
-              debugShowCheckedModeBanner: false,
-              onGenerateRoute: AppRoutes.onGenerateRoute,
-              /* theme: ThemeData(
-              textTheme: GoogleFonts.sourceSansProTextTheme(
-                Theme.of(context).textTheme,
-              ),
-              brightness: Brightness.light,
-              /* light theme settings */
-            ),
-            darkTheme: ThemeData(
-              brightness: Brightness.dark,
-              /* dark theme settings */
-            ),
-            themeMode: ThemeMode.system, */
-            ),
+            child: MaterialApp(
+                title: "JOBSQUE",
+                debugShowCheckedModeBanner: false,
+                onGenerateRoute: AppRoutes.onGenerateRoute,
+                theme: ThemeData().copyWith(
+                  colorScheme: ThemeData().colorScheme.copyWith(
+                        primary: AppColours.primary500,
+                      ),
+                )),
           ));
     });
   }
