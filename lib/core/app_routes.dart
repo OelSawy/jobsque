@@ -15,6 +15,8 @@ import 'package:jobsque/screens/user_handling/reset_password/reset_password_scre
 import '../screens/home/components/home_notifications.dart';
 import '../screens/home/items/profile/components/login_and_security.dart';
 import '../screens/home/items/profile/components/login_and_security/change_email.dart';
+import '../screens/home/items/profile/components/login_and_security/change_password.dart';
+import '../screens/home/items/profile/components/login_and_security/change_phone.dart';
 import '../screens/home/items/profile/components/notification.dart';
 import '../screens/home/items/profile/components/portfolio.dart';
 import '../screens/job_details_and_application/components/job_application/job_application_biodata.dart';
@@ -56,6 +58,8 @@ class AppRoutes {
   static const String profileNotification = "profileNotification";
   static const String loginAndSecurity = "loginAndSecurity";
   static const String changeEmail = "changeEmail";
+  static const String changePhone = "changePhone";
+  static const String changePassword = "changePassword";
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
     switch (setting.name) {
@@ -159,21 +163,26 @@ class AppRoutes {
           settings: const RouteSettings(name: "/portfolio"),
           builder: (context) => const Portfolio(),
         );
-      case profileNotification :
+      case profileNotification:
         return MaterialPageRoute(
-          settings: const RouteSettings(name: "/profileNotification"),
-          builder: (context) => const ProfileNotification()
-        );
-      case loginAndSecurity :
+            settings: const RouteSettings(name: "/profileNotification"),
+            builder: (context) => const ProfileNotification());
+      case loginAndSecurity:
         return MaterialPageRoute(
-          settings: const RouteSettings(name: "/loginAndSecurity"),
-          builder: (context) => const LoginAndSecurity()
-        );
-      case changeEmail :
+            settings: const RouteSettings(name: "/loginAndSecurity"),
+            builder: (context) => const LoginAndSecurity());
+      case changeEmail:
         return MaterialPageRoute(
-          settings: const RouteSettings(name: "/changeEmail"),
-          builder: (context) => const ChangeEmail()
-        );
+            settings: const RouteSettings(name: "/changeEmail"),
+            builder: (context) => ChangeEmail());
+      case changePhone:
+        return MaterialPageRoute(
+            settings: const RouteSettings(name: "/changePhone"),
+            builder: (context) => const ChangePhone());
+      case changePassword:
+        return MaterialPageRoute(
+            settings: const RouteSettings(name: "/changePassword"),
+            builder: (context) => const ChangePassword());
       default:
         return MaterialPageRoute(
           settings: const RouteSettings(name: "/error"),
