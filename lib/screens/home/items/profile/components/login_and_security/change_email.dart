@@ -14,10 +14,10 @@ class ChangeEmail extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
-            child: SizedBox(
-              height: 96.4.h,
-              child: Column(
-                    children: [
+        child: SizedBox(
+          height: 96.4.h,
+          child: Column(
+            children: [
               //! header
               SizedBox(
                 height: 10.h,
@@ -37,9 +37,9 @@ class ChangeEmail extends StatelessWidget {
                       Align(
                         alignment: Alignment.center,
                         child: Text(
-                          "Edit Profile",
+                          "Email address",
                           style: TextStyle(
-                              fontSize: 15.sp,
+                              fontSize: 13.sp,
                               fontWeight: FontWeight.w500,
                               color: AppColours.neutral900),
                         ),
@@ -67,35 +67,77 @@ class ChangeEmail extends StatelessWidget {
                         ],
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 4.w),
-                        margin: EdgeInsets.only(top: 1.h, bottom: 2.h),
+                        padding: EdgeInsets.all(2.sp),
+                        margin: EdgeInsets.only(top: 1.h),
                         alignment: Alignment.center,
-                        height: 7.h,
+                        height: 9.h,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
                                 width: 1.sp,
-                                color:
-                                    context.watch<ProfileProvider>().state.email ==
+                                color: context
+                                            .watch<ProfileProvider>()
+                                            .state
+                                            .email ==
+                                        null
+                                    ? AppColours.neutral300
+                                    : context
+                                                .watch<ProfileProvider>()
+                                                .state
+                                                .emailErrorMessage !=
                                             null
-                                        ? AppColours.neutral300
-                                        : context
-                                                    .watch<ProfileProvider>()
-                                                    .state
-                                                    .emailErrorMessage !=
-                                                null
-                                            ? AppColours.danger500
-                                            : AppColours.primary500)),
+                                        ? AppColours.danger500
+                                        : AppColours.primary500)),
                         child: TextField(
-                          controller:
-                              context.read<ProfileProvider>().state.emailController,
-                          onChanged: context.read<ProfileProvider>().onEmailChange,
+                          controller: context
+                              .read<ProfileProvider>()
+                              .state
+                              .emailController,
+                          onChanged:
+                              context.read<ProfileProvider>().onEmailChange,
                           onSubmitted:
                               context.read<ProfileProvider>().onEmailChange,
                           style: TextStyle(fontSize: 14.sp),
-                          decoration: const InputDecoration(
-                              border: InputBorder.none, hintText: "Email"),
+                          keyboardType: TextInputType.emailAddress,
+                          autofillHints: const [AutofillHints.email],
+                          decoration: InputDecoration(
+                              prefixIcon: const Icon(Iconsax.sms4),
+                              prefixIconColor:
+                                  context.read<ProfileProvider>().state.email ==
+                                          null
+                                      ? AppColours.neutral300
+                                      : context
+                                                  .read<ProfileProvider>()
+                                                  .state
+                                                  .emailErrorMessage !=
+                                              null
+                                          ? AppColours.danger500
+                                          : AppColours.primary500,
+                              border: InputBorder.none,
+                              hintText: "Email"),
                         ),
+                      ),
+                      Divider(height: 0.5.h,color: Colors.transparent),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                              context
+                                          .read<ProfileProvider>()
+                                          .state
+                                          .emailErrorMessage ==
+                                      null
+                                  ? ""
+                                  : context
+                                      .read<ProfileProvider>()
+                                      .state
+                                      .emailErrorMessage
+                                      .toString(),
+                              style: TextStyle(
+                                  color: AppColours.danger500,
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w400))
+                        ],
                       ),
                       const Spacer(),
                       //! save button
@@ -105,20 +147,26 @@ class ChangeEmail extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             context.read<ProfileProvider>().checkEmail() == true
-                                ? context.read<ProfileProvider>().saveEmail(context)
+                                ? context
+                                    .read<ProfileProvider>()
+                                    .saveEmail(context)
                                 : null;
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  context.read<ProfileProvider>().checkEmail() == true
-                                      ? AppColours.primary500
-                                      : AppColours.neutral300,
+                              backgroundColor: context
+                                          .read<ProfileProvider>()
+                                          .checkEmail() ==
+                                      true
+                                  ? AppColours.primary500
+                                  : AppColours.neutral300,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50))),
                           child: Text(
                             "Save",
                             style: TextStyle(
-                                color: context.read<ProfileProvider>().checkEmail() ==
+                                color: context
+                                            .read<ProfileProvider>()
+                                            .checkEmail() ==
                                         true
                                     ? Colors.white
                                     : AppColours.neutral500,
@@ -135,10 +183,10 @@ class ChangeEmail extends StatelessWidget {
                   ),
                 ),
               )
-                    ],
-                  ),
-            ),
-          )),
+            ],
+          ),
+        ),
+      )),
     );
   }
 }
