@@ -9,6 +9,10 @@ class ProfileState {
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
+  TextEditingController oldPassController = TextEditingController();
+  TextEditingController newPassController = TextEditingController();
+  TextEditingController confirmNewPassController = TextEditingController();
+
   //! vars
   String? name;
   String? bio;
@@ -16,12 +20,20 @@ class ProfileState {
   PhoneNumber? phone;
   String? email;
 
+  String? oldPass;
+  String? newPass;
+  String? confirmNewPass;
+
   //! errors
   String? nameErrorMessage;
   String? bioErrorMessage;
   String? addressErrorMessage;
   String? phoneErrorMessgae;
   String? emailErrorMessage;
+
+  String? oldPassErrorMessage;
+  String? newPassErrorMessage;
+  String? confirmNewPassErrorMessage;
 
   //! notification options
   bool jobSearchAlert = false;
@@ -32,4 +44,10 @@ class ProfileState {
   bool showProfile = false;
   bool allMessages = false;
   bool messageNudges = false;
+
+  bool phoneToResetPass = false;
+
+  bool hideOldPass = true;
+  bool hideNewPass = true;
+  bool hideConfirmNewPass = true;
 }

@@ -31,8 +31,64 @@ class ProfileProvider extends ChangeNotifier {
   }
 
   void onPhoneChange(PhoneNumber value) {
-    value.toString().isEmpty ? state.phoneErrorMessgae = "Phone is required" : state.phoneErrorMessgae = null;
+    value.phoneNumber == value.dialCode
+        ? state.phoneErrorMessgae = "Phone is required"
+        : state.phoneErrorMessgae = null;
     state.phone = value;
+    notifyListeners();
+  }
+
+  void onOldPassChange(String value) {
+    value.isEmpty
+        ? state.oldPassErrorMessage = "You must enter a password" :
+        value.contains(" ") ? 
+        state.oldPassErrorMessage = "Password must not contain spaces"
+        : value.length < 8
+            ? state.oldPassErrorMessage =
+                "Password must be at least 8 characters"
+            : state.oldPassErrorMessage = null;
+    state.oldPass = value;
+    notifyListeners();
+  }
+
+  void onNewPassChange(String value) {
+    value.isEmpty
+        ? state.newPassErrorMessage = "You must enter a password" :
+        value.contains(" ") ? 
+        state.newPassErrorMessage = "Password must not contain spaces"
+        : value.length < 8
+            ? state.newPassErrorMessage =
+                "Password must be at least 8 characters"
+            : state.newPassErrorMessage = null;
+    state.newPass = value;
+    notifyListeners();
+  }
+
+  void onConfirmNewPassChange(String value) {
+    value.isEmpty
+        ? state.confirmNewPassErrorMessage = "You must enter a password" :
+        value.contains(" ") ? 
+        state.confirmNewPassErrorMessage = "Password must not contain spaces"
+        : value.length < 8
+            ? state.confirmNewPassErrorMessage =
+                "Password must be at least 8 characters"
+            : state.confirmNewPassErrorMessage = null;
+    state.confirmNewPass = value;
+    notifyListeners();
+  }
+
+  void showOldPass() {
+    state.hideOldPass = !state.hideOldPass;
+    notifyListeners();
+  }
+
+  void showNewPass() {
+    state.hideNewPass = !state.hideNewPass;
+    notifyListeners();
+  }
+
+  void showConfirmNewPassword() {
+    state.hideConfirmNewPass = !state.hideConfirmNewPass;
     notifyListeners();
   }
 
@@ -48,15 +104,15 @@ class ProfileProvider extends ChangeNotifier {
 
   void onEmailChange(String value) {
     value.isEmpty
-        ? state.emailErrorMessage = "You must enter a mail"
+        ? state.emailErrorMessage = "You must enter an e-mail"
         : EmailValidator.validate(value)
             ? state.emailErrorMessage = null
-            : state.emailErrorMessage = "Enter a valid mail";
+            : state.emailErrorMessage = "Enter a valid e-mail";
     state.email = value;
     notifyListeners();
   }
 
-  save(BuildContext context) {
+  void saveProfile(BuildContext context) {
     Navigator.pop(context);
   }
 
@@ -104,7 +160,45 @@ class ProfileProvider extends ChangeNotifier {
     return state.email != null && state.emailErrorMessage == null;
   }
 
-  saveEmail(BuildContext context) {
+  void saveEmail(BuildContext context) {
     Navigator.of(context).pop();
+  }
+
+  void phoneToResetPassChange(bool value) {
+    state.phoneToResetPass = value;
+    notifyListeners();
+  }
+
+  bool checkPhone() {
+    return state.phone != null && state.phoneErrorMessgae == null;
+  }
+
+  void savePhone(BuildContext context) {
+    Navigator.of(context).pop();
+  }
+
+  bool checkPasswords() {
+    return state.oldPass != null &&
+        state.newPass != null &&
+        state.confirmNewPass != null &&
+        state.oldPassErrorMessage == null &&
+        state.newPassErrorMessage == null &&
+        state.confirmNewPassErrorMessage == null;
+  }
+
+  void changePassword(BuildContext context) {
+    if (checkPasswords()) {
+      if (state.newPass == state.confirmNewPass) {
+        if (state.newPass == state.oldPass) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("New password can't be the same as old password")));
+        } else {
+          Navigator.of(context).pop();
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Passwords don't match")));
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please fill all fields correctly")));
+    }
   }
 }
