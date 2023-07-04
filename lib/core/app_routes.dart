@@ -17,6 +17,10 @@ import '../screens/home/items/profile/components/login_and_security.dart';
 import '../screens/home/items/profile/components/login_and_security/change_email.dart';
 import '../screens/home/items/profile/components/login_and_security/change_password.dart';
 import '../screens/home/items/profile/components/login_and_security/change_phone.dart';
+import '../screens/home/items/profile/components/login_and_security/two_factor_authentication/activation_screen.dart';
+import '../screens/home/items/profile/components/login_and_security/two_factor_authentication/landing_screen.dart';
+import '../screens/home/items/profile/components/login_and_security/two_factor_authentication/phone_verification.dart';
+import '../screens/home/items/profile/components/login_and_security/two_factor_authentication/verification_code.dart';
 import '../screens/home/items/profile/components/notification.dart';
 import '../screens/home/items/profile/components/portfolio.dart';
 import '../screens/job_details_and_application/components/job_application/job_application_biodata.dart';
@@ -60,6 +64,14 @@ class AppRoutes {
   static const String changeEmail = "changeEmail";
   static const String changePhone = "changePhone";
   static const String changePassword = "changePassword";
+  static const String twoFactorAuthenticationLanding =
+      "twoFactorAuthenticationLanding";
+  static const String twoFactorAuthenticationActivation =
+      "twoFactorAuthenticationActivation";
+  static const String twoFactorAuthenticationPhoneVerification =
+      "twoFactorAuthenticationPhoneVerification";
+  static const String twoFactorAuthenticationVerificationCode =
+      "twoFactorAuthenticationVerificationCode";
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
     switch (setting.name) {
@@ -174,7 +186,7 @@ class AppRoutes {
       case changeEmail:
         return MaterialPageRoute(
             settings: const RouteSettings(name: "/changeEmail"),
-            builder: (context) => ChangeEmail());
+            builder: (context) => const ChangeEmail());
       case changePhone:
         return MaterialPageRoute(
             settings: const RouteSettings(name: "/changePhone"),
@@ -183,6 +195,28 @@ class AppRoutes {
         return MaterialPageRoute(
             settings: const RouteSettings(name: "/changePassword"),
             builder: (context) => const ChangePassword());
+      case twoFactorAuthenticationLanding:
+        return MaterialPageRoute(
+            settings:
+                const RouteSettings(name: "/twoFactorAuthenticationLanding"),
+            builder: (context) => const TwoFactorAuthenticationLanding());
+      case twoFactorAuthenticationActivation:
+        return MaterialPageRoute(
+            settings:
+                const RouteSettings(name: "/twoFactorAuthenticationActivation"),
+            builder: (context) => const TwoFactorAuthenticationActivation());
+      case twoFactorAuthenticationPhoneVerification:
+        return MaterialPageRoute(
+            settings: const RouteSettings(
+                name: "/twoFactorAuthenticationPhoneVerification"),
+            builder: (context) =>
+                const TwoFactorAuthenticationPhoneVerification());
+      case twoFactorAuthenticationVerificationCode:
+        return MaterialPageRoute(
+            settings: const RouteSettings(
+                name: "/twoFactorAuthenticationVerificationCode"),
+            builder: (context) =>
+                const TwoFactorAuthenticationVerificationCode());
       default:
         return MaterialPageRoute(
           settings: const RouteSettings(name: "/error"),
