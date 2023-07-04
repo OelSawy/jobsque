@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:jobsque/core/enums.dart';
 
 class ProfileState {
   //! controllers
@@ -13,6 +14,16 @@ class ProfileState {
   TextEditingController newPassController = TextEditingController();
   TextEditingController confirmNewPassController = TextEditingController();
 
+  TextEditingController phoneVerificationPassController =
+      TextEditingController();
+
+  TextEditingController code1Controller = TextEditingController();
+  TextEditingController code2Controller = TextEditingController();
+  TextEditingController code3Controller = TextEditingController();
+  TextEditingController code4Controller = TextEditingController();
+  TextEditingController code5Controller = TextEditingController();
+  TextEditingController code6Controller = TextEditingController();
+
   //! vars
   String? name;
   String? bio;
@@ -23,6 +34,15 @@ class ProfileState {
   String? oldPass;
   String? newPass;
   String? confirmNewPass;
+
+  String? phoneVerificationPass;
+
+  String? code1;
+  String? code2;
+  String? code3;
+  String? code4;
+  String? code5;
+  String? code6;
 
   //! errors
   String? nameErrorMessage;
@@ -35,6 +55,8 @@ class ProfileState {
   String? newPassErrorMessage;
   String? confirmNewPassErrorMessage;
 
+  String? phoneVerificationPassErrorMessage;
+
   //! notification options
   bool jobSearchAlert = false;
   bool jobApplicationUpdate = false;
@@ -45,9 +67,21 @@ class ProfileState {
   bool allMessages = false;
   bool messageNudges = false;
 
+  //! phone verification
   bool phoneToResetPass = false;
 
+  //! password reset
   bool hideOldPass = true;
   bool hideNewPass = true;
   bool hideConfirmNewPass = true;
+
+  bool hidePhoneVerificationPass = true;
+
+  //! 2 factor authentication
+  bool isTwoFactorAuthEnabled = false;
+  VerificationMethod verificationMethod = VerificationMethod.sms;
+
+  String? phoneVerificationErrorMessgae;
+
+  PhoneNumber? phoneVerification;
 }
