@@ -67,15 +67,30 @@ class ChangePhone extends StatelessWidget {
                           )
                         ],
                       ),
-                      InternationalPhoneNumberInput(
-                        onSaved:
-                            context.read<ProfileProvider>().onPhoneChange,
-                        selectorConfig: const SelectorConfig(
-                          selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                      Container(
+                        margin: EdgeInsets.only(
+                          top: 2.h,
+                          bottom: 3.h,
                         ),
-                        onInputChanged:
-                            context.read<ProfileProvider>().onPhoneChange,
-                        inputBorder: InputBorder.none,
+                        padding: EdgeInsets.symmetric(horizontal: 4.w),
+                        height: 9.h,
+                        width: 90.w,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                width: 1.sp, color: AppColours.neutral300)),
+                        child: InternationalPhoneNumberInput(
+                          countrySelectorScrollControlled: false,
+                          onSaved:
+                              context.read<ProfileProvider>().onPhoneChange,
+                          selectorConfig: const SelectorConfig(
+                            selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                          ),
+                          onInputChanged:
+                              context.read<ProfileProvider>().onPhoneChange,
+                          inputBorder: InputBorder.none,
+                        ),
                       ),
                       Divider(height: 1.h, color: Colors.transparent),
                       Row(
