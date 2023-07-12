@@ -24,9 +24,9 @@ class ApiRoutes {
   static String filterSearch = "$baseUrl/jobs/filter"; //? get
 
   //! Favourites
-  static String addFavourite = "$baseUrl/favorites"; //? post
-  static String getFavourite = "$baseUrl/favorites"; //? get
-  static String deleteFavourite = "$baseUrl/favorites"; //? delete
+  static String addFavorite = "$baseUrl/favorites"; //? post
+  static String getFavorite = "$baseUrl/favorites"; //? get
+  static String deleteFavorite = "$baseUrl/favorites"; //? delete
 
   //! Education
   static String addEducation = "$baseUrl/education"; //? post
@@ -37,10 +37,12 @@ class ApiRoutes {
   static String addExperience = "$baseUrl/experince"; //? post
   static String endExperience = "$baseUrl/experince"; //? put
 
+  // TODO: make applying and reviewing model and services
   //! Apply
   static String applyJob = "$baseUrl/apply"; //? post
   static String reviewApply = "$baseUrl/apply"; //? put
 
+  // TODO: make company model and services
   //! Company
   static String createCompany = "$baseUrl/company"; //? post
 }
