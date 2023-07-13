@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:jobsque/data/core/api_routes.dart';
@@ -8,8 +10,11 @@ class RegisterServices {
       String name, String email, String password) async {
     Response response = await http.post(Uri.parse(ApiRoutes.register),
         body: {"name": name, "email": email, "password": password});
-    RegisterResponseModel registerResponseModel =
-        registerResponseModelFromJson(response.body);
-    return registerResponseModel;
+      log(response.statusCode.toString());
+    if (response.statusCode == 200) {
+      return registerResponseModelApprovedFromJson(response.body);
+    } else {
+      return registerResponseModelDeniedFromJson(response.body);
+    }
   }
 }

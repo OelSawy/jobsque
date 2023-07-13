@@ -8,8 +8,10 @@ class LoginServices {
   Future<LoginResponseModel> login(String email, String password) async {
     Response response = await http.post(Uri.parse(ApiRoutes.login),
         body: {"email": email, "password": password});
-    LoginResponseModel loginResponseModel =
-        loginResponseModelFromJson(response.body);
-    return loginResponseModel;
+    if (response.statusCode == 200) {
+      return loginResponseModelApprovedFromJson(response.body);
+    } else {
+      return loginResponseModelDeniedFromJson(response.body);
+    }
   }
 }
