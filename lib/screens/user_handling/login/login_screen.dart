@@ -68,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                     Text("Please login to find your dream job",
                         style: TextStyle(
                             fontSize: 9.5.sp, fontWeight: FontWeight.w400)),
-                    //! username text field
+                    //! email text field
                     Container(
                       padding: EdgeInsets.all(1.w),
                       margin: EdgeInsets.only(top: 3.5.h, bottom: 2.h),
@@ -81,13 +81,13 @@ class LoginScreen extends StatelessWidget {
                               color: context
                                           .watch<LoginProvider>()
                                           .state
-                                          .username ==
+                                          .email ==
                                       null
                                   ? AppColours.neutral300
                                   : context
                                               .watch<LoginProvider>()
                                               .state
-                                              .usernameErrorMessage !=
+                                              .emailErrorMessage !=
                                           null
                                       ? AppColours.danger500
                                       : AppColours.primary500)),
@@ -95,26 +95,26 @@ class LoginScreen extends StatelessWidget {
                         controller: context
                             .read<LoginProvider>()
                             .state
-                            .usernameController,
+                            .emailController,
                         onChanged:
-                            context.read<LoginProvider>().onUsernameChange,
+                            context.read<LoginProvider>().onEmailChange,
                         onSubmitted:
-                            context.read<LoginProvider>().onUsernameChange,
+                            context.read<LoginProvider>().onEmailChange,
                         style: TextStyle(fontSize: 14.sp),
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: "Username",
+                          hintText: "Email",
                           prefixIcon: const Icon(
-                            Iconsax.user,
+                            Iconsax.sms4,
                           ),
                           prefixIconColor:
-                              context.watch<LoginProvider>().state.username ==
+                              context.watch<LoginProvider>().state.email ==
                                       null
                                   ? AppColours.neutral300
                                   : context
                                               .watch<LoginProvider>()
                                               .state
-                                              .usernameErrorMessage !=
+                                              .emailErrorMessage !=
                                           null
                                       ? AppColours.danger500
                                       : AppColours.primary500,

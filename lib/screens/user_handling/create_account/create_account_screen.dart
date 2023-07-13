@@ -272,6 +272,26 @@ class CreateAccountScreen extends StatelessWidget {
                                   ? AppColours.danger500
                                   : AppColours.success500,
                         )),
+                    Divider(
+                      color: Colors.transparent,
+                      height: 1.h,
+                    ),
+                    //! password error message
+                    context
+                                .watch<CreateAccountProvider>()
+                                .state
+                                .registerErrorMessage !=
+                            null
+                        ? Text(
+                            context
+                                .watch<CreateAccountProvider>()
+                                .state
+                                .registerErrorMessage!,
+                            style: TextStyle(
+                                fontSize: 9.5.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColours.danger500))
+                        : const SizedBox(),
                     const Spacer(),
                     //! already a user
                     Row(
@@ -309,8 +329,7 @@ class CreateAccountScreen extends StatelessWidget {
                         onPressed: () {
                           context.read<CreateAccountProvider>().validate() ==
                                   true
-                              ? Navigator.of(context)
-                                  .pushNamed(AppRoutes.categories)
+                              ? context.read<CreateAccountProvider>().register(context)
                               : null;
                         },
                         style: ElevatedButton.styleFrom(

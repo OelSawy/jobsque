@@ -1,3 +1,6 @@
+
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:jobsque/core/colours.dart';
 import 'package:jobsque/screens/user_handling/create_account/provider/create_account_provider.dart';
@@ -16,14 +19,17 @@ class CategoryChoice extends StatefulWidget {
 
 class _CategoryChoiceState extends State<CategoryChoice> {
   bool isTapped = false;
+  int? selectedIndex;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         context.read<CreateAccountProvider>().selectCategory(widget.index!);
+        selectedIndex = widget.index;
         setState(() {
           isTapped = !isTapped;
+          log(context.read<CreateAccountProvider>().state.selectedCategories.keys.first);
         });
       },
       child: Container(

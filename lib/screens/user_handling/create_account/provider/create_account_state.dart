@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jobsque/core/assets.dart';
+import 'package:jobsque/data/models/auth_models/register_response_model.dart';
+import 'package:jobsque/data/models/profile_models/update_profile_response_model.dart';
 
 class CreateAccountState {
   //! vars
@@ -17,6 +19,8 @@ class CreateAccountState {
   String? usernameErrorMessage;
   String? emailErrorMessage;
   String? passwordErrorMessage;
+  String? registerErrorMessage;
+  String? updateProfileErrorMessage;
 
   //! bools
   bool hidePass = true;
@@ -63,4 +67,8 @@ class CreateAccountState {
   };
 
   Map<String, Map<String, dynamic>> selectedCountries = {};
+
+  //! responses
+  RegisterResponseModel? registerResponseModel;
+  UpdateProfileResponseModel? updateProfileResponseModel;
 }

@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:jobsque/data/models/auth_models/login_response_model.dart';
 
 class LoginState {
   //! vars
-  String? username;
+  String? email;
   String? password;
 
   //! controllers
-  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   //! errors
-  String? usernameErrorMessage;
+  String? emailErrorMessage;
   String? passwordErrorMessage;
 
   //! bools
   bool hidePass = true;
   bool rememberMe = false;
+
+  //! responses
+  LoginResponseModel? loginResponseModel;
 }

@@ -69,7 +69,11 @@ class CategoriesScreen extends StatelessWidget {
               height: 7.h,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(AppRoutes.countries);
+                  if (context.read<CreateAccountProvider>().state.selectedCategories.isNotEmpty) {
+                    Navigator.of(context).pushNamed(AppRoutes.countries);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Select at least one category")));
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: AppColours.primary500,

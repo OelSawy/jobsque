@@ -1,8 +1,13 @@
+import 'dart:developer';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:jobsque/core/app_routes.dart';
+import 'package:jobsque/data/models/auth_models/register_response_model.dart';
+import 'package:jobsque/data/services/auth_services/register_services.dart';
+import 'package:jobsque/data/services/profile_services/profile_data_services.dart';
 import 'package:jobsque/screens/user_handling/create_account/provider/create_account_state.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateAccountProvider extends ChangeNotifier {
   CreateAccountState state = CreateAccountState();
@@ -45,7 +50,9 @@ class CreateAccountProvider extends ChangeNotifier {
     Navigator.of(context).pushReplacementNamed(AppRoutes.login);
   }
 
-  createAccount(BuildContext context) {
+  Future<void> createAccount(BuildContext context) async {
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    shared.setBool("registered", true);
     Navigator.of(context)
         .pushNamedAndRemoveUntil(AppRoutes.login, (route) => false);
   }
@@ -68,28 +75,106 @@ class CreateAccountProvider extends ChangeNotifier {
   signInWithFacebook(BuildContext context) {}
 
   void selectCategory(int index) {
-    if (!state.selectedCategories
+    /* if (!state.selectedCategories
         .containsValue(state.categories.values.elementAt(index))) {
       state.selectedCategories.addAll({
         state.categories.keys.elementAt(index):
             state.categories.values.elementAt(index)
       });
     } else {
-      state.selectedCategories.remove(state.selectedCategories.keys.elementAt(index));
-    }
+      state.selectedCategories
+          .remove(state.selectedCategories.keys.elementAt(index));
+    } */
+    state.selectedCategories.clear();
+    state.selectedCategories.addAll({
+      state.categories.keys.elementAt(index):
+          state.categories.values.elementAt(index)
+    });
+    log(state.selectedCategories.length.toString());
     notifyListeners();
   }
 
   void selectCountry(int index) {
-    if (!state.selectedCountries
+    /* if (!state.selectedCountries
         .containsValue(state.countries.values.elementAt(index))) {
       state.selectedCountries.addAll({
         state.countries.keys.elementAt(index):
             state.countries.values.elementAt(index)
       });
     } else {
-      state.selectedCountries.remove(state.selectedCountries.keys.elementAt(index));
-    }
+      state.selectedCountries
+          .remove(state.selectedCountries.keys.elementAt(index));
+    } */
+    state.selectedCountries.clear();
+    state.selectedCountries.addAll({
+      state.countries.keys.elementAt(index):
+          state.countries.values.elementAt(index)
+    });
     notifyListeners();
+  }
+
+  Future<void> register(BuildContext context) async {
+    state.registerResponseModel = await RegisterServices()
+        .createAccount(state.username!, state.email!, state.password!);
+        log(validateResponse().toString());
+    if (validateResponse() == true) {
+      state.registerErrorMessage = null;
+      SharedPreferences shared = await SharedPreferences.getInstance();
+      shared.setString(
+          "id",
+          (state.registerResponseModel as RegisterResponseModelApproved)
+              .profile
+              .id
+              .toString());
+      shared.setString("token",
+          (state.registerResponseModel as RegisterResponseModelApproved).token);
+      Navigator.of(context).pushNamed(AppRoutes.categories);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+              (state.registerResponseModel as RegisterResponseModelDenied)
+                  .massege
+                  .email
+                  .first)));
+    }
+  }
+
+  bool validateResponse() {
+    if (state.registerResponseModel.runtimeType == RegisterResponseModelApproved) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<void> profileDone(String type, BuildContext context) async {
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    if (type == "office") {
+      state.updateProfileResponseModel = await ProfileDataServices()
+          .updateProfile(
+              shared.getString("id")!,
+              shared.getString("token")!,
+              state.selectedCategories.values.first.values.last,
+              state.selectedCountries.values.first.values.first,
+              "null");
+    } else {
+      state.updateProfileResponseModel = await ProfileDataServices()
+          .updateProfile(
+              shared.getString("id")!,
+              shared.getString("token")!,
+              state.selectedCategories.values.first.values.last,
+              "null",
+              state.selectedCountries.values.first.values.first);
+    }
+    if (validateProfileResponse()) {
+      state.updateProfileErrorMessage = null;
+      Navigator.of(context).pushNamed(AppRoutes.creationSuccessScreen);
+    } else {
+      state.updateProfileErrorMessage = "Profile Update Error";
+    }
+  }
+
+  bool validateProfileResponse() {
+    return state.updateProfileResponseModel!.status;
   }
 }

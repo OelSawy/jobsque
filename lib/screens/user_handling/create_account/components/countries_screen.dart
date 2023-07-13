@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:jobsque/screens/user_handling/create_account/provider/create_account_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../core/app_routes.dart';
 import '../../../../core/colours.dart';
 import '../widgets/widgets.dart';
 
@@ -122,7 +123,8 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 height: 4.h,
               ),
               //! countries selector
-              Expanded(child: SingleChildScrollView(
+              Expanded(
+                  child: SingleChildScrollView(
                 child: Wrap(
                   spacing: 3.w,
                   runSpacing: 3.w,
@@ -139,7 +141,24 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 height: 7.h,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(AppRoutes.creationSuccessScreen);
+                    if (context
+                        .read<CreateAccountProvider>()
+                        .state
+                        .selectedCountries
+                        .isNotEmpty) {
+                      if (choice1) {
+                        context
+                            .read<CreateAccountProvider>()
+                            .profileDone("office", context);
+                      } else {
+                        context
+                            .read<CreateAccountProvider>()
+                            .profileDone("remote", context);
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Select at least one country")));
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColours.primary500,

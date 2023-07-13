@@ -1,6 +1,10 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:jobsque/core/app_routes.dart';
+import 'package:jobsque/data/models/auth_models/login_response_model.dart';
+import 'package:jobsque/data/services/auth_services/login_services.dart';
 import 'package:jobsque/screens/user_handling/login/provider/login_state.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginProvider extends ChangeNotifier {
   LoginState state = LoginState();
@@ -16,11 +20,13 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onUsernameChange(String value) {
+  void onEmailChange(String value) {
     value.isEmpty
-        ? state.usernameErrorMessage = "You must enter a username"
-        : state.usernameErrorMessage = null;
-    state.username = value;
+        ? state.emailErrorMessage = "You must enter a mail"
+        : EmailValidator.validate(value)
+            ? state.emailErrorMessage = null
+            : state.emailErrorMessage = "Enter a valid mail";
+    state.email = value;
     notifyListeners();
   }
 
@@ -31,9 +37,9 @@ class LoginProvider extends ChangeNotifier {
 
   bool validate() {
     if (state.passwordErrorMessage == null &&
-        state.usernameErrorMessage == null &&
+        state.emailErrorMessage == null &&
         state.password != null &&
-        state.username != null) {
+        state.email != null) {
       return true;
     } else {
       return false;
@@ -48,16 +54,44 @@ class LoginProvider extends ChangeNotifier {
     Navigator.of(context).pushReplacementNamed(AppRoutes.createAccount);
   }
 
-  logIn(BuildContext context) {
-    Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.home, (route) => false);
+  Future<void> logIn(BuildContext context) async {
+    state.loginResponseModel =
+        await LoginServices().login(state.email!, state.password!);
+    if (validateLogin()) {
+      SharedPreferences shared = await SharedPreferences.getInstance();
+      if (state.rememberMe) {
+        shared.setBool("loggedIn", true);
+      }
+      shared.setString("token",
+          (state.loginResponseModel as LoginResponseModelApproved).token);
+      shared.setString(
+          "id",
+          (state.loginResponseModel as LoginResponseModelApproved)
+              .user
+              .id
+              .toString());
+      Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+              (state.loginResponseModel as LoginResponseModelDenied).massage)));
+    }
   }
 
   void onChangeRememberMe(bool? value) {
-    state.rememberMe = value!;
+    state.rememberMe = value??false;
     notifyListeners();
   }
 
   navigateToForgotPawwsord(BuildContext context) {
     Navigator.of(context).pushNamed(AppRoutes.resetPass);
+  }
+
+  bool validateLogin() {
+    if (state.loginResponseModel.runtimeType == LoginResponseModelApproved) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
