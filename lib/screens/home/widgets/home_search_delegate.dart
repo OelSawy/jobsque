@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:jobsque/data/models/job_models/show_jobs_response_model.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../core/app_routes.dart';
 import '../../../core/assets.dart';
 import '../../../core/colours.dart';
-import '../../../data/models/home_models/job_model.dart';
 import '../provider/home_provider.dart';
 import 'job_card.dart';
 
@@ -42,7 +42,7 @@ class HomeSearchDelegate extends SearchDelegate {
     int jobTitleValue = 0;
     int locationValue = 0;
     int salaryValue = 0;
-    List<JobModel> results = [];
+    List<dynamic> results = [];
     //! filling results list
     query.compareTo("") == 0
         ? null
@@ -54,7 +54,7 @@ class HomeSearchDelegate extends SearchDelegate {
         .state
         .recentJobs
         .where((element) =>
-            element.name!.toLowerCase().contains(query.toLowerCase()))
+            (element as Datum).name.toLowerCase().contains(query.toLowerCase()))
         .toList();
     return SingleChildScrollView(
       child: Column(
@@ -798,7 +798,7 @@ class HomeSearchDelegate extends SearchDelegate {
                               arguments: index);
                         },
                         child: JobCard(
-                          job: results[index],
+                          job: results[index] as Datum,
                         ),
                       );
                     },

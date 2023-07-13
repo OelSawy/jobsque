@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jobsque/core/app_routes.dart';
 import 'package:jobsque/core/colours.dart';
+import 'package:jobsque/data/models/job_models/show_jobs_response_model.dart';
 import 'package:jobsque/screens/home/provider/home_provider.dart';
 import 'package:jobsque/screens/home/widgets/applied_job.dart';
 import 'package:jobsque/screens/home/widgets/suggested_job_item.dart';
@@ -34,7 +37,7 @@ class Home extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Hi, {name here}👋",
+                      Text("Hi, {name here} 👋",
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 16.sp)),
                       Divider(
@@ -125,7 +128,9 @@ class Home extends StatelessWidget {
                 height: 2.h,
               ),
               //! suggested jobs list
-              SizedBox(
+              context.read<HomeProvider>().state.suggestedJobs.isEmpty ?
+                const Text("No suggested Jobs") :
+                SizedBox(
                 height: 25.h,
                 child: ListView.separated(
                     shrinkWrap: true,
@@ -174,9 +179,9 @@ class Home extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return InkWell(
                           onTap: () {
-                            Navigator.of(context).pushNamed(
+                           /*  Navigator.of(context).pushNamed(
                                 AppRoutes.jobDetails,
-                                arguments: index);
+                                arguments: index); */
                           },
                           child: RecentJobItem(index: index));
                     },

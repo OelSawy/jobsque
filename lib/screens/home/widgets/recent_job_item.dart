@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobsque/data/models/job_models/show_jobs_response_model.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/home_provider.dart';
@@ -18,6 +19,6 @@ class _RecentJobItemState extends State<RecentJobItem> {
   @override
   Widget build(BuildContext context) {
     return JobCard(
-        job: context.read<HomeProvider>().state.recentJobs[widget.index!]);
+        job: (context.read<HomeProvider>().state.recentJobs[widget.index!]) as Datum);
   }
 }

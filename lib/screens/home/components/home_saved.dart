@@ -16,7 +16,7 @@ class Saved extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Stack(
-        children: [
+        /* children: [
           SizedBox(
             height: 100.h,
             width: 100.w,
@@ -176,7 +176,7 @@ class Saved extends StatelessWidget {
                   right: 30.w,
                   child: Image.asset(AppAssets.ellipse9, scale: 1.2.sp))
               : const SizedBox()
-        ],
+        ], */
       ),
     );
   }

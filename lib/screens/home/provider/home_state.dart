@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:jobsque/core/assets.dart';
 import 'package:jobsque/core/enums.dart';
-import 'package:jobsque/data/models/home_models/job_model.dart';
+import 'package:jobsque/data/models/job_models/show_jobs_response_model.dart';
+import 'package:jobsque/data/models/job_models/show_suggested_jobs_response_model.dart';
 
 class HomeState {
   //! jobs
-  List<JobModel> suggestedJobs = [
+  List<dynamic> recentJobs = [];
+  List<dynamic> suggestedJobs = [];
+  /* List<JobModel> suggestedJobs = [
     JobModel(
         name: "Product Designer",
         company: CompanyModel(
@@ -24,8 +26,8 @@ class HomeState {
         jobType: "Remote",
         jobCategory: "Design",
         salary: "12K-15K")
-  ];
-  List<JobModel> recentJobs = [
+  ]; */
+  /* List<JobModel> recentJobs = [
     JobModel(
         name: "Senior UI Designer",
         company: CompanyModel(
@@ -42,7 +44,7 @@ class HomeState {
         jobType: "Remote",
         jobCategory: "Senior",
         salary: "15K")
-  ];
+  ]; */
 
   //! enums
   ChosenNavigationItem chosenNavigationItem = ChosenNavigationItem.home;
@@ -62,8 +64,12 @@ class HomeState {
   ];
 
   //! saved jobs
-  List<JobModel> savedJobs = [];
+  /* List<JobModel> savedJobs = []; */
 
   //! navigation index
   int navigationIndex = 0;
+
+  //! responses
+  ShowJobsResponseModel? showJobsResponseModel;
+  ShowSuggestedJobsResponseModel? showSuggestedJobsResponseModel;
 }

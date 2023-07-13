@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:jobsque/data/models/home_models/job_model.dart';
 import 'package:jobsque/screens/home/provider/home_provider.dart';
 import 'package:jobsque/screens/job_details_and_application/provider/job_details_provider.dart';
 import 'package:provider/provider.dart';
@@ -224,3 +223,4 @@ class SavedJobCard extends StatelessWidget {
     );
   }
 }
+ */

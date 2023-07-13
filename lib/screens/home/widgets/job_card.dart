@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:provider/provider.dart';
+import 'package:jobsque/data/models/job_models/show_jobs_response_model.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../core/colours.dart';
-import '../../../data/models/home_models/job_model.dart';
-import '../provider/home_provider.dart';
 
 // ignore: must_be_immutable
 class JobCard extends StatelessWidget {
-  JobModel? job;
+  Datum? job;
 
   JobCard({super.key, required this.job});
 
@@ -27,41 +25,43 @@ class JobCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(job!.company!.image!, scale: 1.5.sp),
+                  child: Container(
+                    color: Colors.blue,
+                  ),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      job!.name!,
+                      job!.name,
                       style: TextStyle(fontSize: 12.sp),
                     ),
                     Text(
-                      "${job!.company!.name!} • ${job!.company!.location!}",
+                      "${job!.compName} • ${job!.location.split(",").last}",
                       style: TextStyle(fontSize: 9.5.sp),
                     ),
                   ],
                 ),
                 IconButton(
                     onPressed: () {
-                      context.read<HomeProvider>().state.savedJobs.contains(job)
+                      /* context.read<HomeProvider>().state.savedJobs.contains(job)
                           ? context.read<HomeProvider>().removeSavedJob(job!)
-                          : context.read<HomeProvider>().saveJob(job!);
+                          : context.read<HomeProvider>().saveJob(job!); */
                     },
-                    icon: context
+                    icon: /* context
                             .watch<HomeProvider>()
                             .state
                             .savedJobs
                             .contains(job)
                         ? const Icon(Iconsax.archive_15)
-                        : const Icon(Iconsax.archive_add4),
-                    color: context
+                        : */ const Icon(Iconsax.archive_add4),
+                    color: /* context
                             .watch<HomeProvider>()
                             .state
                             .savedJobs
                             .contains(job)
                         ? AppColours.primary500
-                        : Colors.black,
+                        : */ Colors.black,
                     iconSize: 20.sp)
               ],
             ),
@@ -78,7 +78,7 @@ class JobCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Text(
-                    job!.jobTime!,
+                    job!.jobTimeType,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColours.primary500,
@@ -96,7 +96,7 @@ class JobCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Text(
-                    job!.jobType!,
+                    /* job!.jobType! */"Onsite",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColours.primary500,
@@ -114,7 +114,7 @@ class JobCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Text(
-                    job!.jobCategory!,
+                    job!.jobLevel,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColours.primary500,
@@ -123,10 +123,10 @@ class JobCard extends StatelessWidget {
                   ),
                 ),
                 Text.rich(TextSpan(
-                    text: "\$${job!.salary!}",
+                    text: "\$${job!.salary}",
                     style: TextStyle(
                       color: AppColours.success700,
-                      fontSize: 12.sp,
+                      fontSize: 9.sp,
                     ),
                     children: [
                       TextSpan(

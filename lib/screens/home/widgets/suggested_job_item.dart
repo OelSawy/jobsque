@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jobsque/core/colours.dart';
+import 'package:jobsque/data/models/job_models/show_suggested_jobs_response_model.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -43,29 +44,23 @@ class _SuggestedJobItemState extends State<SuggestedJobItem> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.asset(
-                        context
-                            .read<HomeProvider>()
-                            .state
-                            .suggestedJobs[widget.index!]
-                            .company!
-                            .image!,
-                        scale: 1.5.sp),
-                  ),
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        color: Colors.blue,
+                      )),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        context
-                            .read<HomeProvider>()
-                            .state
-                            .suggestedJobs[widget.index!]
-                            .name!,
+                        ((context
+                                .read<HomeProvider>()
+                                .state
+                                .suggestedJobs[widget.index!]) as Datum)
+                            .name,
                         style: TextStyle(color: Colors.white, fontSize: 14.sp),
                       ),
                       Text(
-                        "${context.read<HomeProvider>().state.suggestedJobs[widget.index!].company!.name!} • ${context.read<HomeProvider>().state.suggestedJobs[widget.index!].company!.location!}",
+                        "${((context.read<HomeProvider>().state.suggestedJobs[widget.index!]) as Datum).compName} • ${((context.read<HomeProvider>().state.suggestedJobs[widget.index!]) as Datum).location.split(",").last}",
                         style: TextStyle(
                             color: AppColours.neutral400, fontSize: 9.5.sp),
                       ),
@@ -96,11 +91,11 @@ class _SuggestedJobItemState extends State<SuggestedJobItem> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: Text(
-                      context
-                          .read<HomeProvider>()
-                          .state
-                          .suggestedJobs[widget.index!]
-                          .jobTime!,
+                      ((context
+                              .read<HomeProvider>()
+                              .state
+                              .suggestedJobs[widget.index!]) as Datum)
+                          .jobTimeType,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -117,11 +112,12 @@ class _SuggestedJobItemState extends State<SuggestedJobItem> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: Text(
-                      context
+                      /* context
                           .read<HomeProvider>()
                           .state
                           .suggestedJobs[widget.index!]
-                          .jobType!,
+                          .jobType! */
+                      "Onsite",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -138,11 +134,11 @@ class _SuggestedJobItemState extends State<SuggestedJobItem> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: Text(
-                      context
-                          .read<HomeProvider>()
-                          .state
-                          .suggestedJobs[widget.index!]
-                          .jobCategory!,
+                      ((context
+                              .read<HomeProvider>()
+                              .state
+                              .suggestedJobs[widget.index!]) as Datum)
+                          .jobLevel,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -157,7 +153,7 @@ class _SuggestedJobItemState extends State<SuggestedJobItem> {
                 children: [
                   Text.rich(TextSpan(
                       text:
-                          "\$${context.read<HomeProvider>().state.suggestedJobs[widget.index!].salary!.toString()}",
+                          "\$${((context.read<HomeProvider>().state.suggestedJobs[widget.index!]) as Datum).salary}",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12.sp,

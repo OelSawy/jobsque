@@ -1,11 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:jobsque/core/enums.dart';
-import 'package:jobsque/data/models/home_models/job_model.dart';
+import 'package:jobsque/data/services/job_services/job_services.dart';
 import 'package:jobsque/screens/home/components/home_applied.dart';
 import 'package:jobsque/screens/home/components/home_messages.dart';
 import 'package:jobsque/screens/home/components/home_profile.dart';
 import 'package:jobsque/screens/home/components/home_saved.dart';
 import 'package:jobsque/screens/home/provider/home_state.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../job_details_and_application/components/company_people.dart';
 import '../../job_details_and_application/components/company_info.dart';
@@ -77,7 +80,7 @@ class HomeProvider extends ChangeNotifier {
   }
 
   //! save job
-  void saveJob(JobModel jobModel) {
+  /* void saveJob(JobModel jobModel) {
     state.savedJobs.add(jobModel);
     notifyListeners();
   }
@@ -85,7 +88,7 @@ class HomeProvider extends ChangeNotifier {
   void removeSavedJob(JobModel? job) {
     state.savedJobs.remove(job);
     notifyListeners();
-  }
+  } */
 
   void returnHome() {
     state.chosenNavigationItem = ChosenNavigationItem.home;
@@ -94,4 +97,13 @@ class HomeProvider extends ChangeNotifier {
   }
 
   logout() {}
+
+  Future<void> init() async {
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    state.showJobsResponseModel = await JobServices().getJobs(shared.getString("token")!);
+    state.recentJobs = state.showJobsResponseModel!.data;
+    log(state.showJobsResponseModel!.data.first.name);
+    state.showSuggestedJobsResponseModel = await JobServices().showSuggestedJobs(shared.getString("id")!, shared.getString("token")!);
+    state.suggestedJobs = state.showSuggestedJobsResponseModel!.data;
+  }
 }
