@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
               create: (context) => ResetPasswordProvider(),
             ),
             ChangeNotifierProvider<HomeProvider>(
-              create: (context) => HomeProvider(),
+              create: (context) => HomeProvider()..init(),
             ),
             ChangeNotifierProvider<JobDetailsProvider>(
               create: (context) => JobDetailsProvider(),
