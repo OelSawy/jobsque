@@ -58,7 +58,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                       alignment: Alignment.centerRight,
                       child: IconButton(
                           onPressed: () {
-                            context
+                            /* context
                                     .read<HomeProvider>()
                                     .state
                                     .savedJobs
@@ -76,9 +76,9 @@ class _JobDeatilsState extends State<JobDeatils> {
                                     .read<HomeProvider>()
                                     .state
                                     .recentJobs
-                                    .elementAt(widget.index!));
+                                    .elementAt(widget.index!)); */
                           },
-                          icon: context
+                          icon: /* context
                                   .read<HomeProvider>()
                                   .state
                                   .savedJobs
@@ -87,7 +87,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                                       .state
                                       .recentJobs[widget.index!])
                               ? const Icon(Iconsax.archive_15)
-                              : const Icon(Iconsax.archive_add4)),
+                              : */ const Icon(Iconsax.archive_add4)),
                     )
                   ]),
                 ),
