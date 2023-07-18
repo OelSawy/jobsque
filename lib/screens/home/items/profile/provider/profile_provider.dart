@@ -1,8 +1,19 @@
+import 'dart:io';
+
 import 'package:email_validator/email_validator.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:jobsque/core/enums.dart';
+import 'package:jobsque/data/models/auth_models/login_response_model.dart';
+import 'package:jobsque/data/models/portfolio_models/get_portfolio_response_model.dart';
+import 'package:jobsque/data/services/auth_services/login_services.dart';
+import 'package:jobsque/data/services/auth_services/profile_services.dart';
+import 'package:jobsque/data/services/profile_services/portfolio_services.dart';
+import 'package:jobsque/data/services/profile_services/profile_data_services.dart';
 import 'package:jobsque/screens/home/items/profile/provider/profile_state.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:path/path.dart';
 
 class ProfileProvider extends ChangeNotifier {
   ProfileState state = ProfileState();
@@ -113,8 +124,23 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void saveProfile(BuildContext context) {
-    Navigator.pop(context);
+  Future<void> saveProfile(BuildContext context) async {
+    state.detailsLoadingState = LoadingState.loading;
+    notifyListeners();
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    await ProfileDataServices().editBioAndData(shared.getString("id")!,
+        shared.getString("token")!, state.bio!, state.address!, "0121212120");
+    await ProfileServices().updateName(
+        shared.getString("id")!, shared.getString("token")!, state.name!);
+    state.bioController.clear();
+    state.addressController.clear();
+    state.nameController.clear();
+    state.name = null;
+    state.bio = null;
+    state.address = null;
+    state.detailsLoadingState = LoadingState.done;
+    notifyListeners();
+    Navigator.of(context).pop();
   }
 
   void jobSearchAlertChange(bool value) {
@@ -187,18 +213,34 @@ class ProfileProvider extends ChangeNotifier {
         state.confirmNewPassErrorMessage == null;
   }
 
-  void changePassword(BuildContext context) {
+  Future<void> changePassword(BuildContext context) async {
+    SharedPreferences shared = await SharedPreferences.getInstance();
     if (checkPasswords()) {
-      if (state.newPass == state.confirmNewPass) {
-        if (state.newPass == state.oldPass) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("New password can't be the same as old password")));
-        } else {
-          Navigator.of(context).pop();
-        }
+      if ((await LoginServices().login(
+                  loginResponseModelApprovedFromJson(
+                          shared.getString("profile")!)
+                      .user
+                      .email,
+                  state.oldPass!))
+              .runtimeType ==
+          LoginResponseModelDenied) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Old password is incorrect")));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Passwords don't match")));
+        if (state.newPass == state.confirmNewPass) {
+          if (state.newPass == state.oldPass) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content:
+                    Text("New password can't be the same as old password")));
+          } else {
+            await ProfileServices().updatePassword(shared.getString("id")!,
+                shared.getString("token")!, state.newPass!);
+            Navigator.of(context).pop();
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Passwords don't match")));
+        }
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -277,6 +319,86 @@ class ProfileProvider extends ChangeNotifier {
 
   void code6Change(String value) {
     value.length == 1 ? state.code6 = value : state.code6 = null;
+    notifyListeners();
+  }
+
+  Future<void> loadPorfolios() async {
+    state.portfolioLoadingState = LoadingState.loading;
+    notifyListeners();
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    GetPorfolioResponseModel getPorfolioResponseModel =
+        await PortfolioServices()
+            .getPortfolio(shared.getString("id")!, shared.getString("token")!);
+    state.portfolios = getPorfolioResponseModel.data;
+    state.portfolioLoadingState = LoadingState.done;
+    notifyListeners();
+  }
+
+  void onPortfolioNameChange(String value) {
+    value.isEmpty
+        ? state.portfoioNameErrorMessage = "Portfolio name is required"
+        : state.portfoioNameErrorMessage = null;
+    state.portfolioName = value;
+    notifyListeners();
+  }
+
+  validatePortfolioName() {
+    return state.portfolioName != null &&
+        state.portfoioNameErrorMessage == null;
+  }
+
+  Future<void> updatePortfolio(int index) async {
+    state.portfolioLoadingState = LoadingState.loading;
+    notifyListeners();
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    await PortfolioServices().editPortfolio(
+        state.portfolioName!,
+        state.portfolios[index].cvFile,
+        shared.getString("id")!,
+        shared.getString("token")!);
+    loadPorfolios();
+    state.portfolioLoadingState = LoadingState.done;
+    notifyListeners();
+  }
+
+  Future<void> deletePortfolio() async {
+    state.portfolioLoadingState = LoadingState.loading;
+    notifyListeners();
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    await PortfolioServices()
+        .deletePortfolio(shared.getString("id")!, shared.getString("token")!);
+    loadPorfolios();
+    state.portfolioLoadingState = LoadingState.done;
+    notifyListeners();
+  }
+
+  Future<void> addPortfolio() async {
+    state.filePicking = FilePicking.choosing;
+    notifyListeners();
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      state.cvFile = File(result.files.single.path!);
+      state.filePicking = FilePicking.done;
+      notifyListeners();
+    } else {
+      state.filePicking = FilePicking.initial;
+      notifyListeners();
+    }
+  }
+
+  void fileRemoved() {
+    state.cvFile = null;
+    state.filePicking = FilePicking.initial;
+    notifyListeners();
+  }
+
+  Future<void> uploadPortfolio() async {
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    await PortfolioServices().addPortfolio(basename(state.cvFile!.path),
+        state.cvFile!, shared.getString("id")!, shared.getString("token")!);
+    state.cvFile = null;
+    state.filePicking = FilePicking.initial;
+    loadPorfolios();
     notifyListeners();
   }
 }
