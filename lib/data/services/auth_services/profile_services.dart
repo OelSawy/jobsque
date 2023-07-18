@@ -23,12 +23,23 @@ class ProfileServices {
     return getOtpResponseModel;
   }
 
-  Future<UpdateNameAndPasswordResponseModel> updateNameAndPassword(
-      String id, String token, String name, String password) async {
+  Future<UpdateNameAndPasswordResponseModel> updateName(
+      String id, String token, String name) async {
     Response response = await http.put(
         Uri.parse("${ApiRoutes.updateNameAndPassword}/$id"),
         headers: {"Authorization": "Bearer $token"},
-        body: {"name": name, "password": password});
+        body: {"name": name});
+    UpdateNameAndPasswordResponseModel updateNameAndPasswordResponseModel =
+        updateNameAndPasswordResponseModelFromJson(response.body);
+    return updateNameAndPasswordResponseModel;
+  }
+
+  Future<UpdateNameAndPasswordResponseModel> updatePassword(
+      String id, String token, String password) async {
+    Response response = await http.put(
+        Uri.parse("${ApiRoutes.updateNameAndPassword}/$id"),
+        headers: {"Authorization": "Bearer $token"},
+        body: {"password": password});
     UpdateNameAndPasswordResponseModel updateNameAndPasswordResponseModel =
         updateNameAndPasswordResponseModelFromJson(response.body);
     return updateNameAndPasswordResponseModel;
