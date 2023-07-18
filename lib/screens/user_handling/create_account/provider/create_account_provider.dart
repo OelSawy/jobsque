@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:jobsque/core/app_routes.dart';
@@ -75,36 +73,15 @@ class CreateAccountProvider extends ChangeNotifier {
   signInWithFacebook(BuildContext context) {}
 
   void selectCategory(int index) {
-    /* if (!state.selectedCategories
-        .containsValue(state.categories.values.elementAt(index))) {
-      state.selectedCategories.addAll({
-        state.categories.keys.elementAt(index):
-            state.categories.values.elementAt(index)
-      });
-    } else {
-      state.selectedCategories
-          .remove(state.selectedCategories.keys.elementAt(index));
-    } */
     state.selectedCategories.clear();
     state.selectedCategories.addAll({
       state.categories.keys.elementAt(index):
           state.categories.values.elementAt(index)
     });
-    log(state.selectedCategories.length.toString());
     notifyListeners();
   }
 
   void selectCountry(int index) {
-    /* if (!state.selectedCountries
-        .containsValue(state.countries.values.elementAt(index))) {
-      state.selectedCountries.addAll({
-        state.countries.keys.elementAt(index):
-            state.countries.values.elementAt(index)
-      });
-    } else {
-      state.selectedCountries
-          .remove(state.selectedCountries.keys.elementAt(index));
-    } */
     state.selectedCountries.clear();
     state.selectedCountries.addAll({
       state.countries.keys.elementAt(index):
@@ -116,7 +93,6 @@ class CreateAccountProvider extends ChangeNotifier {
   Future<void> register(BuildContext context) async {
     state.registerResponseModel = await RegisterServices()
         .createAccount(state.username!, state.email!, state.password!);
-        log(validateResponse().toString());
     if (validateResponse() == true) {
       state.registerErrorMessage = null;
       SharedPreferences shared = await SharedPreferences.getInstance();
