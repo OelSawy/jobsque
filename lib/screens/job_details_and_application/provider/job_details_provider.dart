@@ -2,7 +2,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:jobsque/core/app_routes.dart';
+import 'package:jobsque/data/models/job_models/datum.dart';
 import 'package:jobsque/screens/job_details_and_application/provider/job_details_state.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class JobDetailsProvider extends ChangeNotifier {
   JobDetailsState state = JobDetailsState();
@@ -26,7 +28,9 @@ class JobDetailsProvider extends ChangeNotifier {
   }
 
   void onPhoneNumberChange(PhoneNumber value) {
-    value.toString().isEmpty ? state.phoneErrorMessgae = "Phone is required" : state.phoneErrorMessgae = null;
+    value.toString().isEmpty
+        ? state.phoneErrorMessgae = "Phone is required"
+        : state.phoneErrorMessgae = null;
     state.phoneNumber = value;
     notifyListeners();
   }
@@ -57,9 +61,9 @@ class JobDetailsProvider extends ChangeNotifier {
     Navigator.of(context).pushNamed(AppRoutes.applicationSuccessful);
   }
 
-  apply(BuildContext context, int index) {
+  apply(BuildContext context, Datum job) {
     state.applicant = false;
-    state.appliedJobIndex = index;
+    // state.appliedJobIndex = index;
     notifyListeners();
     Navigator.of(context).pushNamed(AppRoutes.applicationBiodata);
   }
@@ -68,5 +72,17 @@ class JobDetailsProvider extends ChangeNotifier {
     Future.delayed(const Duration(seconds: 5));
     state.accepted = true;
     notifyListeners();
+  }
+
+  Future<void> openUrl(String url) async {
+    if (!await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication)) {
+      throw "Could not launch url";
+    }
+  }
+
+  Future<void> openMail(String address) async {
+    if (!await launchUrl(Uri.parse("mailto:$address"))) {
+      throw "Could not launch mail app";
+    }
   }
 }
