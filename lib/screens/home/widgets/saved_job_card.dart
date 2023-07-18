@@ -1,7 +1,7 @@
-/* import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:jobsque/data/models/job_models/datum.dart';
 import 'package:jobsque/screens/home/provider/home_provider.dart';
-import 'package:jobsque/screens/job_details_and_application/provider/job_details_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -9,7 +9,7 @@ import '../../../core/colours.dart';
 
 // ignore: must_be_immutable
 class SavedJobCard extends StatelessWidget {
-  JobModel? job;
+  Datum? job;
 
   SavedJobCard({super.key, required this.job});
 
@@ -27,7 +27,7 @@ class SavedJobCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(job!.company!.image!, scale: 1.5.sp),
+                  child: Container(color: Colors.blue,),
                 ),
                 SizedBox(width: 5.w),
                 Column(
@@ -35,11 +35,11 @@ class SavedJobCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      job!.name!,
+                      job!.name,
                       style: TextStyle(fontSize: 12.sp),
                     ),
                     Text(
-                      "${job!.company!.name!} • ${job!.company!.location!}",
+                      "${job!.compName} • ${job!.location.split(",").last}",
                       style: TextStyle(fontSize: 9.5.sp, color: AppColours.neutral700, fontWeight: FontWeight.w400),
                     ),
                   ],
@@ -69,7 +69,7 @@ class SavedJobCard extends StatelessWidget {
                                     //! apply
                                     InkWell(
                                         onTap: () {
-                                          context
+                                          /* context
                                               .read<JobDetailsProvider>()
                                               .apply(
                                                   context,
@@ -77,7 +77,7 @@ class SavedJobCard extends StatelessWidget {
                                                       .read<HomeProvider>()
                                                       .state
                                                       .recentJobs
-                                                      .indexOf(job!));
+                                                      .indexOf(job!)); */
                                         },
                                         child: Container(
                                             height: 7.h,
@@ -146,7 +146,7 @@ class SavedJobCard extends StatelessWidget {
                                         onTap: () {
                                           context
                                               .read<HomeProvider>()
-                                              .removeSavedJob(job);
+                                              .savedClicked(job);
                                           Navigator.of(context).pop();
                                         },
                                         child: Container(
@@ -223,4 +223,3 @@ class SavedJobCard extends StatelessWidget {
     );
   }
 }
- */

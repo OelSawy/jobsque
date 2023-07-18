@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:jobsque/data/models/job_models/show_jobs_response_model.dart';
+import 'package:jobsque/data/models/job_models/datum.dart';
+import 'package:jobsque/screens/home/provider/home_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../core/colours.dart';
@@ -44,24 +46,22 @@ class JobCard extends StatelessWidget {
                 ),
                 IconButton(
                     onPressed: () {
-                      /* context.read<HomeProvider>().state.savedJobs.contains(job)
-                          ? context.read<HomeProvider>().removeSavedJob(job!)
-                          : context.read<HomeProvider>().saveJob(job!); */
+                      context.read<HomeProvider>().savedClicked(job);
                     },
-                    icon: /* context
+                    icon: context
                             .watch<HomeProvider>()
                             .state
                             .savedJobs
-                            .contains(job)
+                            .where((element) => element.jobId == job!.id).length == 1
                         ? const Icon(Iconsax.archive_15)
-                        : */ const Icon(Iconsax.archive_add4),
-                    color: /* context
+                        : const Icon(Iconsax.archive_add4),
+                    color: context
                             .watch<HomeProvider>()
                             .state
                             .savedJobs
-                            .contains(job)
+                            .where((element) => element.jobId == job!.id).length == 1
                         ? AppColours.primary500
-                        : */ Colors.black,
+                        : Colors.black,
                     iconSize: 20.sp)
               ],
             ),

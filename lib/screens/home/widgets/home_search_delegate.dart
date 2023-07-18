@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:jobsque/data/models/job_models/show_jobs_response_model.dart';
+import 'package:jobsque/data/models/job_models/datum.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 

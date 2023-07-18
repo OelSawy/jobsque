@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jobsque/core/colours.dart';
-import 'package:jobsque/data/models/job_models/show_suggested_jobs_response_model.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -52,15 +51,15 @@ class _SuggestedJobItemState extends State<SuggestedJobItem> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        ((context
+                        (context
                                 .read<HomeProvider>()
                                 .state
-                                .suggestedJobs[widget.index!]) as Datum)
+                                .suggestedJobs[widget.index!])
                             .name,
                         style: TextStyle(color: Colors.white, fontSize: 14.sp),
                       ),
                       Text(
-                        "${((context.read<HomeProvider>().state.suggestedJobs[widget.index!]) as Datum).compName} • ${((context.read<HomeProvider>().state.suggestedJobs[widget.index!]) as Datum).location.split(",").last}",
+                        "${(context.read<HomeProvider>().state.suggestedJobs[widget.index!]).compName} • ${(context.read<HomeProvider>().state.suggestedJobs[widget.index!]).location.split(",").last}",
                         style: TextStyle(
                             color: AppColours.neutral400, fontSize: 9.5.sp),
                       ),
@@ -68,15 +67,23 @@ class _SuggestedJobItemState extends State<SuggestedJobItem> {
                   ),
                   IconButton(
                       onPressed: () {
-                        setState(() {
-                          saved = !saved;
-                        });
-                      },
-                      icon: saved
-                          ? const Icon(Iconsax.archive_15)
-                          : const Icon(Iconsax.archive_add4),
-                      color: Colors.white,
-                      iconSize: 20.sp)
+                      context.read<HomeProvider>().savedClicked(context.read<HomeProvider>().state.suggestedJobs[widget.index!]);
+                    },
+                    icon: context
+                            .watch<HomeProvider>()
+                            .state
+                            .savedJobs
+                            .where((element) => element.jobId == (context.read<HomeProvider>().state.suggestedJobs[widget.index!]).id).length == 1
+                        ? const Icon(Iconsax.archive_15)
+                        : const Icon(Iconsax.archive_add4),
+                    color: context
+                            .watch<HomeProvider>()
+                            .state
+                            .savedJobs
+                            .where((element) => element.jobId == (context.read<HomeProvider>().state.suggestedJobs[widget.index!]).id).length == 1
+                        ? AppColours.primary500
+                        : Colors.white,
+                    iconSize: 20.sp)
                 ],
               ),
               Row(
@@ -91,10 +98,10 @@ class _SuggestedJobItemState extends State<SuggestedJobItem> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: Text(
-                      ((context
+                      (context
                               .read<HomeProvider>()
                               .state
-                              .suggestedJobs[widget.index!]) as Datum)
+                              .suggestedJobs[widget.index!])
                           .jobTimeType,
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -134,10 +141,10 @@ class _SuggestedJobItemState extends State<SuggestedJobItem> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: Text(
-                      ((context
+                      (context
                               .read<HomeProvider>()
                               .state
-                              .suggestedJobs[widget.index!]) as Datum)
+                              .suggestedJobs[widget.index!])
                           .jobLevel,
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -153,7 +160,7 @@ class _SuggestedJobItemState extends State<SuggestedJobItem> {
                 children: [
                   Text.rich(TextSpan(
                       text:
-                          "\$${((context.read<HomeProvider>().state.suggestedJobs[widget.index!]) as Datum).salary}",
+                          "\$${((context.read<HomeProvider>().state.suggestedJobs[widget.index!])).salary}",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12.sp,

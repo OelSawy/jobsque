@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobsque/data/models/job_models/show_jobs_response_model.dart';
+import 'package:jobsque/data/models/job_models/datum.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/home_provider.dart';
