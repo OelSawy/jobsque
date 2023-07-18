@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:jobsque/core/enums.dart';
+import 'package:jobsque/data/models/portfolio_models/get_portfolio_response_model.dart';
 
 class ProfileState {
   //! controllers
@@ -84,4 +87,18 @@ class ProfileState {
   String? phoneVerificationErrorMessgae;
 
   PhoneNumber? phoneVerification;
+
+  LoadingState detailsLoadingState = LoadingState.initial;
+
+  LoadingState portfolioLoadingState = LoadingState.initial;
+
+  List<Datum> portfolios = [];
+
+  String? portfolioName;
+  String? portfoioNameErrorMessage;
+  TextEditingController portfolioController = TextEditingController();
+
+  FilePicking filePicking = FilePicking.initial;
+
+  File? cvFile;
 }
