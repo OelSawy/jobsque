@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jobsque/core/app_routes.dart';
 import 'package:jobsque/screens/home/provider/home_provider.dart';
+import 'package:jobsque/screens/home/widgets/misc_widgets.dart';
 import 'package:jobsque/screens/home/widgets/saved_job_card.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -16,7 +17,7 @@ class Saved extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Stack(
-        /* children: [
+        children: [
           SizedBox(
             height: 100.h,
             width: 100.w,
@@ -93,20 +94,20 @@ class Saved extends StatelessWidget {
                               onTap: () {
                                 Navigator.of(context).pushNamed(
                                     AppRoutes.jobDetails,
-                                    arguments: context
-                                        .read<HomeProvider>()
-                                        .state
-                                        .recentJobs
-                                        .indexOf(context
+                                    arguments: changeToDatum(
+                                        context
                                             .read<HomeProvider>()
                                             .state
-                                            .savedJobs[index]));
+                                            .savedJobs[index],
+                                        context));
                               },
                               child: SavedJobCard(
-                                  job: context
-                                      .watch<HomeProvider>()
-                                      .state
-                                      .savedJobs[index]),
+                                  job: changeToDatum(
+                                      context
+                                          .watch<HomeProvider>()
+                                          .state
+                                          .savedJobs[index],
+                                      context)),
                             );
                           }),
                     )
@@ -176,7 +177,7 @@ class Saved extends StatelessWidget {
                   right: 30.w,
                   child: Image.asset(AppAssets.ellipse9, scale: 1.2.sp))
               : const SizedBox()
-        ], */
+        ],
       ),
     );
   }
