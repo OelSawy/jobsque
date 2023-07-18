@@ -1,34 +1,4 @@
-// To parse this JSON data, do
-//
-//     final getFavoriteResponseModel = getFavoriteResponseModelFromJson(jsonString);
-
-import 'dart:convert';
-
-GetFavoriteResponseModel getFavoriteResponseModelFromJson(String str) => GetFavoriteResponseModel.fromJson(json.decode(str));
-
-String getFavoriteResponseModelToJson(GetFavoriteResponseModel data) => json.encode(data.toJson());
-
-class GetFavoriteResponseModel {
-    bool status;
-    List<DatumF> data;
-
-    GetFavoriteResponseModel({
-        required this.status,
-        required this.data,
-    });
-
-    factory GetFavoriteResponseModel.fromJson(Map<String, dynamic> json) => GetFavoriteResponseModel(
-        status: json["status"],
-        data: List<DatumF>.from(json["data"].map((x) => DatumF.fromJson(x))),
-    );
-
-    Map<String, dynamic> toJson() => {
-        "status": status,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-    };
-}
-
-class DatumF {
+class Datum {
     int id;
     int userId;
     int like;
@@ -39,7 +9,7 @@ class DatumF {
     DateTime createdAt;
     DateTime updatedAt;
 
-    DatumF({
+    Datum({
         required this.id,
         required this.userId,
         required this.like,
@@ -51,7 +21,7 @@ class DatumF {
         required this.updatedAt,
     });
 
-    factory DatumF.fromJson(Map<String, dynamic> json) => DatumF(
+    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
         userId: json["user_id"],
         like: json["like"],

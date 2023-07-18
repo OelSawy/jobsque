@@ -10,7 +10,7 @@ String addFavoriteResponseModelToJson(AddFavoriteResponseModel data) => json.enc
 
 class AddFavoriteResponseModel {
     bool status;
-    Data data;
+    DataF data;
 
     AddFavoriteResponseModel({
         required this.status,
@@ -19,7 +19,7 @@ class AddFavoriteResponseModel {
 
     factory AddFavoriteResponseModel.fromJson(Map<String, dynamic> json) => AddFavoriteResponseModel(
         status: json["status"],
-        data: Data.fromJson(json["data"]),
+        data: DataF.fromJson(json["data"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -28,7 +28,11 @@ class AddFavoriteResponseModel {
     };
 }
 
-class Data {
+DataF savedFromJson(String str) => DataF.fromJson(json.decode(str));
+
+String savedToJson(DataF data) => json.encode(data.toJson());
+
+class DataF {
     String userId;
     String jobId;
     bool like;
@@ -39,7 +43,7 @@ class Data {
     DateTime createdAt;
     int id;
 
-    Data({
+    DataF({
         required this.userId,
         required this.jobId,
         required this.like,
@@ -51,7 +55,7 @@ class Data {
         required this.id,
     });
 
-    factory Data.fromJson(Map<String, dynamic> json) => Data(
+    factory DataF.fromJson(Map<String, dynamic> json) => DataF(
         userId: json["user_id"],
         jobId: json["job_id"],
         like: json["like"],
