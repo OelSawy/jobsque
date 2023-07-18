@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:jobsque/core/colours.dart';
+import 'package:jobsque/screens/job_details_and_application/provider/job_details_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../data/models/job_models/datum.dart';
+
+// ignore: must_be_immutable
 class CompanyInfo extends StatelessWidget {
-  const CompanyInfo({super.key});
+  Datum job;
+  CompanyInfo({super.key, required this.job});
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +19,7 @@ class CompanyInfo extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Job Description",
-                style:
-                    TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w500)),
+                style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w500)),
             Divider(
               color: Colors.transparent,
               height: 1.h,
@@ -25,7 +30,7 @@ class CompanyInfo extends StatelessWidget {
               children: [
                 Container(
                   width: 38.w,
-                  height: 10.h,
+                  height: 15.h,
                   padding: EdgeInsets.all(4.sp),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -33,22 +38,34 @@ class CompanyInfo extends StatelessWidget {
                           width: 1.sp, color: AppColours.neutral300)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text("Email",
                           style: TextStyle(
                               fontSize: 9.5.sp,
                               color: AppColours.neutral400,
                               fontWeight: FontWeight.w400)),
-                      Text("example@example.com",
-                          style: TextStyle(
-                              fontSize: 11.sp, fontWeight: FontWeight.w500))
+                      InkWell(
+                        onTap: () {
+                          try {
+                            context
+                                .read<JobDetailsProvider>()
+                                .openMail(job.compEmail);
+                          } on Exception catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(e.toString())));
+                          }
+                        },
+                        child: Text(job.compEmail,
+                            style: TextStyle(
+                                fontSize: 11.sp, fontWeight: FontWeight.w500)),
+                      )
                     ],
                   ),
                 ),
                 Container(
                   width: 38.w,
-                  height: 10.h,
+                  height: 15.h,
                   padding: EdgeInsets.all(4.sp),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -63,9 +80,21 @@ class CompanyInfo extends StatelessWidget {
                               fontSize: 9.5.sp,
                               color: AppColours.neutral400,
                               fontWeight: FontWeight.w400)),
-                      Text("example.com",
-                          style: TextStyle(
-                              fontSize: 11.sp, fontWeight: FontWeight.w500))
+                      InkWell(
+                        onTap: () {
+                          try {
+                            context
+                                .read<JobDetailsProvider>()
+                                .openUrl(job.compWebsite);
+                          } on Exception catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(e.toString())));
+                          }
+                        },
+                        child: Text(job.compWebsite,
+                            style: TextStyle(
+                                fontSize: 11.sp, fontWeight: FontWeight.w500)),
+                      )
                     ],
                   ),
                 )
@@ -76,15 +105,14 @@ class CompanyInfo extends StatelessWidget {
               height: 2.h,
             ),
             Text("About Company",
-                style:
-                    TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w500)),
+                style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w500)),
             Divider(
               color: Colors.transparent,
               height: 1.h,
             ),
             //! company info
             Text(
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+              job.aboutComp,
               style: TextStyle(
                   fontSize: 9.5.sp,
                   color: AppColours.neutral600,
