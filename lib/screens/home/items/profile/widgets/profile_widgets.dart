@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jobsque/core/app_routes.dart';
+import 'package:jobsque/screens/home/items/profile/provider/profile_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../../core/colours.dart';
@@ -58,6 +60,7 @@ class ProfileGeneral extends StatelessWidget {
             //! portfolio
             InkWell(
               onTap: () {
+                context.read<ProfileProvider>().loadPorfolios();
                 Navigator.pushNamed(context, AppRoutes.portfolio);
               },
               child: Container(
@@ -82,7 +85,7 @@ class ProfileGeneral extends StatelessWidget {
                         SizedBox(
                           width: 5.w,
                         ),
-                        Text("Portfolio",
+                        Text("Portfolios",
                             style: TextStyle(
                                 fontSize: 11.sp,
                                 fontWeight: FontWeight.w400,

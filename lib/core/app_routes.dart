@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobsque/data/models/job_models/datum.dart';
 import 'package:jobsque/screens/home/home_screen.dart';
 import 'package:jobsque/screens/home/items/profile/components/edit_profile.dart';
 import 'package:jobsque/screens/on_board/on_board_screen.dart';
@@ -138,7 +139,7 @@ class AppRoutes {
       case jobDetails:
         return MaterialPageRoute(
           settings: const RouteSettings(name: "/jobDetails"),
-          builder: (context) => JobDeatils(index: setting.arguments as int),
+          builder: (context) => JobDeatils(job: setting.arguments as Datum),
         );
       case applicationBiodata:
         return MaterialPageRoute(

@@ -6,8 +6,6 @@ import 'package:jobsque/screens/user_handling/create_account/provider/create_acc
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../core/app_routes.dart';
-
 class CreateAccountScreen extends StatelessWidget {
   const CreateAccountScreen({super.key});
 

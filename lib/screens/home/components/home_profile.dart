@@ -54,7 +54,7 @@ class Profile extends StatelessWidget {
                                 alignment: Alignment.centerRight,
                                 child: IconButton(
                                   onPressed: () =>
-                                      context.read<HomeProvider>().logout(),
+                                      context.read<HomeProvider>().logout(context),
                                   icon: Icon(
                                     Iconsax.logout_14,
                                     color: AppColours.danger500,
@@ -105,7 +105,7 @@ class Profile extends StatelessWidget {
                 color: Colors.transparent,
                 height: 1.h,
               ),
-              Text("Name Here",
+              Text(context.read<HomeProvider>().state.profile.name,
                   textAlign: TextAlign.center,
                   style:
                       TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500)),
