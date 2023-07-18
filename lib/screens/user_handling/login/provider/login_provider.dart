@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:jobsque/core/app_routes.dart';
 import 'package:jobsque/data/models/auth_models/login_response_model.dart';
 import 'package:jobsque/data/services/auth_services/login_services.dart';
+import 'package:jobsque/screens/home/provider/home_provider.dart';
 import 'package:jobsque/screens/user_handling/login/provider/login_state.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginProvider extends ChangeNotifier {
@@ -61,6 +63,8 @@ class LoginProvider extends ChangeNotifier {
       SharedPreferences shared = await SharedPreferences.getInstance();
       if (state.rememberMe) {
         shared.setBool("loggedIn", true);
+        context.read<HomeProvider>().state.profile = (state.loginResponseModel as LoginResponseModelApproved).user;
+        shared.setString("profile", loginResponseModelApprovedToJson(state.loginResponseModel as LoginResponseModelApproved));
       }
       shared.setString("token",
           (state.loginResponseModel as LoginResponseModelApproved).token);
