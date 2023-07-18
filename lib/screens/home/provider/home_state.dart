@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:jobsque/core/enums.dart';
+import 'package:jobsque/data/models/auth_models/login_response_model.dart';
+import 'package:jobsque/data/models/favorites_models/get_favorite_response_model.dart';
+import 'package:jobsque/data/models/job_models/datum.dart';
 import 'package:jobsque/data/models/job_models/show_jobs_response_model.dart';
 import 'package:jobsque/data/models/job_models/show_suggested_jobs_response_model.dart';
 
 class HomeState {
   //! jobs
-  List<dynamic> recentJobs = [];
-  List<dynamic> suggestedJobs = [];
+  List<Datum> recentJobs = [];
+  List<Datum> suggestedJobs = [];
   /* List<JobModel> suggestedJobs = [
     JobModel(
         name: "Product Designer",
@@ -64,7 +67,7 @@ class HomeState {
   ];
 
   //! saved jobs
-  /* List<JobModel> savedJobs = []; */
+  List<DatumF> savedJobs = [];
 
   //! navigation index
   int navigationIndex = 0;
@@ -72,4 +75,10 @@ class HomeState {
   //! responses
   ShowJobsResponseModel? showJobsResponseModel;
   ShowSuggestedJobsResponseModel? showSuggestedJobsResponseModel;
+
+  LoadingState loadingState = LoadingState.initial;
+
+  late User profile;
+
+  LoadingState savedLoadingState = LoadingState.initial;
 }
