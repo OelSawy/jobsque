@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jobsque/core/colours.dart';
 import 'package:jobsque/core/enums.dart';
+import 'package:jobsque/data/models/job_models/datum.dart';
 import 'package:jobsque/screens/home/provider/home_provider.dart';
 import 'package:jobsque/screens/job_details_and_application/provider/job_details_provider.dart';
 import 'package:provider/provider.dart';
@@ -10,8 +11,8 @@ import 'package:sizer/sizer.dart';
 
 // ignore: must_be_immutable
 class JobDeatils extends StatefulWidget {
-  int? index;
-  JobDeatils({super.key, required this.index});
+  Datum? job;
+  JobDeatils({super.key, required this.job});
 
   @override
   State<JobDeatils> createState() => _JobDeatilsState();
@@ -58,36 +59,15 @@ class _JobDeatilsState extends State<JobDeatils> {
                       alignment: Alignment.centerRight,
                       child: IconButton(
                           onPressed: () {
-                            /* context
-                                    .read<HomeProvider>()
-                                    .state
-                                    .savedJobs
-                                    .contains(context
-                                        .read<HomeProvider>()
-                                        .state
-                                        .recentJobs[widget.index!])
-                                ? context.read<HomeProvider>().removeSavedJob(
-                                    context
-                                        .read<HomeProvider>()
-                                        .state
-                                        .recentJobs
-                                        .elementAt(widget.index!))
-                                : context.read<HomeProvider>().saveJob(context
-                                    .read<HomeProvider>()
-                                    .state
-                                    .recentJobs
-                                    .elementAt(widget.index!)); */
-                          },
-                          icon: /* context
-                                  .read<HomeProvider>()
-                                  .state
-                                  .savedJobs
-                                  .contains(context
-                                      .read<HomeProvider>()
-                                      .state
-                                      .recentJobs[widget.index!])
-                              ? const Icon(Iconsax.archive_15)
-                              : */ const Icon(Iconsax.archive_add4)),
+                      context.read<HomeProvider>().savedClicked(widget.job);
+                    },
+                    icon: context
+                            .watch<HomeProvider>()
+                            .state
+                            .savedJobs
+                            .where((element) => element.jobId == widget.job!.id).length == 1
+                        ? const Icon(Iconsax.archive_15)
+                        : const Icon(Iconsax.archive_add4)),
                     )
                   ]),
                 ),
@@ -98,14 +78,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                 //! company image
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(
-                    context
-                        .read<HomeProvider>()
-                        .state
-                        .recentJobs[widget.index!]
-                        .company!
-                        .image!,
-                  ),
+                  child: Container(color: Colors.blue,)
                 ),
                 Divider(
                   color: Colors.transparent,
@@ -113,11 +86,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                 ),
                 //! job title
                 Text(
-                  context
-                      .read<HomeProvider>()
-                      .state
-                      .recentJobs[widget.index!]
-                      .name!,
+                  widget.job!.name,
                   style:
                       TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
                 ),
@@ -127,7 +96,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                 ),
                 //! company name and location
                 Text(
-                  "${context.read<HomeProvider>().state.recentJobs[widget.index!].company!.name!} • ${context.read<HomeProvider>().state.recentJobs[widget.index!].company!.location!}",
+                  "${widget.job!.compName} • ${widget.job!.location.split(",").last}",
                   style: TextStyle(
                       fontSize: 9.5.sp,
                       color: AppColours.neutral700,
@@ -149,11 +118,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                           borderRadius: BorderRadius.circular(50),
                           color: AppColours.primary100),
                       child: Text(
-                        context
-                            .read<HomeProvider>()
-                            .state
-                            .recentJobs[widget.index!]
-                            .jobTime!,
+                        widget.job!.jobTimeType,
                         style: TextStyle(
                             color: AppColours.primary500,
                             fontSize: 9.5.sp,
@@ -169,11 +134,11 @@ class _JobDeatilsState extends State<JobDeatils> {
                           borderRadius: BorderRadius.circular(50),
                           color: AppColours.primary100),
                       child: Text(
-                        context
+                        /* context
                             .read<HomeProvider>()
                             .state
                             .recentJobs[widget.index!]
-                            .jobType!,
+                            .jobType! */"Onsite",
                         style: TextStyle(
                             color: AppColours.primary500,
                             fontSize: 9.5.sp,
@@ -189,11 +154,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                           borderRadius: BorderRadius.circular(50),
                           color: AppColours.primary100),
                       child: Text(
-                        context
-                            .read<HomeProvider>()
-                            .state
-                            .recentJobs[widget.index!]
-                            .jobCategory!,
+                        widget.job!.jobLevel,
                         style: TextStyle(
                             color: AppColours.primary500,
                             fontSize: 9.5.sp,
@@ -338,7 +299,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                             controller: scrollController,
                             child: context
                                 .watch<HomeProvider>()
-                                .chosenJobDetailsSection())))
+                                .chosenJobDetailsSection(widget.job!))))
               ]),
             ),
             //! apply now button
@@ -350,7 +311,7 @@ class _JobDeatilsState extends State<JobDeatils> {
                 child: ElevatedButton(
                   onPressed: () => context
                       .read<JobDetailsProvider>()
-                      .apply(context, widget.index!),
+                      .apply(context, widget.job!),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColours.primary500,
                       shape: RoundedRectangleBorder(
