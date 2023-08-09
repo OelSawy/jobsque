@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:jobsque/data/core/api_routes.dart';
@@ -18,6 +20,7 @@ class JobServices {
     Response response = await http.get(
         Uri.parse("${ApiRoutes.showSuggestedJobs}/$id"),
         headers: {"Authorization": "Bearer $token"});
+    log(response.body);
     ShowSuggestedJobsResponseModel showSuggestedJobsResponseModel =
         showSuggestedJobsResponseModelFromJson(response.body);
     return showSuggestedJobsResponseModel;
