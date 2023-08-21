@@ -12,7 +12,7 @@ class AppAssets {
       "assets/images/components/google button.png";
   static const String facebookButton =
       "assets/images/components/facebook button.png";
-  static const String pdfLogo = "assets/images/components/pdf logo.png";
+  static const String pdfLogo = "assets/images/components/pdf_logo.png";
 
   //! on boarding
   static const String onBoardPage1 =
