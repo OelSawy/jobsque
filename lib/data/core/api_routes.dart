@@ -41,6 +41,7 @@ class ApiRoutes {
   //! Apply
   static String applyJob = "$baseUrl/apply"; //? post
   static String reviewApply = "$baseUrl/apply"; //? put
+  static String getAppliedJobs = "$baseUrl/apply"; //? get
 
   // TODO: make company model and services
   //! Company
