@@ -30,18 +30,20 @@ class AddPorfolioResponseModel {
 
 class Data {
     String name;
+    String cvFile;
+    String image;
     String userId;
     int profileId;
-    String cvFile;
     DateTime updatedAt;
     DateTime createdAt;
     int id;
 
     Data({
         required this.name,
+        required this.cvFile,
+        required this.image,
         required this.userId,
         required this.profileId,
-        required this.cvFile,
         required this.updatedAt,
         required this.createdAt,
         required this.id,
@@ -49,9 +51,10 @@ class Data {
 
     factory Data.fromJson(Map<String, dynamic> json) => Data(
         name: json["name"],
+        cvFile: json["cv_file"],
+        image: json["image"],
         userId: json["user_id"],
         profileId: json["profile_id"],
-        cvFile: json["cv_file"],
         updatedAt: DateTime.parse(json["updated_at"]),
         createdAt: DateTime.parse(json["created_at"]),
         id: json["id"],
@@ -59,9 +62,10 @@ class Data {
 
     Map<String, dynamic> toJson() => {
         "name": name,
+        "cv_file": cvFile,
+        "image": image,
         "user_id": userId,
         "profile_id": profileId,
-        "cv_file": cvFile,
         "updated_at": updatedAt.toIso8601String(),
         "created_at": createdAt.toIso8601String(),
         "id": id,
