@@ -9,7 +9,7 @@ GetProfileResponseModel getProfileResponseModelFromJson(String str) => GetProfil
 String getProfileResponseModelToJson(GetProfileResponseModel data) => json.encode(data.toJson());
 
 class GetProfileResponseModel {
-    Data data;
+    User data;
     bool status;
 
     GetProfileResponseModel({
@@ -18,7 +18,7 @@ class GetProfileResponseModel {
     });
 
     factory GetProfileResponseModel.fromJson(Map<String, dynamic> json) => GetProfileResponseModel(
-        data: Data.fromJson(json["data"]),
+        data: User.fromJson(json["data"]),
         status: json["status"],
     );
 
@@ -28,7 +28,11 @@ class GetProfileResponseModel {
     };
 }
 
-class Data {
+User userFromJson(String str) => User.fromJson(json.decode(str));
+
+String userToJson(User data) => json.encode(data.toJson());
+
+class User {
     int id;
     String name;
     String otp;
@@ -38,7 +42,7 @@ class Data {
     DateTime createdAt;
     DateTime updatedAt;
 
-    Data({
+    User({
         required this.id,
         required this.name,
         required this.otp,
@@ -49,7 +53,7 @@ class Data {
         required this.updatedAt,
     });
 
-    factory Data.fromJson(Map<String, dynamic> json) => Data(
+    factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
         name: json["name"],
         otp: json["otp"],

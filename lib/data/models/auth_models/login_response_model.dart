@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'get_profile_response_model.dart';
+
 class LoginResponseModel {
 
 }
@@ -35,51 +37,6 @@ class LoginResponseModelApproved extends LoginResponseModel {
         "status": status,
     };
 }
-
-class User {
-    int id;
-    String name;
-    String otp;
-    dynamic towStep;
-    String email;
-    dynamic emailVerifiedAt;
-    DateTime createdAt;
-    DateTime updatedAt;
-
-    User({
-        required this.id,
-        required this.name,
-        required this.otp,
-        this.towStep,
-        required this.email,
-        this.emailVerifiedAt,
-        required this.createdAt,
-        required this.updatedAt,
-    });
-
-    factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"],
-        name: json["name"],
-        otp: json["otp"],
-        towStep: json["tow_step"],
-        email: json["email"],
-        emailVerifiedAt: json["email_verified_at"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-    );
-
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "otp": otp,
-        "tow_step": towStep,
-        "email": email,
-        "email_verified_at": emailVerifiedAt,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-    };
-}
-
 
 LoginResponseModelDenied loginResponseModelDeniedFromJson(String str) => LoginResponseModelDenied.fromJson(json.decode(str));
 
