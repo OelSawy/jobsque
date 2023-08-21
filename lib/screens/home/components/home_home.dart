@@ -4,6 +4,7 @@ import 'package:jobsque/core/app_routes.dart';
 import 'package:jobsque/core/colours.dart';
 import 'package:jobsque/core/enums.dart';
 import 'package:jobsque/screens/home/provider/home_provider.dart';
+import 'package:jobsque/screens/home/widgets/aapplied_job_card.dart';
 import 'package:jobsque/screens/home/widgets/misc_widgets.dart';
 import 'package:jobsque/screens/home/widgets/suggested_job_item.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +38,8 @@ class Home extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Hi, ${context.read<HomeProvider>().state.profile.name} 👋",
+                            Text(
+                                "Hi, ${context.read<HomeProvider>().state.profile.name} 👋",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 16.sp)),
@@ -59,14 +61,31 @@ class Home extends StatelessWidget {
                           child: CircleAvatar(
                               backgroundColor: Colors.white,
                               radius: 20.sp,
-                              child: IconButton(
-                                  color: Colors.black,
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                        context, AppRoutes.notificationsScreen);
-                                  },
-                                  icon: const Icon(Iconsax.notification4),
-                                  iconSize: 20.sp)),
+                              child: Stack(
+                                children: [
+                                  IconButton(
+                                      color: Colors.black,
+                                      onPressed: () {
+                                        Navigator.pushNamed(context,
+                                            AppRoutes.notificationsScreen);
+                                      },
+                                      icon: const Icon(Iconsax.notification4),
+                                      iconSize: 20.sp),
+                                  /* context
+                                          .watch<HomeProvider>()
+                                          .state
+                                          .notificationReceived
+                                      ? Positioned(
+                                          top: 1.5.h,
+                                          right: 1.5.h,
+                                          child: CircleAvatar(
+                                            radius: 3.5.sp,
+                                            backgroundColor:
+                                                AppColours.danger500,
+                                          ))
+                                      : const SizedBox() */
+                                ],
+                              )),
                         )
                       ],
                     ),
@@ -106,9 +125,26 @@ class Home extends StatelessWidget {
                       height: 2.h,
                     ),
                     //! applied job status
-                    /* context.read<JobDetailsProvider>().state.applicant
-                        ? const AppliedJob()
-                        : */ const SizedBox(),
+                    context.read<HomeProvider>().state.appliedJobs.isEmpty
+                        ? SizedBox()
+                        : SizedBox(
+                            height: 14.h,
+                            child: ListView.separated(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return AppliedJobItem(job: context.read<HomeProvider>().state.appliedJobs[index]);
+                                },
+                                separatorBuilder: (context, index) {
+                                  return SizedBox(width: 12.sp);
+                                },
+                                itemCount: context.read<HomeProvider>().state.appliedJobs
+                                    .length),
+                          ),
+                    Divider(
+                      color: Colors.transparent,
+                      height: 2.h,
+                    ),
                     //! suggested jobs
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -181,9 +217,12 @@ class Home extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return InkWell(
                                 onTap: () {
-                                   Navigator.of(context).pushNamed(
-                                AppRoutes.jobDetails,
-                                arguments: context.read<HomeProvider>().state.recentJobs[index]);
+                                  Navigator.of(context).pushNamed(
+                                      AppRoutes.jobDetails,
+                                      arguments: context
+                                          .read<HomeProvider>()
+                                          .state
+                                          .recentJobs[index]);
                                 },
                                 child: RecentJobItem(index: index));
                           },
