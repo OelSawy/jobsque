@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jobsque/core/colours.dart';
+import 'package:jobsque/services/messaging_services.dart';
 import 'package:jobsque/screens/home/provider/home_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -13,6 +14,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  final _messagingService = MessagingService();
+
+  @override
+  void initState() {
+    super.initState();
+    _messagingService.init(context);
+  }
 
   @override
   Widget build(BuildContext context) {
