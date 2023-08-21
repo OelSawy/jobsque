@@ -21,8 +21,12 @@ class FavoritesServices {
     Response response = await http.get(
         Uri.parse("${ApiRoutes.getFavorite}/$id"),
         headers: {"Authorization": "Bearer $token"});
-    GetFavoriteResponseModel getFavoriteResponseModel =
-        getFavoriteResponseModelFromJson(response.body);
+    GetFavoriteResponseModel getFavoriteResponseModel;
+    if (response.statusCode == 200) {
+      getFavoriteResponseModel = getFavoriteResponseModelApprovedFromJson(response.body);
+    } else {
+      getFavoriteResponseModel = getFavoriteResponseModelDeniedFromJson(response.body);
+    }
     return getFavoriteResponseModel;
   }
 

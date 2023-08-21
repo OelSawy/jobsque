@@ -9,7 +9,7 @@ import '../../../core/colours.dart';
 
 // ignore: must_be_immutable
 class JobCard extends StatelessWidget {
-  Datum? job;
+  Datum job;
 
   JobCard({super.key, required this.job});
 
@@ -35,11 +35,11 @@ class JobCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      job!.name,
+                      job.name,
                       style: TextStyle(fontSize: 12.sp),
                     ),
                     Text(
-                      "${job!.compName} • ${job!.location.split(",").last}",
+                      "${job.compName} • ${job.location.split(",").last}",
                       style: TextStyle(fontSize: 9.5.sp),
                     ),
                   ],
@@ -52,14 +52,14 @@ class JobCard extends StatelessWidget {
                             .watch<HomeProvider>()
                             .state
                             .savedJobs
-                            .where((element) => element.jobId == job!.id).length == 1
+                            .where((element) => element.jobId == job.id).length == 1
                         ? const Icon(Iconsax.archive_15)
                         : const Icon(Iconsax.archive_add4),
                     color: context
                             .watch<HomeProvider>()
                             .state
                             .savedJobs
-                            .where((element) => element.jobId == job!.id).length == 1
+                            .where((element) => element.jobId == job.id).length == 1
                         ? AppColours.primary500
                         : Colors.black,
                     iconSize: 20.sp)
@@ -71,14 +71,14 @@ class JobCard extends StatelessWidget {
                 Container(
                   alignment: Alignment.center,
                   height: 4.h,
-                  width: 17.w,
+                  width: 18.w,
                   padding: EdgeInsets.all(1.w),
                   decoration: BoxDecoration(
                     color: AppColours.primary100,
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Text(
-                    job!.jobTimeType,
+                    job.jobType,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColours.primary500,
@@ -89,14 +89,14 @@ class JobCard extends StatelessWidget {
                 Container(
                   alignment: Alignment.center,
                   height: 4.h,
-                  width: 17.w,
+                  width: 18.w,
                   padding: EdgeInsets.all(1.w),
                   decoration: BoxDecoration(
                     color: AppColours.primary100,
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Text(
-                    /* job!.jobType! */"Onsite",
+                    job.jobTimeType,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColours.primary500,
@@ -107,14 +107,14 @@ class JobCard extends StatelessWidget {
                 Container(
                   alignment: Alignment.center,
                   height: 4.h,
-                  width: 17.w,
+                  width: 18.w,
                   padding: EdgeInsets.all(1.w),
                   decoration: BoxDecoration(
                     color: AppColours.primary100,
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Text(
-                    job!.jobLevel,
+                    job.jobLevel,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColours.primary500,
@@ -123,7 +123,7 @@ class JobCard extends StatelessWidget {
                   ),
                 ),
                 Text.rich(TextSpan(
-                    text: "\$${job!.salary}",
+                    text: "\$${job.salary}",
                     style: TextStyle(
                       color: AppColours.success700,
                       fontSize: 9.sp,

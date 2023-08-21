@@ -194,7 +194,7 @@ class Portfolio extends StatelessWidget {
                                                 fontSize: 14.sp,
                                                 fontWeight: FontWeight.w500)),
                                         Text(
-                                          "Read to upload",
+                                          "Ready to upload",
                                           style: TextStyle(
                                               fontSize: 9.5.sp,
                                               color: AppColours.neutral500,

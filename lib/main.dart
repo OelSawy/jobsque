@@ -1,5 +1,7 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:jobsque/core/colours.dart';
+import 'package:jobsque/firebase_options.dart';
 import 'package:jobsque/screens/home/items/profile/provider/profile_provider.dart';
 import 'package:jobsque/screens/home/provider/home_provider.dart';
 import 'package:jobsque/screens/job_details_and_application/provider/job_details_provider.dart';
@@ -15,7 +17,10 @@ import 'core/app_routes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseMessaging.instance.setAutoInitEnabled(true);
   runApp(const MyApp());
 }
 

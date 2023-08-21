@@ -8,20 +8,13 @@ import 'package:sizer/sizer.dart';
 import 'package:jobsque/screens/home/provider/home_provider.dart';
 
 // ignore: must_be_immutable
-class SuggestedJobItem extends StatefulWidget {
+class SuggestedJobItem extends StatelessWidget {
   int? index;
 
   SuggestedJobItem({
     Key? key,
     required this.index,
   }) : super(key: key);
-
-  @override
-  State<SuggestedJobItem> createState() => _SuggestedJobItemState();
-}
-
-class _SuggestedJobItemState extends State<SuggestedJobItem> {
-  bool saved = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +26,7 @@ class _SuggestedJobItemState extends State<SuggestedJobItem> {
       ),
       child: SizedBox(
         height: 20.h,
-        width: 80.w,
+        width: 90.w,
         child: Padding(
           padding: EdgeInsets.all(5.w),
           child: Column(
@@ -54,12 +47,12 @@ class _SuggestedJobItemState extends State<SuggestedJobItem> {
                         (context
                                 .read<HomeProvider>()
                                 .state
-                                .suggestedJobs[widget.index!])
+                                .suggestedJobs[index!])
                             .name,
                         style: TextStyle(color: Colors.white, fontSize: 14.sp),
                       ),
                       Text(
-                        "${(context.read<HomeProvider>().state.suggestedJobs[widget.index!]).compName} • ${(context.read<HomeProvider>().state.suggestedJobs[widget.index!]).location.split(",").last}",
+                        "${(context.read<HomeProvider>().state.suggestedJobs[index!]).compName} • ${(context.read<HomeProvider>().state.suggestedJobs[index!]).location.split(",").last}",
                         style: TextStyle(
                             color: AppColours.neutral400, fontSize: 9.5.sp),
                       ),
@@ -67,20 +60,20 @@ class _SuggestedJobItemState extends State<SuggestedJobItem> {
                   ),
                   IconButton(
                       onPressed: () {
-                      context.read<HomeProvider>().savedClicked(context.read<HomeProvider>().state.suggestedJobs[widget.index!]);
+                      context.read<HomeProvider>().savedClicked(context.read<HomeProvider>().state.suggestedJobs[index!]);
                     },
                     icon: context
                             .watch<HomeProvider>()
                             .state
                             .savedJobs
-                            .where((element) => element.jobId == (context.read<HomeProvider>().state.suggestedJobs[widget.index!]).id).length == 1
+                            .where((element) => element.jobId == (context.read<HomeProvider>().state.suggestedJobs[index!]).id).length == 1
                         ? const Icon(Iconsax.archive_15)
                         : const Icon(Iconsax.archive_add4),
                     color: context
                             .watch<HomeProvider>()
                             .state
                             .savedJobs
-                            .where((element) => element.jobId == (context.read<HomeProvider>().state.suggestedJobs[widget.index!]).id).length == 1
+                            .where((element) => element.jobId == (context.read<HomeProvider>().state.suggestedJobs[index!]).id).length == 1
                         ? AppColours.primary500
                         : Colors.white,
                     iconSize: 20.sp)
@@ -101,7 +94,7 @@ class _SuggestedJobItemState extends State<SuggestedJobItem> {
                       (context
                               .read<HomeProvider>()
                               .state
-                              .suggestedJobs[widget.index!])
+                              .suggestedJobs[index!])
                           .jobTimeType,
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -144,7 +137,7 @@ class _SuggestedJobItemState extends State<SuggestedJobItem> {
                       (context
                               .read<HomeProvider>()
                               .state
-                              .suggestedJobs[widget.index!])
+                              .suggestedJobs[index!])
                           .jobLevel,
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -160,7 +153,7 @@ class _SuggestedJobItemState extends State<SuggestedJobItem> {
                 children: [
                   Text.rich(TextSpan(
                       text:
-                          "\$${((context.read<HomeProvider>().state.suggestedJobs[widget.index!])).salary}",
+                          "\$${((context.read<HomeProvider>().state.suggestedJobs[index!])).salary}",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12.sp,

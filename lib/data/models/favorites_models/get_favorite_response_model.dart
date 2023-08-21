@@ -1,23 +1,51 @@
 // To parse this JSON data, do
 //
-//     final getFavoriteResponseModel = getFavoriteResponseModelFromJson(jsonString);
+//     final getFavoriteResponseModelDenied = getFavoriteResponseModelDeniedFromJson(jsonString);
 
 import 'dart:convert';
 
-GetFavoriteResponseModel getFavoriteResponseModelFromJson(String str) => GetFavoriteResponseModel.fromJson(json.decode(str));
-
-String getFavoriteResponseModelToJson(GetFavoriteResponseModel data) => json.encode(data.toJson());
-
 class GetFavoriteResponseModel {
+
+}
+
+GetFavoriteResponseModelDenied getFavoriteResponseModelDeniedFromJson(String str) => GetFavoriteResponseModelDenied.fromJson(json.decode(str));
+
+String getFavoriteResponseModelDeniedToJson(GetFavoriteResponseModelDenied data) => json.encode(data.toJson());
+
+class GetFavoriteResponseModelDenied extends GetFavoriteResponseModel{
+    bool status;
+    String message;
+
+    GetFavoriteResponseModelDenied({
+        required this.status,
+        required this.message,
+    });
+
+    factory GetFavoriteResponseModelDenied.fromJson(Map<String, dynamic> json) => GetFavoriteResponseModelDenied(
+        status: json["status"],
+        message: json["message"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "status": status,
+        "message": message,
+    };
+}
+
+GetFavoriteResponseModelApproved getFavoriteResponseModelApprovedFromJson(String str) => GetFavoriteResponseModelApproved.fromJson(json.decode(str));
+
+String getFavoriteResponseModelApprovedToJson(GetFavoriteResponseModelApproved data) => json.encode(data.toJson());
+
+class GetFavoriteResponseModelApproved extends GetFavoriteResponseModel{
     bool status;
     List<DatumF> data;
 
-    GetFavoriteResponseModel({
+    GetFavoriteResponseModelApproved({
         required this.status,
         required this.data,
     });
 
-    factory GetFavoriteResponseModel.fromJson(Map<String, dynamic> json) => GetFavoriteResponseModel(
+    factory GetFavoriteResponseModelApproved.fromJson(Map<String, dynamic> json) => GetFavoriteResponseModelApproved(
         status: json["status"],
         data: List<DatumF>.from(json["data"].map((x) => DatumF.fromJson(x))),
     );

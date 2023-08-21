@@ -13,12 +13,15 @@ class ChangePhone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
         child: SizedBox(
-          height: 96.4.h,
+          height: 100.h,
           child: Column(
             children: [
+              Divider(
+                height: 5.h,
+                color: Colors.transparent,
+              ),
               //! header
               SizedBox(
                 height: 10.h,
@@ -68,25 +71,34 @@ class ChangePhone extends StatelessWidget {
                         ],
                       ),
                       Container(
-                        margin: EdgeInsets.only(
-                          top: 2.h,
-                          bottom: 3.h,
-                        ),
                         padding: EdgeInsets.symmetric(horizontal: 4.w),
-                        height: 9.h,
-                        width: 90.w,
+                        margin: EdgeInsets.only(top: 1.h, bottom: 2.h),
                         alignment: Alignment.center,
+                        height: 7.h,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
-                                width: 1.sp, color: AppColours.neutral300)),
+                                width: 1.sp,
+                                color: context
+                                            .watch<ProfileProvider>()
+                                            .state
+                                            .phone ==
+                                        null
+                                    ? AppColours.neutral300
+                                    : context
+                                                .watch<ProfileProvider>()
+                                                .state
+                                                .phoneErrorMessgae !=
+                                            null
+                                        ? AppColours.danger500
+                                        : AppColours.primary500)),
                         child: InternationalPhoneNumberInput(
-                          countrySelectorScrollControlled: false,
                           onSaved:
                               context.read<ProfileProvider>().onPhoneChange,
                           selectorConfig: const SelectorConfig(
                             selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                           ),
+                          ignoreBlank: true,
                           onInputChanged:
                               context.read<ProfileProvider>().onPhoneChange,
                           inputBorder: InputBorder.none,
@@ -164,7 +176,7 @@ class ChangePhone extends StatelessWidget {
             ],
           ),
         ),
-      )),
+      ),
     );
   }
 }

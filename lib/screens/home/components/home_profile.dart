@@ -105,7 +105,7 @@ class Profile extends StatelessWidget {
                 color: Colors.transparent,
                 height: 1.h,
               ),
-              Text(context.read<HomeProvider>().state.profile.name,
+              Text(context.watch<HomeProvider>().state.profile.name,
                   textAlign: TextAlign.center,
                   style:
                       TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500)),
