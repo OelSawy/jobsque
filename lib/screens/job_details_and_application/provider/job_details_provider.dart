@@ -1,9 +1,17 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:jobsque/core/app_routes.dart';
+import 'package:jobsque/core/enums.dart';
+import 'package:jobsque/data/core/api_routes.dart';
 import 'package:jobsque/data/models/job_models/datum.dart';
 import 'package:jobsque/screens/job_details_and_application/provider/job_details_state.dart';
+import 'package:path/path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class JobDetailsProvider extends ChangeNotifier {
@@ -51,19 +59,44 @@ class JobDetailsProvider extends ChangeNotifier {
     Navigator.of(context).pushNamed(AppRoutes.applicationType);
   }
 
-  void typeSubmitted(BuildContext context) {
+  void typeSubmitted(BuildContext context, String jobType) {
+    state.jobType = jobType;
     Navigator.of(context).pushNamed(AppRoutes.applicationPortfolio);
   }
 
-  void portfolioSubmitted(BuildContext context) {
-    state.applicant = true;
-    notifyListeners();
-    Navigator.of(context).pushNamed(AppRoutes.applicationSuccessful);
+  Future<void> portfolioSubmitted(BuildContext context) async {
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    Dio dio = Dio();
+
+    FormData data = FormData.fromMap({
+      "name": basename(state.portfolio!.path),
+      "cv_file": await MultipartFile.fromFile(state.portfolio!.path,
+          filename: basename(state.portfolio!.path)),
+      "user_id": shared.getString("id")!,
+      "email": state.email,
+      "mobile": state.phoneNumber,
+      "jobs_id": state.appliedJob!.id,
+      "work_type": state.jobType
+    });
+
+    await dio.post(ApiRoutes.applyJob,
+        data: data,
+        options: Options(
+          headers: {"Authorization": "Bearer ${shared.getString("token")!}"},
+          followRedirects: false,
+          validateStatus: (status) {
+            print(status!);
+            return true;
+          },
+        )).then((value) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Job application successful")));
+          Navigator.popUntil(context, ModalRoute.withName("/jobDetails"));
+        });
+    
   }
 
-  apply(BuildContext context, Datum job) {
-    state.applicant = false;
-    // state.appliedJobIndex = index;
+  void apply(BuildContext context, Datum job) {
+    state.appliedJob = job;
     notifyListeners();
     Navigator.of(context).pushNamed(AppRoutes.applicationBiodata);
   }
@@ -75,7 +108,8 @@ class JobDetailsProvider extends ChangeNotifier {
   }
 
   Future<void> openUrl(String url) async {
-    if (!await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication)) {
+    if (!await launchUrl(Uri.parse(url),
+        mode: LaunchMode.externalApplication)) {
       throw "Could not launch url";
     }
   }
@@ -84,5 +118,38 @@ class JobDetailsProvider extends ChangeNotifier {
     if (!await launchUrl(Uri.parse("mailto:$address"))) {
       throw "Could not launch mail app";
     }
+  }
+
+  Future<void> addPortfolio() async {
+    state.filePicking = FilePicking.choosing;
+    notifyListeners();
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      state.portfolio = File(result.files.single.path!);
+      state.filePicking = FilePicking.done;
+      notifyListeners();
+    } else {
+      state.filePicking = FilePicking.initial;
+      notifyListeners();
+    }
+  }
+
+  void fileRemoved() {
+    state.portfolio = null;
+    state.filePicking = FilePicking.initial;
+    notifyListeners();
+  }
+
+  void clearAll() {
+    state.name = null;
+    state.email = null;
+    state.phoneNumber = null;
+    state.nameController.clear();
+    state.emailController.clear();
+    state.nameErrorMessage = null;
+    state.emailErrorMessage = null;
+    state.phoneErrorMessgae = null;
+    state.portfolio = null;
+    state.filePicking = FilePicking.initial;
   }
 }
