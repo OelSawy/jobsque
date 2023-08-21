@@ -24,8 +24,6 @@ class ProfileState {
   TextEditingController code2Controller = TextEditingController();
   TextEditingController code3Controller = TextEditingController();
   TextEditingController code4Controller = TextEditingController();
-  TextEditingController code5Controller = TextEditingController();
-  TextEditingController code6Controller = TextEditingController();
 
   //! vars
   String? name;
@@ -44,8 +42,6 @@ class ProfileState {
   String? code2;
   String? code3;
   String? code4;
-  String? code5;
-  String? code6;
 
   //! errors
   String? nameErrorMessage;
@@ -101,4 +97,9 @@ class ProfileState {
   FilePicking filePicking = FilePicking.initial;
 
   File? cvFile;
+  String? cvPath;
+
+  bool faceID = false;
+
+  String? otp;
 }
