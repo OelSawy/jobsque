@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jobsque/data/models/job_models/datum.dart';
 import 'package:jobsque/screens/home/home_screen.dart';
 import 'package:jobsque/screens/home/items/profile/components/edit_profile.dart';
+import 'package:jobsque/screens/home/items/profile/components/login_and_security/face_id.dart';
 import 'package:jobsque/screens/on_board/on_board_screen.dart';
 import 'package:jobsque/screens/splash/splash_screen.dart';
 import 'package:jobsque/screens/user_handling/create_account/components/categories_screen.dart';
@@ -73,6 +74,7 @@ class AppRoutes {
       "twoFactorAuthenticationPhoneVerification";
   static const String twoFactorAuthenticationVerificationCode =
       "twoFactorAuthenticationVerificationCode";
+  static const String faceID = "faceID";
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
     switch (setting.name) {
@@ -149,7 +151,7 @@ class AppRoutes {
       case applicationType:
         return MaterialPageRoute(
           settings: const RouteSettings(name: "/applicationType"),
-          builder: (context) => const JobApplicationType(),
+          builder: (context) => JobApplicationType(),
         );
       case applicationPortfolio:
         return MaterialPageRoute(
@@ -218,6 +220,12 @@ class AppRoutes {
                 name: "/twoFactorAuthenticationVerificationCode"),
             builder: (context) =>
                 const TwoFactorAuthenticationVerificationCode());
+      case faceID:
+        return MaterialPageRoute(
+            settings: const RouteSettings(
+                name: "/faceID"),
+            builder: (context) =>
+                const FaceId());
       default:
         return MaterialPageRoute(
           settings: const RouteSettings(name: "/error"),
