@@ -169,8 +169,12 @@ class LoginAndSecurity extends StatelessWidget {
                       height: 0.2.h,
                       color: AppColours.neutral200,
                     ),
+                    //! face id
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed(AppRoutes.faceID);
+                      },
                       child: Container(
                           margin: EdgeInsets.symmetric(vertical: 1.h),
                           height: 6.h,
