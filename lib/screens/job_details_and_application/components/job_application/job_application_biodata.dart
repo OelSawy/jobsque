@@ -7,8 +7,20 @@ import 'package:jobsque/screens/job_details_and_application/widgets/dotted_separ
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-class JobApplicationBiodata extends StatelessWidget {
+class JobApplicationBiodata extends StatefulWidget {
   const JobApplicationBiodata({super.key});
+
+  @override
+  State<JobApplicationBiodata> createState() => _JobApplicationBiodataState();
+}
+
+class _JobApplicationBiodataState extends State<JobApplicationBiodata> {
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<JobDetailsProvider>().clearAll();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -283,6 +295,7 @@ class JobApplicationBiodata extends StatelessWidget {
                                       ? AppColours.danger500
                                       : AppColours.primary500)),
                   child: TextField(
+                    keyboardType: TextInputType.emailAddress,
                     controller: context
                         .read<JobDetailsProvider>()
                         .state

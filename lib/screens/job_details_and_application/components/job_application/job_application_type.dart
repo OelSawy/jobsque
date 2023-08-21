@@ -8,8 +8,11 @@ import 'package:sizer/sizer.dart';
 import '../../../../../core/colours.dart';
 import '../../widgets/dotted_separator.dart';
 
+// ignore: must_be_immutable
 class JobApplicationType extends StatefulWidget {
-  const JobApplicationType({super.key});
+  JobApplicationType({super.key});
+
+  List<String> types = ["Full Time", "Part Time", "Internship"];
 
   @override
   State<JobApplicationType> createState() => _JobApplicationTypeState();
@@ -216,21 +219,14 @@ class _JobApplicationTypeState extends State<JobApplicationType> {
                                 children: [
                                   Column(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Senior UI Designer",
+                                        widget.types.elementAt(index),
                                         style: TextStyle(
                                             fontSize: 12.sp,
                                             fontWeight: FontWeight.w500),
-                                      ),
-                                      Text(
-                                        "CV.pdf • Portfolio.pdf",
-                                        style: TextStyle(
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.w500,
-                                            color: AppColours.neutral500),
                                       ),
                                     ],
                                   ),
@@ -255,7 +251,7 @@ class _JobApplicationTypeState extends State<JobApplicationType> {
                           height: 2.h,
                         );
                       },
-                      itemCount: 6),
+                      itemCount: 3),
                 ),
                 const Spacer(),
                 //! next button
@@ -263,7 +259,7 @@ class _JobApplicationTypeState extends State<JobApplicationType> {
                   width: 90.w,
                   height: 7.h,
                   child: ElevatedButton(
-                    onPressed: () => context.read<JobDetailsProvider>().typeSubmitted(context),
+                    onPressed: () => context.read<JobDetailsProvider>().typeSubmitted(context, widget.types[radioValue]),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColours.primary500,
                         shape: RoundedRectangleBorder(

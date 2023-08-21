@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jobsque/core/assets.dart';
+import 'package:jobsque/core/enums.dart';
 import 'package:jobsque/screens/job_details_and_application/provider/job_details_provider.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -199,6 +201,8 @@ class JobApplicationPortfolio extends StatelessWidget {
                   height: 2.h,
                 ),
                 //! uploaded cv
+                context.watch<JobDetailsProvider>().state.portfolio == null ?
+                SizedBox() :
                 Container(
                   width: 90.w,
                   height: 10.h,
@@ -260,76 +264,177 @@ class JobApplicationPortfolio extends StatelessWidget {
                   height: 4.h,
                 ),
                 DottedBorder(
-                  borderType: BorderType.RRect,
-                  radius: const Radius.circular(10),
-                  dashPattern: const [10, 10],
-                  color: AppColours.primary400,
-                  strokeWidth: 1.sp,
-                  child: Container(
-                      width: 90.w,
-                      height: 30.h,
-                      padding: EdgeInsets.all(3.w),
-                      decoration: BoxDecoration(
-                        color: const Color.fromRGBO(236, 242, 255, 100),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CircleAvatar(
-                            radius: 20.sp,
-                            backgroundColor: AppColours.primary100,
-                            child: Icon(
-                              Iconsax.document_upload5,
-                              color: AppColours.primary500,
-                              size: 28.sp,
-                            ),
-                          ),
-                          Text("Upload your other file",
-                              style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500)),
-                          Text(
-                            "Max. file size 10 MB",
-                            style: TextStyle(
-                                fontSize: 9.5.sp,
-                                color: AppColours.neutral500,
-                                fontWeight: FontWeight.w400),
-                          ),
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                                width: 80.w,
-                                height: 6.h,
+                        borderType: BorderType.RRect,
+                        radius: const Radius.circular(10),
+                        dashPattern: const [10, 10],
+                        color: AppColours.primary400,
+                        strokeWidth: 1.sp,
+                        child: context
+                                    .watch<JobDetailsProvider>()
+                                    .state
+                                    .filePicking ==
+                                FilePicking.initial
+                            ? Container(
+                                width: 90.w,
+                                height: 30.h,
+                                padding: EdgeInsets.all(3.w),
                                 decoration: BoxDecoration(
-                                    color: AppColours.primary100,
-                                    border: Border.all(
-                                        width: 1.sp,
-                                        color: AppColours.primary500),
-                                    borderRadius: BorderRadius.circular(50)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  color:
+                                      const Color.fromRGBO(236, 242, 255, 100),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Icon(
+                                    CircleAvatar(
+                                      radius: 20.sp,
+                                      backgroundColor: AppColours.primary100,
+                                      child: Icon(
+                                        Iconsax.document_upload5,
                                         color: AppColours.primary500,
-                                        Iconsax.export_1),
-                                    SizedBox(
-                                      width: 3.w,
+                                        size: 28.sp,
+                                      ),
                                     ),
+                                    Text("Upload your file",
+                                        style: TextStyle(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w500)),
                                     Text(
-                                      "Add File",
+                                      "Max file size 10 MB",
                                       style: TextStyle(
-                                          color: AppColours.primary500,
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w500),
+                                          fontSize: 9.5.sp,
+                                          color: AppColours.neutral500,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        context
+                                            .read<JobDetailsProvider>()
+                                            .addPortfolio();
+                                      },
+                                      child: Container(
+                                          width: 80.w,
+                                          height: 6.h,
+                                          decoration: BoxDecoration(
+                                              color: AppColours.primary100,
+                                              border: Border.all(
+                                                  width: 1.sp,
+                                                  color: AppColours.primary500),
+                                              borderRadius:
+                                                  BorderRadius.circular(50)),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                  color: AppColours.primary500,
+                                                  Iconsax.export_1),
+                                              SizedBox(
+                                                width: 3.w,
+                                              ),
+                                              Text(
+                                                "Add File",
+                                                style: TextStyle(
+                                                    color:
+                                                        AppColours.primary500,
+                                                    fontSize: 12.sp,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                            ],
+                                          )),
                                     ),
                                   ],
-                                )),
-                          ),
-                        ],
-                      )),
-                ),
+                                ))
+                            : context
+                                        .watch<JobDetailsProvider>()
+                                        .state
+                                        .filePicking ==
+                                    FilePicking.done
+                                ? Container(
+                                    width: 90.w,
+                                    height: 30.h,
+                                    padding: EdgeInsets.all(3.w),
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromRGBO(
+                                          236, 242, 255, 100),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 20.sp,
+                                          backgroundColor:
+                                              AppColours.primary100,
+                                          backgroundImage: const AssetImage(
+                                              AppAssets.pdfLogo),
+                                        ),
+                                        Text(
+                                            basename(context
+                                                .read<JobDetailsProvider>()
+                                                .state
+                                                .portfolio!
+                                                .path),
+                                            style: TextStyle(
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w500)),
+                                        Row(
+                                          children: [
+                                            InkWell(
+                                              onTap: () {
+                                                context
+                                                    .read<JobDetailsProvider>()
+                                                    .fileRemoved();
+                                              },
+                                              child: Container(
+                                                  width: 80.w,
+                                                  height: 6.h,
+                                                  decoration: BoxDecoration(
+                                                      color:
+                                                          AppColours.danger100,
+                                                      border: Border.all(
+                                                          width: 1.sp,
+                                                          color: AppColours
+                                                              .danger500),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50)),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(
+                                                          color: AppColours
+                                                              .danger500,
+                                                          Iconsax.trash4),
+                                                      SizedBox(
+                                                        width: 3.w,
+                                                      ),
+                                                      Text(
+                                                        "Delete",
+                                                        style: TextStyle(
+                                                            color: AppColours
+                                                                .danger500,
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                    ],
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ))
+                                : const SizedBox()),
                 const Spacer(),
                 //! submit button
                 SizedBox(

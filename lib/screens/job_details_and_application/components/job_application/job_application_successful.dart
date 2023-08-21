@@ -20,25 +20,30 @@ class JobApplicationSuccessful extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 5.w),
               child: SizedBox(
-                height: 4.h,
+                height: 15.h,
                 width: 100.w,
-                child: Stack(children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: IconButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        iconSize: 20.sp,
-                        icon: const Icon(Iconsax.arrow_left4)),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text("Apply for Job",
-                        style: TextStyle(
-                            fontSize: 15.sp, fontWeight: FontWeight.w500)),
-                  ),
-                ]),
+                child: Column(
+                  children: [
+                    Divider(height: 5.h, color: Colors.transparent,),
+                    Stack(children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            iconSize: 20.sp,
+                            icon: const Icon(Iconsax.arrow_left4)),
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text("Apply for Job",
+                            style: TextStyle(
+                                fontSize: 15.sp, fontWeight: FontWeight.w500)),
+                      ),
+                    ]),
+                  ],
+                ),
               ),
             ),
             //!  icon and text
