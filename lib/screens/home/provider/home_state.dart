@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jobsque/core/enums.dart';
-import 'package:jobsque/data/models/auth_models/login_response_model.dart';
+import 'package:jobsque/data/models/auth_models/get_profile_response_model.dart';
 import 'package:jobsque/data/models/favorites_models/get_favorite_response_model.dart';
+import 'package:jobsque/data/models/job_application_models/get_applied_jobs_response_model.dart';
 import 'package:jobsque/data/models/job_models/datum.dart';
 import 'package:jobsque/data/models/job_models/show_jobs_response_model.dart';
 import 'package:jobsque/data/models/job_models/show_suggested_jobs_response_model.dart';
@@ -81,4 +82,25 @@ class HomeState {
   late User profile;
 
   LoadingState savedLoadingState = LoadingState.initial;
+
+  bool notificationReceived = false;
+
+  int jobTitleValue = 0;
+  int locationValue = 0;
+  int salaryValue = 0;
+  int jobTypeValue = 0;
+  int jobTimeValue = 0;
+  int jobLocationValue = 0;
+  int datePostedValue = 0;
+
+  List<String> jobTypes = ["Job Type", "Job Type", "Job Type"];
+  List<String> jobTimes = ["Full Time", "Part Time", "Internship"];
+  List<String> jobLocations = ["Onsite", "Remote"];
+  List<String> jobDates = ["Today", "This week", "This month", "This year"];
+
+  List<Datum> results = [];
+  List<Datum> filteredResults = [];
+  List<DatumA> appliedJobs = [];
+
+  LoadingState appliedLoadingState = LoadingState.initial;
 }
