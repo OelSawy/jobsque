@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:jobsque/core/enums.dart';
+import 'package:jobsque/data/core/api_routes.dart';
+import 'package:jobsque/data/models/auth_models/get_profile_response_model.dart';
 import 'package:jobsque/data/models/auth_models/login_response_model.dart';
 import 'package:jobsque/data/models/portfolio_models/get_portfolio_response_model.dart';
 import 'package:jobsque/data/services/auth_services/login_services.dart';
@@ -12,8 +15,13 @@ import 'package:jobsque/data/services/profile_services/portfolio_services.dart';
 import 'package:jobsque/data/services/profile_services/profile_data_services.dart';
 import 'package:jobsque/screens/home/items/profile/provider/profile_state.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:jobsque/screens/home/provider/home_provider.dart';
+import 'package:jobsque/services/local_auth_services.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path/path.dart';
+
+import '../../../../../core/app_routes.dart';
 
 class ProfileProvider extends ChangeNotifier {
   ProfileState state = ProfileState();
@@ -140,6 +148,7 @@ class ProfileProvider extends ChangeNotifier {
     state.address = null;
     state.detailsLoadingState = LoadingState.done;
     notifyListeners();
+    context.read<HomeProvider>().updateProfile();
     Navigator.of(context).pop();
   }
 
@@ -200,7 +209,19 @@ class ProfileProvider extends ChangeNotifier {
     return state.phone != null && state.phoneErrorMessgae == null;
   }
 
-  void savePhone(BuildContext context) {
+  Future<void> savePhone(BuildContext context) async {
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    await ProfileDataServices().editBioAndData(
+        shared.getString("id")!,
+        shared.getString("token")!,
+        "bio",
+        "address",
+        state.phone!.phoneNumber.toString());
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Phone number changed successfully")));
+    state.phone = null;
+    state.phoneErrorMessgae = null;
+    state.phoneController.clear();
     Navigator.of(context).pop();
   }
 
@@ -217,15 +238,12 @@ class ProfileProvider extends ChangeNotifier {
     SharedPreferences shared = await SharedPreferences.getInstance();
     if (checkPasswords()) {
       if ((await LoginServices().login(
-                  loginResponseModelApprovedFromJson(
-                          shared.getString("profile")!)
-                      .user
-                      .email,
+                  userFromJson(shared.getString("profile")!).email,
                   state.oldPass!))
               .runtimeType ==
           LoginResponseModelDenied) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Old password is incorrect")));
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Old password is incorrect")));
       } else {
         if (state.newPass == state.confirmNewPass) {
           if (state.newPass == state.oldPass) {
@@ -235,6 +253,9 @@ class ProfileProvider extends ChangeNotifier {
           } else {
             await ProfileServices().updatePassword(shared.getString("id")!,
                 shared.getString("token")!, state.newPass!);
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Password changed successfully")));
+            clearAll();
             Navigator.of(context).pop();
           }
         } else {
@@ -246,6 +267,18 @@ class ProfileProvider extends ChangeNotifier {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Please fill all fields correctly")));
     }
+  }
+
+  void clearAll() {
+    state.oldPass = null;
+    state.newPass = null;
+    state.confirmNewPass = null;
+    state.oldPassController.clear();
+    state.newPassController.clear();
+    state.confirmNewPassController.clear();
+    state.newPassErrorMessage = null;
+    state.oldPassErrorMessage = null;
+    state.confirmNewPassErrorMessage = null;
   }
 
   void twoFactorAuthenticationChange(bool value) {
@@ -312,16 +345,6 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void code5Change(String value) {
-    value.length == 1 ? state.code5 = value : state.code5 = null;
-    notifyListeners();
-  }
-
-  void code6Change(String value) {
-    value.length == 1 ? state.code6 = value : state.code6 = null;
-    notifyListeners();
-  }
-
   Future<void> loadPorfolios() async {
     state.portfolioLoadingState = LoadingState.loading;
     notifyListeners();
@@ -351,13 +374,11 @@ class ProfileProvider extends ChangeNotifier {
     state.portfolioLoadingState = LoadingState.loading;
     notifyListeners();
     SharedPreferences shared = await SharedPreferences.getInstance();
-    await PortfolioServices().editPortfolio(
-        state.portfolioName!,
-        state.portfolios[index].cvFile,
-        shared.getString("id")!,
-        shared.getString("token")!);
+    await PortfolioServices().editPortfolio(state.portfolioName!,
+        shared.getString("id")!, shared.getString("token")!);
     loadPorfolios();
     state.portfolioLoadingState = LoadingState.done;
+    state.portfolioController.clear();
     notifyListeners();
   }
 
@@ -378,6 +399,7 @@ class ProfileProvider extends ChangeNotifier {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
       state.cvFile = File(result.files.single.path!);
+      state.cvPath = state.cvFile!.path;
       state.filePicking = FilePicking.done;
       notifyListeners();
     } else {
@@ -394,11 +416,103 @@ class ProfileProvider extends ChangeNotifier {
 
   Future<void> uploadPortfolio() async {
     SharedPreferences shared = await SharedPreferences.getInstance();
-    await PortfolioServices().addPortfolio(basename(state.cvFile!.path),
-        state.cvFile!, shared.getString("id")!, shared.getString("token")!);
-    state.cvFile = null;
+    Dio dio = Dio();
+
+    FormData data = FormData.fromMap({
+      "name": basename(state.cvPath!),
+      "cv_file": await MultipartFile.fromFile(state.cvPath!,
+          filename: basename(state.cvPath!)),
+      "profile_id": shared.getString("id")!,
+      "image": await MultipartFile.fromFile(state.cvPath!,
+          filename: basename(state.cvPath!)),
+    });
+
+    await dio.post(
+      "${ApiRoutes.addPortfolio}/${shared.getString("id")!}",
+      data: data,
+      options: Options(
+        headers: {"Authorization": "Bearer ${shared.getString("token")!}"},
+        followRedirects: false,
+        validateStatus: (status) {
+          print(status!);
+          return true;
+        },
+      ),
+      onSendProgress: (count, total) {
+        print(count);
+        print(total);
+      },
+    );
     state.filePicking = FilePicking.initial;
     loadPorfolios();
     notifyListeners();
   }
+
+  Future<void> faceIDChange(bool value) async {
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    state.faceID = value;
+    if (value) {
+      if (await LocalAuth.authenticate()) {
+        shared.setBool("faceID", true);
+      } else {
+        state.faceID = false;
+        shared.setBool("faceID", false);
+      }
+    }
+    notifyListeners();
+  }
+
+  Future<void> sendVerificationCode(BuildContext context) async {
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    state.otp = (await ProfileServices().getOtp(
+            context.read<HomeProvider>().state.profile.email,
+            shared.getString("token")!))
+        .data;
+    debugPrint(state.otp);
+    Navigator.of(context)
+        .pushNamed(AppRoutes.twoFactorAuthenticationVerificationCode);
+  }
+
+  bool verifyCodeInput() {
+    return state.code1 != null &&
+        state.code2 != null &&
+        state.code3 != null &&
+        state.code4 != null;
+  }
+
+  void verify(BuildContext context) {
+    if (state.code1! +
+              state.code2! +
+              state.code3! +
+              state.code4! ==
+          state.otp) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Two Factor Authentication Successful")));
+        clearAllVerification();
+        Navigator.popUntil(context, ModalRoute.withName("/loginAndSecurity"));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Verification code is incorrect")));
+      }
+  }
+
+  void clearAllVerification() {
+    state.isTwoFactorAuthEnabled = false;
+    state.verificationMethod = VerificationMethod.sms;
+    state.phoneVerification = null;
+    state.phoneVerificationErrorMessgae = null;
+    state.phoneVerificationPass = null;
+    state.phoneVerificationPassErrorMessage = null;
+    state.hidePhoneVerificationPass = true;
+    state.code1 = null;
+    state.code2 = null;
+    state.code3 = null;
+    state.code4 = null;
+    state.code1Controller.clear();
+    state.code2Controller.clear();
+    state.code3Controller.clear();
+    state.code4Controller.clear();
+    state.phoneVerificationPassController.clear();
+    notifyListeners();
+  }
+  
 }
