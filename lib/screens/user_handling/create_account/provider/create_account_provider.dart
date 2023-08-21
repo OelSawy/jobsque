@@ -1,4 +1,5 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jobsque/core/app_routes.dart';
 import 'package:jobsque/data/models/auth_models/register_response_model.dart';
@@ -6,6 +7,8 @@ import 'package:jobsque/data/services/auth_services/register_services.dart';
 import 'package:jobsque/data/services/profile_services/profile_data_services.dart';
 import 'package:jobsque/screens/user_handling/create_account/provider/create_account_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../services/social_auth_services.dart';
 
 class CreateAccountProvider extends ChangeNotifier {
   CreateAccountState state = CreateAccountState();
@@ -68,9 +71,15 @@ class CreateAccountProvider extends ChangeNotifier {
     }
   }
 
-  signInWithGoogle(BuildContext context) {}
+  Future<void> logInWithGoogle(BuildContext context) async {
+    // ignore: unused_local_variable
+    UserCredential userCredential = await signInWithGoogle();
+  }
 
-  signInWithFacebook(BuildContext context) {}
+  Future<void> logInWithFacebook(BuildContext context) async {
+    // ignore: unused_local_variable
+    UserCredential userCredential = await signInWithFacebook();
+  }
 
   void selectCategory(int index) {
     state.selectedCategories.clear();

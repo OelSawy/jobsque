@@ -92,6 +92,7 @@ class LoginScreen extends StatelessWidget {
                                       ? AppColours.danger500
                                       : AppColours.primary500)),
                       child: TextField(
+                        keyboardType: TextInputType.emailAddress,
                         controller: context
                             .read<LoginProvider>()
                             .state

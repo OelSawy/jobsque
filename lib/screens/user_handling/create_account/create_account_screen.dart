@@ -148,6 +148,7 @@ class CreateAccountScreen extends StatelessWidget {
                                       ? AppColours.danger500
                                       : AppColours.primary500)),
                       child: TextField(
+                        keyboardType: TextInputType.emailAddress,
                         controller: context
                             .read<CreateAccountProvider>()
                             .state
@@ -327,7 +328,9 @@ class CreateAccountScreen extends StatelessWidget {
                         onPressed: () {
                           context.read<CreateAccountProvider>().validate() ==
                                   true
-                              ? context.read<CreateAccountProvider>().register(context)
+                              ? context
+                                  .read<CreateAccountProvider>()
+                                  .register(context)
                               : null;
                         },
                         style: ElevatedButton.styleFrom(
@@ -389,7 +392,7 @@ class CreateAccountScreen extends StatelessWidget {
                         InkWell(
                           onTap: () => context
                               .read<CreateAccountProvider>()
-                              .signInWithGoogle(context),
+                              .logInWithGoogle(context),
                           child: Container(
                             width: 40.w,
                             height: 6.h,
@@ -404,7 +407,7 @@ class CreateAccountScreen extends StatelessWidget {
                         InkWell(
                           onTap: () => context
                               .read<CreateAccountProvider>()
-                              .signInWithFacebook(context),
+                              .logInWithFacebook(context),
                           child: Container(
                             width: 40.w,
                             height: 6.h,
